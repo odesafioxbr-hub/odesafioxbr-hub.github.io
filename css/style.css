@@ -96,3 +96,14 @@ body{overflow-x:hidden}
 .tz-par .a{transform:rotate(-4deg);top:36%}.tz-par .b{transform:rotate(-4deg);top:66%}
 .tz-steep .a{transform:rotate(-2deg);top:60%}.tz-steep .b{transform:rotate(9deg);top:42%}
 @media(max-width:800px){.tz{height:120px}.tp{height:32px;margin-top:-16px}.tp i{font-size:11px}.tz-steep .b{transform:rotate(12deg)}.tz-x .a{transform:rotate(-9deg)}.tz-x .b{transform:rotate(9deg)}}
+
+/* hero ribbons (restored from v5) */
+.ribbons{position:relative;height:190px;overflow:hidden;margin-top:-1rem}
+.rib{position:absolute;left:-10%;width:120%;height:58px;top:50%;margin-top:-29px;border-block:4px solid #000;overflow:hidden}
+.rib.back{transform:rotate(5deg);opacity:.45;filter:blur(3px)}
+.rib.front{transform:rotate(-4deg);height:66px;margin-top:-33px;box-shadow:0 8px 18px rgba(0,0,0,.6)}
+.rib-track{height:100%;width:calc(100% + 120px);background:repeating-linear-gradient(-45deg,var(--y) 0 30px,#111 30px 60px);background-size:84.85px 100%;animation:run 1.6s linear infinite}
+.rib.back .rib-track{animation-duration:2.6s;animation-direction:reverse}
+@keyframes run{from{transform:translateX(-84.85px)}to{transform:translateX(0)}}
+@media(max-width:800px){.ribbons{height:130px}.rib{height:42px;margin-top:-21px}.rib.front{height:48px;margin-top:-24px}}
+@media(prefers-reduced-motion:reduce){.rib-track{animation:none!important}}
