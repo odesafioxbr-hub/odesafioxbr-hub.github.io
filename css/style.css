@@ -49,7 +49,7 @@ footer{text-align:center;padding:2rem;color:#777;border-top:2px solid #222}
 h1,h2,h3,.btn,.big-price,.pl{font-weight:400}
 .btn{letter-spacing:.06em}
 /* brush blocks */
-.blk{color:#000;margin:1rem 0}
+.blk{color:#000;margin:0}
 .blk .brush{display:block;width:100%;height:70px;margin-bottom:-1px}
 .blk .brush.bot{margin:-1px 0 0}
 .blk-orange .blk-in{background:var(--o)}
@@ -70,7 +70,7 @@ h1,h2,h3,.btn,.big-price,.pl{font-weight:400}
 .arte-sec{max-width:1140px;padding-top:1.5rem;padding-bottom:1.5rem}
 .arte{display:block;width:100%;max-width:1100px;height:auto;margin:0 auto}
 .faixa{display:block;width:100vw;max-width:100vw;height:auto;margin:0}
-body{overflow-x:hidden}
+html,body{overflow-x:clip}
 /* botões dos planos */
 .blk .plan .btn{transition:background-color .25s ease,color .25s ease,transform .15s}
 .blk .plan:not(.hot) .btn{outline:3px solid var(--g);outline-offset:-9px;border-color:#000}
@@ -78,25 +78,6 @@ body{overflow-x:hidden}
 .blk .plan .btn:hover{background:#ffa400;color:#000}
 .blk .plan:not(.hot) .btn:hover{outline-color:var(--g)}
 .blk .plan.hot .btn:hover{outline-color:#000}
-/* fitas de isolamento estáticas */
-.tz{position:relative;height:170px;overflow:hidden;z-index:1;margin:.5rem 0}
-.tp{position:absolute;left:-15%;width:130%;height:44px;top:50%;margin-top:-22px;
- background:repeating-linear-gradient(-45deg,#ffd400 0 26px,#111 26px 52px);
- border-block:3px solid #ffd400;box-shadow:0 6px 12px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -2px 0 rgba(0,0,0,.25);
- display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap}
-.tp.chevron{background:repeating-linear-gradient(45deg,#ffd400 0 20px,#111 20px 40px) left top/100% 50% no-repeat,repeating-linear-gradient(-45deg,#ffd400 0 20px,#111 20px 40px) left bottom/100% 50% no-repeat}
-.tp i{font:800 15px/1 Inter,sans-serif;font-style:normal;letter-spacing:.18em;color:#000;background:#ffd400;padding:6px 0;width:100%;text-align:center}
-.tz-x .a{transform:rotate(-5deg)}.tz-x .b{transform:rotate(5deg)}
-.tz-one .a{transform:rotate(-3deg)}
-.tz-three .a{transform:rotate(-6deg);top:40%}.tz-three .b{transform:rotate(2deg)}.tz-three .c{transform:rotate(7deg);top:60%}
-.tz-hd .a{transform:none;top:62%}.tz-hd .b{transform:rotate(-7deg);top:40%}
-.tz-cross .a{transform:rotate(4deg)}.tz-cross .b{transform:rotate(-8deg);top:45%}
-.tz-txt .a{transform:rotate(-1.5deg);height:40px;margin-top:-20px;background:#ffd400;border-color:#111}.tz-txt .b{transform:rotate(5deg);top:35%;filter:brightness(.8)}
-.tz-chev .a{transform:rotate(2deg)}
-.tz-par .a{transform:rotate(-4deg);top:36%}.tz-par .b{transform:rotate(-4deg);top:66%}
-.tz-steep .a{transform:rotate(-2deg);top:60%}.tz-steep .b{transform:rotate(9deg);top:42%}
-@media(max-width:800px){.tz{height:120px}.tp{height:32px;margin-top:-16px}.tp i{font-size:11px}.tz-steep .b{transform:rotate(12deg)}.tz-x .a{transform:rotate(-9deg)}.tz-x .b{transform:rotate(9deg)}}
-
 /* hero ribbons (restored from v5) */
 .ribbons{position:relative;height:190px;overflow:hidden;margin-top:-1rem}
 .rib{position:absolute;left:-10%;width:120%;height:58px;top:50%;margin-top:-29px;border-block:4px solid #000;overflow:hidden}
@@ -107,3 +88,28 @@ body{overflow-x:hidden}
 @keyframes run{from{transform:translateX(-84.85px)}to{transform:translateX(0)}}
 @media(max-width:800px){.ribbons{height:130px}.rib{height:42px;margin-top:-21px}.rib.front{height:48px;margin-top:-24px}}
 @media(prefers-reduced-motion:reduce){.rib-track{animation:none!important}}
+
+/* fitas overlay nas junções (estáticas) */
+.seam{position:relative;height:0;z-index:6;pointer-events:none}
+.seam .tp{position:absolute;left:-20vw;width:140vw;height:44px;top:-22px;
+ background:repeating-linear-gradient(-45deg,#ffd400 0 26px,#111 26px 52px);
+ border-block:3px solid #ffd400;--r:0deg;--y:0px;--s:1;transform:translateY(var(--y)) rotate(var(--r)) scale(var(--s))}
+.seam .tp.f{box-shadow:0 8px 16px rgba(0,0,0,.6);z-index:2}
+.seam .tp.k{--s:.8;filter:blur(2.5px) brightness(.6);opacity:.7;z-index:1}
+.s1 .a{--r:-2deg}
+.s2 .c{--r:-2.6deg;--y:-30px}.s2 .f.a{--r:1.4deg;--y:-6px}.s2 .f.b{--r:1.4deg;--y:44px}
+.s3 .a{--r:2.4deg}.s3 .b{--r:-2.4deg}
+.s4 .k.a{--r:2.2deg;--y:-28px}.s4 .f.a{--r:-1.6deg;--y:10px}
+.s5 .a{--r:-1.2deg;--y:-24px}.s5 .b{--r:-1.2deg;--y:26px}.s5 .c{--r:2.8deg}
+.s6 .k.a{--r:2.6deg}.s6 .k.b{--r:-2.6deg}.s6 .f.a{--r:.8deg}
+.s7 .a{--r:-2.8deg}.s7 .b{--r:1deg;--y:14px}
+.s8 .k.a{--r:-2.4deg;--y:-34px}.s8 .f.a{--r:2deg;--y:4px}.s8 .f.b{--r:2deg;--y:52px}
+/* espaço livre ao redor das junções para não cobrir texto */
+.sec:not(.arte-sec){padding-top:9rem;padding-bottom:9rem}
+.blk-in>.sec{padding-top:5rem;padding-bottom:5rem}
+.hero{padding-bottom:3.5rem}
+@media(max-width:800px){
+ .seam .tp{height:30px;top:-15px;background-size:auto}
+ .seam .tp{transform:translateY(calc(var(--y)*.6)) rotate(calc(var(--r)*1.6)) scale(var(--s))}
+ .sec:not(.arte-sec){padding-top:6rem;padding-bottom:6rem}
+ .blk-in>.sec{padding-top:3rem;padding-bottom:3rem}}
