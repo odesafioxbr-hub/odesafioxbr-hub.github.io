@@ -95,25 +95,28 @@ html,body{overflow-x:clip}
  background:repeating-linear-gradient(-45deg,#ffd400 0 26px,#111 26px 52px);
  border-block:3px solid #ffd400;--r:0deg;--y:0px;--s:1;transform:translateY(var(--y)) rotate(var(--r)) scale(var(--s))}
 .seam .tp.f{box-shadow:0 8px 16px rgba(0,0,0,.6);z-index:2}
-.seam .tp.k{--s:.8;filter:blur(2.5px) brightness(.6);opacity:.7;z-index:1}
-.s1 .a{--r:-2deg}
-.s2 .c{--r:-3deg}.s2 .f.a{--r:2.4deg;--y:-4px}.s2 .f.b{--r:-.9deg;--y:6px}
-.s3 .a{--r:2.4deg}.s3 .b{--r:-2.4deg}
-.s4 .k.a{--r:2.2deg;--y:-8px}.s4 .f.a{--r:-1.6deg;--y:6px}
-.s5 .a{--r:1.8deg;--y:-6px}.s5 .b{--r:-2.6deg;--y:8px}.s5 .c{--r:3.4deg}
-.s6 .k.a{--r:2.6deg}.s6 .k.b{--r:-2.6deg}.s6 .f.a{--r:.8deg}
-.s7 .a{--r:-2.8deg}.s7 .b{--r:1deg;--y:8px}
-.s8 .k.a{--r:3.2deg}.s8 .f.a{--r:1.9deg;--y:-4px}.s8 .f.b{--r:-2.2deg;--y:6px}
+.seam .tp.k{--s:.85;filter:blur(1.5px) brightness(.8);opacity:.95;z-index:1}
+.s1 .a{--r:-3deg}
+.s2 .c{--r:-8deg}.s2 .f.a{--r:7deg}.s2 .f.b{--r:-1deg}
+.s3 .a{--r:7deg}.s3 .b{--r:-7deg}
+.s4 .k.a{--r:8deg}.s4 .f.a{--r:-6deg}
+.s5 .a{--r:-7deg}.s5 .b{--r:6deg}.s5 .c{--r:1deg}
+.s6 .k.a{--r:-1deg}.s6 .f.b{--r:8deg}.s6 .f.a{--r:-7deg}
+.s7 .a{--r:-7deg}.s7 .b{--r:7deg}
+.s8 .k.a{--r:-8deg}.s8 .f.a{--r:7deg}.s8 .f.b{--r:-2deg}
 /* espaço livre ao redor das junções para não cobrir texto */
-.sec:not(.arte-sec){padding-top:9rem;padding-bottom:9rem}
+.sec:not(.arte-sec){padding-top:11.5rem;padding-bottom:11.5rem}
 .blk-in>.sec{padding-top:5rem;padding-bottom:5rem}
 .hero{padding-bottom:3.5rem}
 @media(max-width:800px){
  .seam .tp{height:30px;top:-15px;background-size:auto}
- .seam .tp{transform:translateY(calc(var(--y)*.6)) rotate(calc(var(--r)*1.6)) scale(var(--s))}
+ .seam .tp{transform:translateY(calc(var(--y)*.6)) rotate(calc(var(--r)*1.5)) scale(var(--s))}
  .sec:not(.arte-sec){padding-top:6rem;padding-bottom:6rem}
  .blk-in>.sec{padding-top:3rem;padding-bottom:3rem}}
 /* capa */
-.capa{margin:0;line-height:0;font-size:0}
+.capa{max-width:1100px;margin:0 auto;padding:1.5rem 1.2rem 0;line-height:0;font-size:0}
 .capa img{display:block;width:100%;height:auto}
 .hero{padding-top:2rem}
+@media(max-width:800px){.capa{padding:0}}
+.hero-title{text-transform:uppercase;letter-spacing:.01em;font:400 clamp(2rem,6vw,3.8rem)/1.1 Anton,Impact,sans-serif;margin:.6rem 0 1rem}
+.hero-title .spray{color:var(--g);display:block;font-size:1.3em}.hero-title em{color:var(--o);font-style:normal}
