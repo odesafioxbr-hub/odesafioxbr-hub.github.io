@@ -129,3 +129,7 @@ html,body{overflow-x:clip}
 .arte-sec{padding-top:10.5rem;padding-bottom:10.5rem}
 #feedback{padding-bottom:1.5rem}#ranking{padding-top:1.5rem}
 @media(max-width:800px){.arte-sec{padding-top:5.5rem;padding-bottom:5.5rem}#feedback{padding-bottom:1rem}#ranking{padding-top:1rem}}
+/* item 31: hover no card Mensal */
+.blk .plan:not(.hot){transition:background-color .3s ease}
+.blk .plan:not(.hot):hover{background:#ffa400}
+.blk .plan:not(.hot):hover .btn,.blk .plan:not(.hot):hover .btn:hover{background:#00ff00;color:#000;outline-color:#000}
