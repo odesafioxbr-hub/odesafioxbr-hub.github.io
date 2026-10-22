@@ -156,13 +156,17 @@ html,body{overflow-x:clip}
 .blk .pinfo p{color:#fff;font-size:1.05rem;line-height:1.55}
 @media(max-width:800px){.pinfo{grid-template-columns:1fr}}
 .hero{padding-top:3rem}
-/* item 45: play discreto e flutuante; clicar em qualquer lugar do vídeo dá play */
-.vplay{inset:0;margin:0;width:auto;height:auto;border:0;outline:0;border-radius:0;background:transparent;display:block}
+/* item 45 (revisto): prévia muda em P&B com botão de som no meio */
+.vplay{inset:0;margin:0;width:auto;height:auto;border:0;outline:0;border-radius:0;background:transparent;display:block;cursor:pointer}
 .vplay:hover,.vplay:focus-visible{transform:none;background:transparent}
-.vplay-ic{position:absolute;left:18px;bottom:22px;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.45);border:3px solid rgba(0,255,0,.85);backdrop-filter:blur(3px);box-shadow:0 4px 14px rgba(0,0,0,.5);transition:transform .2s,background .2s;animation:vpf 2.4s ease-in-out infinite}
-.vplay-ic svg{width:30px;height:30px;fill:#ffa400;margin-left:4px}
-.vplay:hover .vplay-ic,.vplay:focus-visible .vplay-ic{background:rgba(255,164,0,.85);transform:scale(1.08)}
-.vplay:hover .vplay-ic svg,.vplay:focus-visible .vplay-ic svg{fill:#000}
-@keyframes vpf{0%,100%{translate:0 0}50%{translate:0 -5px}}
-@media(prefers-reduced-motion:reduce){.vplay-ic{animation:none}}
-@media(max-width:800px){.vplay-ic{left:10px;bottom:14px;width:48px;height:48px;border-width:2px}.vplay-ic svg{width:22px;height:22px}}
+.vplayer video{transition:filter .5s ease}
+.vplayer:not(.full) video{filter:grayscale(1)}
+.vplayer.full .vplay{display:none}
+.vsound{position:absolute;left:50%;top:50%;translate:-50% -50%;display:flex;align-items:center;gap:.7rem;padding:.75rem 1.3rem .75rem 1rem;border-radius:999px;background:rgba(0,0,0,.55);border:2px solid rgba(0,255,0,.8);color:#fff;backdrop-filter:blur(4px);box-shadow:0 6px 20px rgba(0,0,0,.5);animation:vpf 2.4s ease-in-out infinite;transition:background .2s}
+.vsound svg{width:34px;height:34px;fill:#ffa400;stroke:#ffa400;flex:none}
+.vsound b{font:400 1.15rem/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.vplay:hover .vsound,.vplay:focus-visible .vsound{background:rgba(255,164,0,.9);color:#000}
+.vplay:hover .vsound svg,.vplay:focus-visible .vsound svg{fill:#000;stroke:#000}
+@keyframes vpf{0%,100%{margin-top:0}50%{margin-top:-6px}}
+@media(prefers-reduced-motion:reduce){.vsound{animation:none}}
+@media(max-width:800px){.vsound{padding:.5rem .9rem .5rem .7rem;gap:.45rem}.vsound svg{width:24px;height:24px}.vsound b{font-size:.9rem}}
