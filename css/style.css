@@ -120,9 +120,12 @@ html,body{overflow-x:clip}
 @media(max-width:800px){.capa{padding:0}}
 .hero-title{text-transform:uppercase;letter-spacing:.01em;font:400 clamp(2rem,6vw,3.8rem)/1.1 Anton,Impact,sans-serif;margin:.6rem 0 1rem}
 .hero-title .spray{color:var(--g);display:block;font-size:1.3em}.hero-title em{color:var(--o);font-style:normal}
-/* faixa de pincel laranja atrás dos passos */
-.steps-wrap{position:relative;isolation:isolate}
-.brush-band{position:absolute;left:-6%;width:112%;top:12%;height:76%;z-index:-1;pointer-events:none}
+/* faixa de pincel laranja atrás dos passos (ref_pincel_amarelo recolorida) */
+.steps-wrap{position:relative;isolation:isolate;margin-top:4.5rem;margin-bottom:4.5rem}
+.steps-wrap::before{content:"";position:absolute;inset:-70px -110px;z-index:-1;pointer-events:none;background:url(../assets/pincel-laranja-faixa.webp) center/100% 100% no-repeat}
 .steps{position:relative;z-index:1}
-@media(max-width:800px){.brush-band{left:-6%;width:112%;top:30%;height:40%}}
+@media(max-width:800px){.steps-wrap::before{inset:-60px -26px;background-image:url(../assets/pincel-laranja-faixa-v.webp)}}
+.sec.final{padding-bottom:2.5rem}
 @media(max-width:800px){#faq{padding-bottom:8rem}}
+@media(max-width:800px){.steps-wrap{margin-top:4rem;margin-bottom:4rem}}
+.video video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
