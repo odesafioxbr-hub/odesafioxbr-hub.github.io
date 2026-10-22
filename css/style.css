@@ -115,14 +115,15 @@ html,body{overflow-x:clip}
 .hero-title .spray{color:var(--g);display:block;font-size:1.3em}.hero-title em{color:var(--o);font-style:normal}
 /* faixa de pincel laranja atrás dos passos (ref_pincel_amarelo recolorida) */
 .steps-wrap{position:relative;isolation:isolate;margin-top:4.5rem;margin-bottom:4.5rem}
-.steps-wrap::before{content:"";position:absolute;inset:-70px -110px;z-index:-1;pointer-events:none;background:url(../assets/pincel-laranja-faixa.svg) center/100% 100% no-repeat}
 .steps{position:relative;z-index:1}
-@media(max-width:800px){.steps-wrap::before{inset:-60px -40px;background-image:url(../assets/pincel-laranja-faixa-v.svg)}}
 .sec.final{padding-bottom:2.5rem}
 @media(max-width:800px){.steps-wrap{margin-top:4rem;margin-bottom:4rem}}
 .video video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 /* item 29: fitas não cobrem texto dentro das artes */
 /* item 31: hover no card Mensal */
 .blk .plan:not(.hot){transition:background-color .3s ease}
-.blk .plan:not(.hot):hover{background:#ffa400}
-.blk .plan:not(.hot):hover .btn,.blk .plan:not(.hot):hover .btn:hover{background:#00ff00;color:#000;outline-color:#000}
+.blk .plan:not(.hot):hover,.blk .plan:not(.hot):focus-within,.blk .plan:not(.hot):active{background:#ffa400!important}
+.blk .plan:not(.hot):hover .btn,.blk .plan:not(.hot):hover .btn:hover,.blk .plan:not(.hot):focus-within .btn,.blk .plan:not(.hot):active .btn{background:#00ff00;color:#000;outline-color:#000}
+/* item 35: caixas do "Como funciona" laranja com texto preto */
+.steps li{background:#ffa400;border-color:#000;color:#000}
+.steps li::before{color:#000}
