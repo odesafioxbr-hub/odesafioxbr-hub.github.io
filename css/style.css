@@ -155,3 +155,4 @@ html,body{overflow-x:clip}
 .pinfo>div:nth-child(2) h3{color:var(--g)}
 .blk .pinfo p{color:#fff;font-size:1.05rem;line-height:1.55}
 @media(max-width:800px){.pinfo{grid-template-columns:1fr}}
+.hero{padding-top:3rem}
