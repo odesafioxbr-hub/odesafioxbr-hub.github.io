@@ -89,3 +89,6 @@ h1,h2,h3,.btn,.big-price,.pl{font-weight:400}
 .blk .plan.hot .btn{background:var(--g);color:#000;outline-color:var(--g)}
 @media(max-width:800px){.ribbons{height:130px}.rib{height:42px;margin-top:-21px}.rib.front{height:48px;margin-top:-24px}.wtape{height:60px}.blk .brush{height:32px}}
 @media(prefers-reduced-motion:reduce){.rib-track,.wtape svg,.wtape .dash{animation:none!important}}
+.hero-price{color:#ffa400;font-size:1.25rem;text-align:center;margin-top:1rem}
+.hero-price s{color:#ffa400;font-weight:700}
+.hero-price b{color:#00ff00;font-weight:800}
