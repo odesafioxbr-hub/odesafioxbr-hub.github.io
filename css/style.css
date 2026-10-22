@@ -97,13 +97,13 @@ html,body{overflow-x:clip}
 .seam .tp.f{box-shadow:0 8px 16px rgba(0,0,0,.6);z-index:2}
 .seam .tp.k{--s:.8;filter:blur(2.5px) brightness(.6);opacity:.7;z-index:1}
 .s1 .a{--r:-2deg}
-.s2 .c{--r:-2.6deg;--y:-30px}.s2 .f.a{--r:1.4deg;--y:-6px}.s2 .f.b{--r:1.4deg;--y:44px}
+.s2 .c{--r:-3deg}.s2 .f.a{--r:2.4deg;--y:-4px}.s2 .f.b{--r:-.9deg;--y:6px}
 .s3 .a{--r:2.4deg}.s3 .b{--r:-2.4deg}
-.s4 .k.a{--r:2.2deg;--y:-28px}.s4 .f.a{--r:-1.6deg;--y:10px}
-.s5 .a{--r:-1.2deg;--y:-24px}.s5 .b{--r:-1.2deg;--y:26px}.s5 .c{--r:2.8deg}
+.s4 .k.a{--r:2.2deg;--y:-8px}.s4 .f.a{--r:-1.6deg;--y:6px}
+.s5 .a{--r:1.8deg;--y:-6px}.s5 .b{--r:-2.6deg;--y:8px}.s5 .c{--r:3.4deg}
 .s6 .k.a{--r:2.6deg}.s6 .k.b{--r:-2.6deg}.s6 .f.a{--r:.8deg}
-.s7 .a{--r:-2.8deg}.s7 .b{--r:1deg;--y:14px}
-.s8 .k.a{--r:-2.4deg;--y:-34px}.s8 .f.a{--r:2deg;--y:4px}.s8 .f.b{--r:2deg;--y:52px}
+.s7 .a{--r:-2.8deg}.s7 .b{--r:1deg;--y:8px}
+.s8 .k.a{--r:3.2deg}.s8 .f.a{--r:1.9deg;--y:-4px}.s8 .f.b{--r:-2.2deg;--y:6px}
 /* espaço livre ao redor das junções para não cobrir texto */
 .sec:not(.arte-sec){padding-top:9rem;padding-bottom:9rem}
 .blk-in>.sec{padding-top:5rem;padding-bottom:5rem}
@@ -113,3 +113,7 @@ html,body{overflow-x:clip}
  .seam .tp{transform:translateY(calc(var(--y)*.6)) rotate(calc(var(--r)*1.6)) scale(var(--s))}
  .sec:not(.arte-sec){padding-top:6rem;padding-bottom:6rem}
  .blk-in>.sec{padding-top:3rem;padding-bottom:3rem}}
+/* capa */
+.capa{margin:0;line-height:0;font-size:0}
+.capa img{display:block;width:100%;height:auto}
+.hero{padding-top:2rem}
