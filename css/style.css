@@ -120,10 +120,9 @@ html,body{overflow-x:clip}
 @media(max-width:800px){.steps-wrap{margin-top:4rem;margin-bottom:4rem}}
 .video video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 /* item 29: fitas não cobrem texto dentro das artes */
-/* item 31: hover no card Mensal */
-.blk .plan:not(.hot){transition:background-color .3s ease}
-.blk .plan:not(.hot):hover,.blk .plan:not(.hot):focus-within,.blk .plan:not(.hot):active{background:#ffa400!important}
-.blk .plan:not(.hot):hover .btn,.blk .plan:not(.hot):hover .btn:hover,.blk .plan:not(.hot):focus-within .btn,.blk .plan:not(.hot):active .btn{background:#00ff00;color:#000;outline-color:#000}
+/* item 36: card Mensal sempre laranja; só o botão fica verde (hover/foco/toque) */
+.blk .plan:not(.hot){background:#ffa400}
+.blk .plan:not(.hot) .btn:hover,.blk .plan:not(.hot) .btn:focus-visible,.blk .plan:not(.hot) .btn:active{background:#00ff00;color:#000;outline-color:#000}
 /* item 35: caixas do "Como funciona" laranja com texto preto */
 .steps li{background:#ffa400;border-color:#000;color:#000}
 .steps li::before{color:#000}
