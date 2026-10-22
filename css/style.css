@@ -120,3 +120,9 @@ html,body{overflow-x:clip}
 @media(max-width:800px){.capa{padding:0}}
 .hero-title{text-transform:uppercase;letter-spacing:.01em;font:400 clamp(2rem,6vw,3.8rem)/1.1 Anton,Impact,sans-serif;margin:.6rem 0 1rem}
 .hero-title .spray{color:var(--g);display:block;font-size:1.3em}.hero-title em{color:var(--o);font-style:normal}
+/* faixa de pincel laranja atrás dos passos */
+.steps-wrap{position:relative;isolation:isolate}
+.brush-band{position:absolute;left:-6%;width:112%;top:12%;height:76%;z-index:-1;pointer-events:none}
+.steps{position:relative;z-index:1}
+@media(max-width:800px){.brush-band{left:-6%;width:112%;top:30%;height:40%}}
+@media(max-width:800px){#faq{padding-bottom:8rem}}
