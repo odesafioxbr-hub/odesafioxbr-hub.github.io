@@ -30,11 +30,11 @@
 .btn.alt:hover{background:var(--g);color:#000}
 .pc-mail{margin-top:1rem;color:#ccc}
 .pc-promo{display:inline-block;font:400 clamp(1.3rem,3vw,2rem)/1.15 Anton,Impact,sans-serif;text-transform:uppercase;background:var(--o);color:#000;padding:.7rem 1.2rem;margin-top:.4rem;max-width:760px}
-.ct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:1200px;margin:0 auto;text-align:left}
+.ct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;max-width:1320px;margin:0 auto;text-align:left}
 @media(max-width:1100px){.ct-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.ct-grid{grid-template-columns:1fr}}
-.ct{background:#0d0d0d;border:3px solid var(--c);padding:1.4rem 1.2rem;display:flex;flex-direction:column}
+.ct{background:#0d0d0d;border:3px solid var(--c);padding:1.7rem 1.4rem;min-height:100%;display:flex;flex-direction:column}
 .ct.ouro{--c:#e8b923;background:linear-gradient(160deg,#2a2208,#0d0d0d 60%)}.ct.prata{--c:#c9cdd2;background:linear-gradient(160deg,#25272a,#0d0d0d 60%)}
-.ct.bronze{--c:#cd7f32;background:linear-gradient(160deg,#2a1a0c,#0d0d0d 60%)}.ct.ponto{--c:#666;border-width:2px}
+.ct.bronze{--c:#cd7f32;background:linear-gradient(160deg,#2a1a0c,#0d0d0d 60%)}.ct.ponto{--c:#fff;border-width:2px;background:#0d0d0d}
 .ct h3{font:400 1.7rem/1 Anton,Impact,sans-serif;color:var(--c);text-transform:uppercase;letter-spacing:.04em}
 .ct.ponto h3{color:#fff}
 .ct .de{margin-top:.8rem;color:#999;text-decoration:line-through}
@@ -42,8 +42,8 @@
 .ct .tag{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--c);font-weight:800}
 .ct .val{font-size:.9rem;color:#bbb;margin:.4rem 0 .6rem}
 .ct h4{margin-top:.9rem;font-size:.95rem;text-transform:uppercase;color:var(--c)}
-.ct.ponto h4{color:var(--g)}
-.ct ul{margin:.4rem 0 0 1.1rem;font-size:.95rem;color:#ddd}.ct li+li{margin-top:.35rem}
+.ct.ponto h4,.ct.ponto .tag,.ct.ponto .val,.ct.ponto li,.ct.ponto .de{color:#fff}
+.ct ul{margin:.4rem 0 0 1.1rem;font-size:1rem;color:#ddd}.ct li+li{margin-top:.35rem}
 #aparece .ap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:960px;margin:0 auto;text-align:left}
 @media(max-width:700px){#aparece .ap-grid{grid-template-columns:1fr}}
 #aparece .ap-grid .card{margin:0}
@@ -56,7 +56,7 @@
 <main id="topo">
 <section class="hero">
   <p class="kicker">Patrocínio</p>
-  <h1><span class="spray">Patrocine</span> o <em>Desafio X</em></h1>
+  <h1><span class="spray">Patrocine</span> <em>o Desafio X</em></h1>
   <p class="pc-promo">Aproveite as cotas com 50% de desconto no preço de lançamento antes que acabem</p>
 </section>
 
@@ -90,18 +90,18 @@
 
 <div class="seam s3" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span></div>
 
-<section id="cotas" class="sec">
+<section id="cotas" class="sec" style="max-width:1400px;padding-top:4rem;padding-bottom:4rem">
   <h2 class="graf">Cotas de <b>patrocínio</b></h2>
   <p class="pc-lead">Todas com preço de lançamento: 50% de desconto antes que acabem.</p>
   <div class="ct-grid">
-    <div class="ct ouro"><h3>Ouro</h3><p class="de">de R$2.000</p><p class="por">R$1.000</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$1.000 + 5 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>8 stories de anúncio (2 por semana)</li><li>8 colabs no feed (2 por semana)</li><li>1 desafio regional ou geral de 7 dias com o nome da sua marca, premiando: 1º R$300 + produto ou serviço, 2º R$200 + produto ou serviço, 3º R$100 + produto ou serviço</li></ul></div>
-    <div class="ct prata"><h3>Prata</h3><p class="de">de R$1.000</p><p class="por">R$500</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$500 + 4 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>4 stories de anúncio (1 por semana)</li><li>4 colabs no feed (1 por semana)</li><li>1 desafio regional ou geral de 7 dias, premiando: 1º R$200 + produto, 2º R$100 + produto, 3º R$50 + produto</li></ul></div>
-    <div class="ct bronze"><h3>Bronze</h3><p class="de">de R$400</p><p class="por">R$200</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$200 + 3 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>1 desafio regional de 7 dias, premiando: 1º R$100 + produto, 2º R$50 + produto, 3º produto ou serviço</li></ul></div>
     <div class="ct ponto"><h3>Ponto de Partida</h3><p class="de">de R$100</p><p class="por">R$50</p><p class="tag">Preço de lançamento</p><p class="val">Pode ser contratada quantas vezes quiser no mês.</p>
       <h4>O patrocinador entrega</h4><ul><li>O patrocínio de um desafio pequeno, de 1, 3 ou 7 dias, conforme o que a Desafio X propuser no mês</li></ul><h4>O patrocinador recebe</h4><ul><li>Uma divulgação do nome da sua marca na edição patrocinada</li></ul></div>
+    <div class="ct bronze"><h3>Bronze</h3><p class="de">de R$400</p><p class="por">R$200</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
+      <h4>O patrocinador entrega</h4><ul><li>R$200 + 3 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>1 desafio regional de 7 dias, premiando: 1º R$100 + produto, 2º R$50 + produto, 3º produto ou serviço</li></ul></div>
+    <div class="ct prata"><h3>Prata</h3><p class="de">de R$1.000</p><p class="por">R$500</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
+      <h4>O patrocinador entrega</h4><ul><li>R$500 + 4 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>4 stories de anúncio (1 por semana)</li><li>4 colabs no feed (1 por semana)</li><li>1 desafio regional ou geral de 7 dias, premiando: 1º R$200 + produto, 2º R$100 + produto, 3º R$50 + produto</li></ul></div>
+    <div class="ct ouro"><h3>Ouro</h3><p class="de">de R$2.000</p><p class="por">R$1.000</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
+      <h4>O patrocinador entrega</h4><ul><li>R$1.000 + 5 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>8 stories de anúncio (2 por semana)</li><li>8 colabs no feed (2 por semana)</li><li>1 desafio regional ou geral de 7 dias com o nome da sua marca, premiando: 1º R$300 + produto ou serviço, 2º R$200 + produto ou serviço, 3º R$100 + produto ou serviço</li></ul></div>
   </div>
 </section>
 
