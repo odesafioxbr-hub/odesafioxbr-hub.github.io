@@ -251,3 +251,18 @@ details p a{color:var(--o)}
 .faq-x{position:absolute;top:.4rem;right:.6rem;background:none;border:0;color:#999;font:2rem/1 Inter,sans-serif;cursor:pointer;padding:.2rem .5rem}
 .faq-x:hover,.faq-x:focus-visible{color:var(--o)}
 @media(max-width:800px){.faq-painel{max-height:88vh;padding:2.4rem .9rem 1.2rem}.faq-btn{margin-bottom:2rem}}
+/* item 91: cartões dentro do limite, brancos parados e transparentes no hover */
+.deps{max-width:1000px;width:100%;gap:1.2rem;box-sizing:border-box}
+.dep{aspect-ratio:auto;min-width:0;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),background-color .4s,box-shadow .4s}
+.dep blockquote{text-shadow:none}
+.dep:nth-child(1){transform-origin:left center}.dep:nth-child(2){transform-origin:center center}.dep:nth-child(3){transform-origin:right center}
+.dep:is(:hover,:active,:focus,:focus-visible,.on){transform:scale(1.14);z-index:30;background:rgba(255,255,255,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);box-shadow:0 30px 60px rgba(0,0,0,.7),0 0 0 3px var(--o)}
+.dep:is(:hover,:active,:focus,:focus-visible,.on) blockquote,.dep:is(:hover,:active,:focus,:focus-visible,.on) figcaption{color:#000;text-shadow:0 0 6px rgba(255,255,255,.95),0 0 2px #fff}
+.deps:has(.dep:nth-child(1):is(:hover,:focus,.on)) .dep:nth-child(2){transform:translateX(-10px) scale(.97)}
+.deps:has(.dep:nth-child(1):is(:hover,:focus,.on)) .dep:nth-child(3){transform:translateX(-6px) scale(.97)}
+.deps:has(.dep:nth-child(2):is(:hover,:focus,.on)) .dep:nth-child(1){transform:translateX(8px) scale(.97)}
+.deps:has(.dep:nth-child(2):is(:hover,:focus,.on)) .dep:nth-child(3){transform:translateX(-8px) scale(.97)}
+.deps:has(.dep:nth-child(3):is(:hover,:focus,.on)) .dep:nth-child(2){transform:translateX(10px) scale(.97)}
+.deps:has(.dep:nth-child(3):is(:hover,:focus,.on)) .dep:nth-child(1){transform:translateX(6px) scale(.97)}
+@media(max-width:800px){.dep:nth-child(n){transform-origin:center center}.dep:is(:hover,:active,:focus,:focus-visible,.on){transform:translateY(-6px) scale(1.04)}.deps:has(.dep:is(:hover,:focus,.on)) .dep:not(:is(:hover,:focus,.on)){transform:none}}
+@media(prefers-reduced-motion:reduce){.dep{transition:none}}
