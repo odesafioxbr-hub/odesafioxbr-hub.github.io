@@ -331,3 +331,5 @@ details p a{color:var(--o)}
 .faq-btn{transition:box-shadow .3s,border-color .3s}.faq-btn:hover,.faq-btn:focus-visible,.faq-btn:active{box-shadow:0 0 16px rgba(255,164,0,.6),0 0 34px rgba(255,164,0,.25)}
 .ct .btn.cota:hover,.ct .btn.cota:focus-visible,.ct .btn.cota:active{box-shadow:0 0 16px var(--c),0 0 34px var(--c)}
 @media(prefers-reduced-motion:reduce){.holo,.holo::before{animation:none}.rk .podio.rev .degrau,.rk .podio.rev .holo,.rk .podio.rev .nm,.rk .podio.rev .tt,.js .rev:not(.podio)>*{transition:none;transform:none;translate:none;opacity:1}}
+/* item 95: fitas medem o layout final, ignorando o estado animado das entradas */
+.fit-medir .rev,.fit-medir .rev *{translate:none!important;transform:none!important;transition:none!important}

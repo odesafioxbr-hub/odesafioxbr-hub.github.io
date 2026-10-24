@@ -1,9 +1,12 @@
-/* Entrada ao rolar (uma vez) para blocos .rev; recalcula as fitas depois que tudo assenta. */
+/* Regra do Son: toda animação de entrada é reversível.
+   Entra quando ~15% do bloco está visível; volta ao estado inicial oculto só quando sai 100% da tela.
+   As fitas não participam: medem o layout final (classe fit-medir em fitas.js), então não pulam. */
 (function(){
   var els=[].slice.call(document.querySelectorAll('.rev'));
-  var reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function refit(){dispatchEvent(new Event('resize'));}
-  if(reduz||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target);setTimeout(refit,2600);}})},{threshold:.18});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.intersectionRatio>=.15)en.target.classList.add('on');
+    else if(!en.isIntersecting)en.target.classList.remove('on');
+  })},{threshold:[0,.15]});
   els.forEach(function(e){io.observe(e)});
 })();

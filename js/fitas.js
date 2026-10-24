@@ -59,7 +59,7 @@
       seam.dataset.cross=Math.round(best.cx)+','+Math.round(best.cy-sy);
     });
   }
-  var to;function go(){clearTimeout(to);to=setTimeout(layout,60);}
+  var to;function go(){clearTimeout(to);to=setTimeout(function(){var h=document.documentElement;h.classList.add('fit-medir');try{layout();}finally{h.classList.remove('fit-medir');}},60);}
   if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);
   addEventListener('load',go);document.addEventListener('toggle',go,true);addEventListener('resize',go);
   if(document.fonts)document.fonts.ready.then(go);
