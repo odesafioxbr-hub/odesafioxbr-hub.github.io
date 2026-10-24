@@ -233,3 +233,9 @@ footer.rod{background:#000;border-top:0;color:#ccc;padding:4.5rem 1.2rem 2.2rem;
 @media(prefers-reduced-motion:reduce){.estrelas i{animation:none}.dep{transition:none}}
 @media(max-width:800px){.deps{grid-template-columns:1fr;max-width:420px}}
 details p a{color:var(--o)}
+/* item 89: depoimentos mais transparentes, quadrados e hover maior */
+#feedback,.deps{overflow:visible}
+.dep{background:rgba(255,255,255,.55);border-radius:7px;aspect-ratio:1/1;justify-content:center}
+.dep blockquote{flex:0 0 auto;color:#000;text-shadow:0 0 2px rgba(255,255,255,.6)}
+.dep:hover,.dep:active,.dep:focus,.dep:focus-visible,.dep.on{transform:translateY(-14px) scale(1.22);z-index:30;background:rgba(255,255,255,.93);box-shadow:0 34px 70px rgba(0,0,0,.75),0 0 0 3px var(--o)}
+@media(max-width:800px){.dep{aspect-ratio:auto}.dep:hover,.dep:active,.dep:focus,.dep:focus-visible,.dep.on{transform:translateY(-8px) scale(1.05)}}
