@@ -181,7 +181,7 @@ html,body{overflow-x:clip}
 .podio{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;align-items:end;max-width:1000px;margin:2rem auto 0;padding:0}
 .pd{display:flex;flex-direction:column;align-items:center;text-align:center}
 .pd img{width:150px;height:150px;border-radius:50%;border:4px solid var(--o);display:block;margin-bottom:.6rem}
-.pd.p1 img{width:180px;height:180px;border-color:var(--g)}
+.pd.p1 img{width:180px;height:180px}
 .pd .nm{font:1.35rem Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;line-height:1.1}
 .pd .tt{color:var(--g);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.85rem;margin:.2rem 0 .7rem}
 .degrau{width:100%;background:var(--o);color:#000;font:2.6rem Anton,Impact,sans-serif;display:flex;align-items:flex-start;justify-content:center;padding-top:.6rem;border:3px solid #000;outline:3px solid var(--o)}
