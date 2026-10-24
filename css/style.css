@@ -204,7 +204,7 @@ html,body{overflow-x:clip}
 .checks li{background:#ffa400!important;color:#000!important;border:3px solid #000!important;outline:3px solid #ffa400;box-shadow:none!important}
 
 /* item 80: rodapé em HTML */
-.seam-rod{margin-top:4.5rem}
+.rod-rib{margin-top:2rem}footer.rod{padding-top:2.5rem}
 footer.rod{background:#050505;border-top:0;color:#ccc;padding:4.5rem 1.2rem 2.2rem;text-align:center;position:relative;overflow:hidden}
 footer.rod::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 0%,rgba(0,255,0,.10),transparent 70%),radial-gradient(40% 30% at 85% 100%,rgba(255,164,0,.10),transparent 70%);pointer-events:none}
 .rod-frase{position:relative;font:400 clamp(2rem,5.2vw,3.6rem)/1.08 Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;max-width:900px;margin:0 auto}
