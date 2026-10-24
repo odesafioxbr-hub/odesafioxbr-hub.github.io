@@ -132,7 +132,6 @@ html,body{overflow-x:clip}
 .checks li,.blk .checks li{padding:1.1rem 1.2rem 1.1rem 1.4rem;border:0;border-left:6px solid var(--o);background:#111;color:#fff;font-weight:800;font-size:1.05rem;line-height:1.35;display:flex;align-items:center;box-shadow:0 6px 0 #000}
 .checks li::before,.blk .checks li::before{content:none}
 .blk .checks li{background:#000;color:#fff;border-left-color:var(--o);box-shadow:6px 6px 0 rgba(0,0,0,.25)}
-.checks li:nth-child(even){border-left-color:var(--g)}
 .blk .checks li:nth-child(even){border-left-color:var(--o)}
 @media(max-width:800px){.checks,.checks.inc{grid-template-columns:1fr;gap:.7rem}.checks li{font-size:1rem}}
 /* item 38: player sem controles, play grande e barra de progresso */
@@ -150,9 +149,7 @@ html,body{overflow-x:clip}
 .plan .pl{display:block}
 .pinfo{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:860px;margin:2rem auto 0;text-align:left}
 .pinfo>div{background:#000;padding:1.5rem 1.6rem;border-left:8px solid var(--o)}
-.pinfo>div:nth-child(2){border-left-color:#fff}
 .pinfo h3{font:400 1.7rem/1.1 Anton,Impact,sans-serif;text-transform:uppercase;color:var(--o);margin-bottom:.6rem}
-.pinfo>div:nth-child(2) h3{color:var(--g)}
 .blk .pinfo p{color:#fff;font-size:1.05rem;line-height:1.55}
 @media(max-width:800px){.pinfo{grid-template-columns:1fr}}
 .hero{padding-top:3rem}
