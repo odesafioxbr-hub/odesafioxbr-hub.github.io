@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=86">
+<link rel="stylesheet" href="css/style.css?v=87">
 </head>
 <body>
 
@@ -80,7 +80,17 @@
 
 <div class="seam s4" aria-hidden="true"><span class="tp k a"></span><span class="tp f a"></span></div>
 
-<section id="feedback" class="sec arte-sec"><img class="arte" src="assets/feedbacks-arte.webp" data-txt=".36,.03,.64,.17;.02,.46,.3,.73;.35,.44,.64,.89;.68,.46,.96,.74" alt="Feedback de participantes: depoimentos de Marcos Ferruge, Victoria Lopes e Riuzaky recomendando o Desafio X, todos com 5 estrelas" width="1600" height="900" loading="lazy"></section>
+<section id="feedback" class="sec">
+  <h2 class="graf">Feedback de <b>participantes</b></h2>
+  <div class="deps">
+    <figure class="dep" tabindex="0"><img src="assets/rk-marcos.webp" alt="Marcos Ferrugem" width="400" height="400" loading="lazy"><blockquote>O Desafio X é muito bacana, pois incentiva muita gente a treinar e, para quem é competitivo, é uma ótima opção. Recomendo demais!</blockquote><span class="estrelas" aria-label="5 estrelas"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><figcaption>Marcos Ferrugem</figcaption></figure>
+    <figure class="dep" tabindex="0"><img src="assets/rk-victoria.webp" alt="Victoria Lopes" width="400" height="400" loading="lazy"><blockquote>Eu gostei do Desafio X porque ele me fez me manter em movimento. Era só um desafio pessoal, mas me deparei com muitas pessoas próximas a mim sendo influenciadas pela minha rotina de treinar e postar o Desafio X todos os dias.</blockquote><span class="estrelas" aria-label="5 estrelas"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><figcaption>Victoria Lopes</figcaption></figure>
+    <figure class="dep" tabindex="0"><img src="assets/rk-riuzaky.webp" alt="Riuzaky" width="400" height="400" loading="lazy"><blockquote>Eu não esperava que o Desafio X fosse ser tão bom quanto ele é. Me surpreendeu em todos os aspectos, recomendo para todo mundo.</blockquote><span class="estrelas" aria-label="5 estrelas"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><figcaption>Riuzaky</figcaption></figure>
+  </div>
+</section>
+
+<div class="seam s7" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span></div>
+
 
 <section id="ranking" class="sec">
   <h2 class="graf">Ranking de <b>vencedores</b></h2>
@@ -132,6 +142,9 @@
   <details><summary>Quais são os prêmios?</summary><p>Os prêmios variam de edição para edição. Podem ser dinheiro, produto físico ou digital, serviços ou até mesmo uma postagem na nossa página. Na edição de 15 dias, o 1º colocado ganha 10% do valor arrecadado com as inscrições, o 2º ganha 3% e o 3º ganha 2%. Essas porcentagens são calculadas sobre o valor arrecadado com as inscrições.</p></details>
   <details><summary>Preciso de equipamentos? Sou iniciante, posso participar?</summary><p>Não precisa de equipamento. Os exercícios são funcionais e, se algum desafio usar equipamento, damos todas as instruções de onde encontrar de graça.</p></details>
   <details><summary>Por quanto tempo tenho acesso?</summary><p>A assinatura dura 30 dias.</p></details>
+  <details><summary>Como faço para ser parceiro?</summary><p>O parceiro entrega algo da sua área: cupons ou vouchers, produtos, serviços, conteúdo especializado ou um espaço para desafios presenciais. Também divulga o Desafio X pelo menos uma vez por semana. Em troca, tem acesso ao grupo VIP no Instagram e uma divulgação semanal nos nossos canais. Para conversar, chame a gente no Direct do Instagram. Saiba mais na <a href="parcerias.html">página de parcerias</a>.</p></details>
+  <details><summary>Como funciona o patrocínio?</summary><p>São quatro cotas: Ponto de Partida, Bronze, Prata e Ouro. Cada uma tem stories, collabs e desafios patrocinados, conforme a cota. Veja os detalhes na <a href="patrocinio.html">página de patrocínio</a>.</p></details>
+  <details><summary>O que são os desafios patrocinados?</summary><p>São desafios gratuitos que levam o nome do patrocinador, com uma meta por dia. Podem ser digitais, abertos a qualquer pessoa de qualquer lugar, ou regionais, voltados para a região do patrocinador. Uma das regras é seguir os patrocinadores.</p></details>
 </section>
 
 <div class="seam s8" aria-hidden="true"><span class="tp k a"></span><span class="tp f a"></span><span class="tp f b"></span></div>
@@ -164,4 +177,5 @@
 </footer>
 <script src="js/fitas.js?v=84" defer></script>
 <script src="js/player.js" defer></script>
+<script>document.querySelectorAll('.dep').forEach(function(c){c.addEventListener('touchstart',function(){document.querySelectorAll('.dep.on').forEach(function(o){if(o!==c)o.classList.remove('on')});c.classList.add('on')},{passive:true})});</script>
 </body></html>
