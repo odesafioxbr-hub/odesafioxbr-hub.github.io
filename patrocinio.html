@@ -33,22 +33,29 @@
 .ct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;max-width:1320px;margin:0 auto;text-align:left}
 @media(max-width:1100px){.ct-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.ct-grid{grid-template-columns:1fr}}
 .ct{background:#0d0d0d;border:3px solid var(--c);padding:1.7rem 1.4rem;min-height:100%;display:flex;flex-direction:column}
-.ct.ouro{--c:#e8b923;background:linear-gradient(160deg,#2a2208,#0d0d0d 60%)}.ct.prata{--c:#c9cdd2;background:linear-gradient(160deg,#25272a,#0d0d0d 60%)}
-.ct.bronze{--c:#cd7f32;background:linear-gradient(160deg,#2a1a0c,#0d0d0d 60%)}.ct.ponto{--c:#fff;border-width:2px;background:#0d0d0d}
+.ct.ouro{--c:#e8b923;--c2:#fff3b0;--t:#f3dc8a;background:linear-gradient(160deg,#2a2208,#0d0d0d 60%)}
+.ct.prata{--c:#c9cdd2;--c2:#ffffff;--t:#e3e6ea;background:linear-gradient(160deg,#25272a,#0d0d0d 60%)}
+.ct.bronze{--c:#cd7f32;--c2:#ffd2a6;--t:#e9b98a;background:linear-gradient(160deg,#2a1a0c,#0d0d0d 60%)}
+.ct.ponto{--c:#fff;--c2:#fff;--t:#fff;border-width:2px;background:#0d0d0d}
 .ct h3{font:400 1.7rem/1 Anton,Impact,sans-serif;color:var(--c);text-transform:uppercase;letter-spacing:.04em}
-.ct.ponto h3{color:#fff}
-.ct .de{margin-top:.8rem;color:#999;text-decoration:line-through}
-.ct .por{font:400 2.2rem/1 Anton,Impact,sans-serif;color:#fff;margin:.2rem 0}
+.ct .de{margin-top:.8rem;color:var(--t);opacity:.75;text-decoration:line-through}
+.ct .por{font:400 2.2rem/1 Anton,Impact,sans-serif;color:var(--c);margin:.2rem 0}
+.ct:not(.ponto) .por{background:linear-gradient(110deg,var(--c) 0%,var(--c) 40%,var(--c2) 50%,var(--c) 60%,var(--c) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brilho 3.2s linear infinite}
+@keyframes brilho{0%{background-position:100% 0}100%{background-position:-150% 0}}
+@media (prefers-reduced-motion:reduce){.ct:not(.ponto) .por{animation:none;background-position:50% 0}}
 .ct .tag{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--c);font-weight:800}
-.ct .val{font-size:.9rem;color:#bbb;margin:.4rem 0 .6rem}
+.ct .val{font-size:.9rem;color:var(--t);margin:.4rem 0 .6rem}
 .ct h4{margin-top:.9rem;font-size:.95rem;text-transform:uppercase;color:var(--c)}
-.ct.ponto h4,.ct.ponto .tag,.ct.ponto .val,.ct.ponto li,.ct.ponto .de{color:#fff}
-.ct ul{margin:.4rem 0 0 1.1rem;font-size:1rem;color:#ddd}.ct li+li{margin-top:.35rem}
+.ct ul{margin:.4rem 0 0 1.1rem;font-size:1rem;color:var(--t)}.ct li+li{margin-top:.35rem}.ct li::marker{color:var(--c)}
+.ct .lista{flex:1}
+.ct .btn.cota{margin:1.4rem 0 0;width:100%;text-align:center;font-size:1.05rem;padding:.8rem .6rem;white-space:nowrap;background:var(--c);color:#000;outline-color:var(--c)}
+.ct-nota{max-width:900px;margin:1.6rem auto 0;color:#ccc;font-size:.95rem}
+.ct-adendo{max-width:900px;margin:1.2rem auto 0;color:#aaa;font-size:.9rem;font-style:italic;border-top:1px solid #333;padding-top:1rem}
 #aparece .ap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:960px;margin:0 auto;text-align:left}
 @media(max-width:700px){#aparece .ap-grid{grid-template-columns:1fr}}
 #aparece .ap-grid .card{margin:0}
 .blk .features .card:nth-child(4) h3{color:#fff}
-.blk .ap-dest{max-width:960px;margin:1.4rem auto 0;background:#000;color:var(--g)!important;font:400 clamp(1.1rem,2.2vw,1.5rem)/1.25 Anton,Impact,sans-serif;text-transform:uppercase;padding:1rem 1.2rem;border:3px solid #000}
+.blk .ap-dest{max-width:960px;margin:1.4rem auto 0;background:#000;color:#fff!important;font:400 clamp(1.1rem,2.2vw,1.5rem)/1.25 Anton,Impact,sans-serif;text-transform:uppercase;padding:1rem 1.2rem;border:3px solid #000}
 </style>
 </head>
 <body>
@@ -94,45 +101,38 @@
   <h2 class="graf">Cotas de <b>patrocínio</b></h2>
   <p class="pc-lead">Todas com preço de lançamento: 50% de desconto antes que acabem.</p>
   <div class="ct-grid">
-    <div class="ct ponto"><h3>Ponto de Partida</h3><p class="de">de R$100</p><p class="por">R$50</p><p class="tag">Preço de lançamento</p><p class="val">Pode ser contratada quantas vezes quiser no mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>O patrocínio de um desafio pequeno, de 1, 3 ou 7 dias, conforme o que a Desafio X propuser no mês</li></ul><h4>O patrocinador recebe</h4><ul><li>Uma divulgação do nome da sua marca na edição patrocinada</li></ul></div>
+    <div class="ct ponto"><h3>Ponto de Partida</h3><p class="de">de R$100</p><p class="por">R$50</p><p class="tag">Preço de lançamento</p><p class="val">Pode ser contratado quantas vezes quiser no mês.</p>
+      <div class="lista"><h4>O patrocinador entrega</h4><ul><li>R$50,00 (pode entregar cupom também)</li></ul><h4>O patrocinador recebe</h4><ul><li>Entrada no grupo VIP de patrocinadores no Instagram, com dicas para melhorar a performance de vendas no digital</li><li>1 story de anúncio</li><li>1 desafio digital de 3 dias</li></ul></div>
+      <!-- Link provisório: será trocado pelo checkout Kiwify desta cota -->
+      <a class="btn cota" href="https://pay.kiwify.com.br/g9sPenn">Essa é minha cota</a></div>
     <div class="ct bronze"><h3>Bronze</h3><p class="de">de R$400</p><p class="por">R$200</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$200 + 3 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>1 desafio regional de 7 dias, premiando: 1º R$100 + produto, 2º R$50 + produto, 3º produto ou serviço</li></ul></div>
+      <div class="lista"><h4>O patrocinador entrega</h4><ul><li>R$200,00 + 3 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Entrada no grupo VIP de patrocinadores no Instagram, com dicas para melhorar a performance de vendas no digital</li><li>2 stories de anúncio (1 por semana, em 2 semanas do mês)</li><li>2 collabs na aba de Reels (1 por semana, em 2 semanas do mês)</li><li>1 desafio de 7 dias regional ou digital</li><li>1 ingresso para o desafio oficial de 15 dias (pode ser repassado para outra pessoa)</li></ul></div>
+      <!-- Link provisório: será trocado pelo checkout Kiwify desta cota -->
+      <a class="btn cota" href="https://pay.kiwify.com.br/g9sPenn">Essa é minha cota</a></div>
     <div class="ct prata"><h3>Prata</h3><p class="de">de R$1.000</p><p class="por">R$500</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$500 + 4 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>4 stories de anúncio (1 por semana)</li><li>4 colabs no feed (1 por semana)</li><li>1 desafio regional ou geral de 7 dias, premiando: 1º R$200 + produto, 2º R$100 + produto, 3º R$50 + produto</li></ul></div>
+      <div class="lista"><h4>O patrocinador entrega</h4><ul><li>R$500,00 + 4 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Entrada no grupo VIP de patrocinadores no Instagram, com dicas para melhorar a performance de vendas no digital</li><li>4 stories de anúncio (1 por semana)</li><li>4 collabs na aba de Reels (1 por semana)</li><li>1 desafio de 7 dias regional ou digital</li><li>1 ingresso para o desafio oficial de 15 dias (pode ser repassado para outra pessoa)</li></ul></div>
+      <!-- Link provisório: será trocado pelo checkout Kiwify desta cota -->
+      <a class="btn cota" href="https://pay.kiwify.com.br/g9sPenn">Essa é minha cota</a></div>
     <div class="ct ouro"><h3>Ouro</h3><p class="de">de R$2.000</p><p class="por">R$1.000</p><p class="tag">Preço de lançamento</p><p class="val">Vale por 1 mês.</p>
-      <h4>O patrocinador entrega</h4><ul><li>R$1.000 + 5 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Stories VIP com dicas de marketing digital</li><li>8 stories de anúncio (2 por semana)</li><li>8 colabs no feed (2 por semana)</li><li>1 desafio regional ou geral de 7 dias com o nome da sua marca, premiando: 1º R$300 + produto ou serviço, 2º R$200 + produto ou serviço, 3º R$100 + produto ou serviço</li></ul></div>
+      <div class="lista"><h4>O patrocinador entrega</h4><ul><li>R$1.000,00 + 5 produtos ou serviços</li></ul><h4>O patrocinador recebe</h4><ul><li>Entrada no grupo VIP de patrocinadores no Instagram, com dicas para melhorar a performance de vendas no digital</li><li>8 stories de anúncio (2 por semana)</li><li>8 collabs na aba de Reels (2 por semana)</li><li>1 desafio de 7 dias regional ou digital</li><li>1 desafio digital de 3 dias</li><li>2 ingressos para o desafio oficial de 15 dias (podem ser repassados para outras pessoas)</li></ul></div>
+      <!-- Link provisório: será trocado pelo checkout Kiwify desta cota -->
+      <a class="btn cota" href="https://pay.kiwify.com.br/g9sPenn">Essa é minha cota</a></div>
   </div>
+  <p class="ct-nota">Os stories e collabs são criados pelo patrocinador. A Desafio X não cria os anúncios, apenas compartilha.</p>
+  <p class="ct-adendo">Importante: o patrocinador pode encerrar o patrocínio a qualquer momento, basta parar de pagar a cota. Com isso, os serviços de divulgação são encerrados.</p>
 </section>
 
 <div class="seam s4" aria-hidden="true"><span class="tp k a"></span><span class="tp f a"></span></div>
 
-<section id="encerramento" class="sec">
-  <h2 class="graf">Sem <b>prejuízo para ninguém</b></h2>
-  <div class="pc-box">
-    <p>O patrocínio pode ser encerrado no fim de cada período, sem prejuízo para ninguém.</p>
-  </div>
-</section>
-
-<div class="seam s1" aria-hidden="true"><span class="tp f a"></span></div>
-
 <section id="contato" class="sec">
   <h2 class="graf">Vamos <b>conversar?</b></h2>
-  <p class="pc-lead">O próximo passo é entrar em contato: mande um e-mail ou um direct no Instagram para combinarmos o patrocínio.</p>
+  <p class="pc-lead">Tem outra proposta de patrocínio? Vamos conversar. Mande um e-mail ou nos chame no direct.</p>
   <div class="pc-contato">
     <a class="btn" href="mailto:odesafioxbr@gmail.com?subject=Patroc%C3%ADnio%20Desafio%20X">Enviar e-mail</a>
     <a class="btn alt" href="https://instagram.com/desafiox.oficial" target="_blank" rel="noopener">Direct no Instagram</a>
   </div>
-  <p class="pc-mail">odesafioxbr@gmail.com · @desafiox.oficial</p>
 </section>
 
-<div class="seam s5" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span><span class="tp k c"></span></div>
-
-<section class="sec final">
-  <h2 class="graf"><b>Quer ser patrocinador</b> e também treinar com a gente?</h2>
-  <p>Basta assinar e fazer parte da comunidade Desafio X.</p>
-  <a class="btn" href="https://pay.kiwify.com.br/g9sPenn">Assinar o clube</a>
-</section>
 <img class="faixa" data-txt=".02,.02,.98,.98" src="assets/area-x-faixa.webp" alt="Área X — Desafio X" width="720" height="128" loading="lazy">
 </main>
 <footer>Desafio X · desde 2020 · <a href="https://instagram.com/desafiox.oficial">@desafiox.oficial</a></footer>
