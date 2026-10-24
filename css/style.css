@@ -202,3 +202,18 @@ html,body{overflow-x:clip}
 #clube .card,.quem .card{background:#ffa400;border:3px solid #000;outline:3px solid #ffa400}
 #clube .card h3,.quem .card h3{color:#000}#clube .card p,.quem .card p{color:#000;font-weight:600}
 .checks li{background:#ffa400!important;color:#000!important;border:3px solid #000!important;outline:3px solid #ffa400;box-shadow:none!important}
+
+/* item 80: rodapé em HTML */
+.seam-rod{margin-top:4.5rem}
+footer.rod{background:#050505;border-top:0;color:#ccc;padding:4.5rem 1.2rem 2.2rem;text-align:center;position:relative;overflow:hidden}
+footer.rod::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 0%,rgba(0,255,0,.10),transparent 70%),radial-gradient(40% 30% at 85% 100%,rgba(255,164,0,.10),transparent 70%);pointer-events:none}
+.rod-frase{position:relative;font:400 clamp(2rem,5.2vw,3.6rem)/1.08 Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;max-width:900px;margin:0 auto}
+.rod-frase em{font-style:normal;color:var(--o)}
+.rod-pincel{display:inline-block;color:#000;background:var(--g);padding:.18em .3em .08em;transform:rotate(-2deg);border-radius:3px 10px 4px 12px}
+.rod-sub{position:relative;margin:1.2rem auto 0;font-size:1.15rem;color:#ddd;font-weight:600}
+.rod-marca{position:relative;display:flex;align-items:center;justify-content:center;gap:.6rem;margin:2.4rem 0 1rem}
+.rod-marca img{width:48px;height:48px;display:block}
+.rod-marca b{font:400 1.6rem Anton,Impact,sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.04em}
+.rod-links{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;font-size:.95rem}
+.rod-links a{color:#999;text-decoration:none}.rod-links a:hover{color:var(--g)}
+.rod-copy{position:relative;margin-top:1rem;color:#666;font-size:.85rem}
