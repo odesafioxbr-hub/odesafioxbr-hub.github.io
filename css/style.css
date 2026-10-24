@@ -217,3 +217,5 @@ footer.rod::before{content:"";position:absolute;inset:0;background:radial-gradie
 .rod-links{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;font-size:.95rem}
 .rod-links a{color:#999;text-decoration:none}.rod-links a:hover{color:var(--g)}
 .rod-copy{position:relative;margin-top:1rem;color:#666;font-size:.85rem}
+/* item 83: caixas do desafio de 15 dias com borda preta interna (mesmo estilo de Para quem é / Clube) */
+.steps li,.blk .steps li{background:#ffa400;border:3px solid #000;outline:3px solid #ffa400;color:#000}
