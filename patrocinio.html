@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=86">
+<link rel="stylesheet" href="css/style.css?v=94">
 <style>
 .pc-lead{font-size:1.15rem;max-width:680px;margin:0 auto 1.5rem;color:#ddd}
 .pc-tags{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin:1.5rem auto 0;max-width:860px;list-style:none;padding:0}@media(max-width:700px){.pc-tags{grid-template-columns:repeat(2,1fr)}}
@@ -57,6 +57,8 @@
 
 .blk .ap-dest{max-width:960px;margin:1.4rem auto 0;background:#000;color:#fff!important;font:400 clamp(1.1rem,2.2vw,1.5rem)/1.25 Anton,Impact,sans-serif;text-transform:uppercase;padding:1rem 1.2rem;border:3px solid #000}
 #desafios .card{background:#ffa400;border:3px solid #000;outline:3px solid #ffa400}#desafios .card h3{color:#000}#desafios .card p{color:#000;font-weight:600}
+.ct{box-shadow:0 0 10px color-mix(in srgb,var(--c) 40%,transparent);transition:box-shadow .35s,opacity .6s ease,translate .6s cubic-bezier(.2,.8,.2,1)}
+.ct:hover,.ct:focus-within{box-shadow:0 0 22px color-mix(in srgb,var(--c) 75%,transparent),0 0 46px color-mix(in srgb,var(--c) 35%,transparent)}
 </style>
 </head>
 <body>
@@ -99,7 +101,7 @@
 
 <section id="desafios" class="sec">
   <h2 class="graf">Como funcionam <b>os desafios</b></h2>
-  <div class="features">
+  <div class="features rev">
     <div class="card"><h3>Uma meta por dia</h3><p>Todo desafio é cumprir uma meta por dia. A duração é o tempo de divulgação: o desafio de 3 dias dá 3 dias de divulgação, e o de 7 dias dá 7 dias.</p></div>
     <div class="card"><h3>Com o nome da sua marca</h3><p>O desafio de 3 ou 7 dias pode levar o nome do patrocinador (marca, serviço ou pessoa), e o competidor fala esse nome a cada post.</p></div>
     <div class="card"><h3>Digital</h3><p>Aberto na internet: qualquer pessoa participa, de qualquer lugar.</p></div>
@@ -114,7 +116,7 @@
 <section id="cotas" class="sec" style="max-width:1400px;padding-top:4rem;padding-bottom:4rem">
   <h2 class="graf">Cotas de <b>patrocínio</b></h2>
   <p class="pc-lead">Todas com preço de lançamento: 50% de desconto antes que acabem.</p>
-  <div class="ct-grid">
+  <div class="ct-grid rev">
     <div class="ct ponto"><h3>Ponto de Partida</h3><p class="de">de R$100</p><p class="por">R$50</p><p class="tag">Preço de lançamento</p><p class="val">Pode ser contratado quantas vezes quiser no mês.</p>
       <div class="lista"><h4>O patrocinador entrega</h4><ul><li>R$50,00 (pode entregar cupom também)</li></ul><h4>O patrocinador recebe</h4><ul><li>Entrada no grupo VIP de patrocinadores no Instagram, com dicas para melhorar a performance de vendas no digital</li><li>1 story de anúncio</li><li>1 desafio digital de 3 dias</li></ul></div>
       <!-- Link provisório: será trocado pelo checkout Kiwify desta cota -->
@@ -163,5 +165,6 @@
   </nav>
   <p class="rod-copy">© 2026 Desafio X</p>
 </footer>
+<script src="js/neon.js?v=94" defer></script>
 <script src="js/fitas.js?v=84" defer></script>
 </body></html>
