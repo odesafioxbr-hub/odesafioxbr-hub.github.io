@@ -344,3 +344,6 @@ details p a{color:var(--o)}
 .quero-modal.vis .quero-op+.quero-op{transition-delay:.08s}
 .quero-modal .quero-op:hover,.quero-modal .quero-op:focus-visible{transform:rotate(-1.5deg) scale(1.04);box-shadow:0 0 26px rgba(0,255,0,.7)}
 @media(prefers-reduced-motion:reduce){.quero-modal .quero-op{transition:none}}
+.pinfo .formas{list-style:none;margin:.6rem 0;padding:0;display:grid;gap:.45rem}
+.pinfo .formas li{color:#fff;border-left:3px solid var(--g);padding:.35rem .7rem;background:rgba(0,255,0,.06)}
+.pinfo .formas b{color:var(--g);font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;text-transform:uppercase}
