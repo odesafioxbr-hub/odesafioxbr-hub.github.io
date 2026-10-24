@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=95">
+<link rel="stylesheet" href="css/style.css?v=98">
 <style>
 .pc-lead{font-size:1.15rem;max-width:680px;margin:0 auto 1.5rem;color:#ddd}
 .pc-tags{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin:1.5rem auto 0;max-width:860px;list-style:none;padding:0}@media(max-width:700px){.pc-tags{grid-template-columns:repeat(2,1fr)}}
@@ -29,7 +29,8 @@
 .btn.alt{background:#000;color:var(--g);outline-color:var(--g);border-color:var(--g)}
 .btn.alt:hover{background:var(--g);color:#000}
 .pc-mail{margin-top:1rem;color:#ccc}
-.pc-promo{display:inline-block;font:400 clamp(1.3rem,3vw,2rem)/1.15 Anton,Impact,sans-serif;text-transform:uppercase;color:#39ff14;text-shadow:0 0 4px #39ff14,0 0 12px rgba(57,255,20,.75),0 0 28px rgba(57,255,20,.45);padding:.7rem 1.2rem;margin-top:.4rem;max-width:760px}
+@font-face{font-family:"Sacramento";src:url(assets/fonts/sacramento.woff2?v=98) format("woff2");font-display:swap}
+.pc-promo{display:inline-block;font:400 clamp(2.1rem,4.6vw,3.3rem)/1.2 Sacramento,cursive;text-transform:none;letter-spacing:.01em;color:#39ff14;text-shadow:0 0 4px #39ff14,0 0 12px rgba(57,255,20,.75),0 0 28px rgba(57,255,20,.45);padding:.7rem 1.2rem;margin-top:.4rem;max-width:760px}
 /* item 97: "50%" como lâmpada neon pifando (ciclo 12s) */
 .neo50{position:relative;display:inline-block;color:#1f4a1a;text-shadow:none}
 .neo50::after{content:attr(data-t);position:absolute;inset:0;color:#39ff14;text-shadow:0 0 4px #39ff14,0 0 14px #39ff14,0 0 32px rgba(57,255,20,.7);animation:pifa 12s steps(1,end) infinite}
