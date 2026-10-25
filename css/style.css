@@ -347,3 +347,26 @@ details p a{color:var(--o)}
 .pinfo .formas{list-style:none;margin:.6rem 0;padding:0;display:grid;gap:.45rem}
 .pinfo .formas li{color:#fff;border-left:3px solid var(--g);padding:.35rem .7rem;background:rgba(0,255,0,.06)}
 .pinfo .formas b{color:var(--g);font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;text-transform:uppercase}
+/* revisão 25/10: frase de preço, regras básicas, planos em retângulo único */
+.hero-price{font-size:clamp(1.3rem,3.2vw,1.8rem);font-weight:700;line-height:1.35;max-width:820px;margin:1.4rem auto 0;color:#fff}
+.hero-price b{color:#39FF14}
+.plans-lead{font-size:clamp(1.15rem,2.6vw,1.5rem);font-weight:700;max-width:760px;margin:0 auto}
+.regras{max-width:820px;margin:0 auto;background:#000;border:3px solid #000;outline:3px solid #FF7A00;padding:1.4rem 1.6rem;text-align:left}
+.blk .regras h3{color:#39FF14;font:1.6rem Anton,Impact,sans-serif;margin:0 0 .6rem}
+.blk .regras li,.blk .regras b{color:#fff}
+.regras ul{margin:0;padding-left:1.2rem;display:grid;gap:.5rem}
+.plans{align-items:stretch;max-width:900px}
+.plan{display:flex;flex-direction:column}
+.plan .pdesc{text-align:left;margin:1rem 0 1.2rem;flex:1}
+.plan .pdesc h3{font:1.3rem Anton,Impact,sans-serif;margin:0 0 .5rem}
+.blk .plan:not(.hot) .pdesc *{color:#000}
+.blk .plan.hot .pdesc h3{color:#fff}
+.plan .pdesc .formas{padding-left:1.1rem;margin:.5rem 0}
+.plan>.btn{margin-top:auto;align-self:center}
+@media(max-width:800px){.plans{grid-template-columns:1fr;max-width:480px}.regras{padding:1.1rem}}
+/* prova social + rodapé */
+.prova{text-align:center;margin:2rem auto 0;max-width:820px}
+.prova-num{font:clamp(1.1rem,3vw,1.6rem)/1.3 Anton,Impact,sans-serif;letter-spacing:.02em}
+.prova-num span{color:#FF7A00;margin:0 .3rem}
+.prova-nota{font-size:.9rem;opacity:.75;margin-top:.3rem}
+.rod-copy a{color:#39FF14;text-decoration:none}.rod-copy a:hover{text-decoration:underline}
