@@ -4,11 +4,19 @@
   var pls={};box.querySelectorAll('.cdx-pl').forEach(function(p){pls[p.dataset.k]=p;});
   function tile(){var d=document.createElement('div');d.className='fl';
     d.innerHTML='<div class="t"><i></i></div><div class="b"><i></i></div><div class="ft"><i></i></div><div class="fb"><i></i></div>';d._v=null;return d;}
-  function setTile(t,v){if(t._v===v)return;var old=t._v===null?v:t._v;
-    var q=function(s){return t.querySelector(s+' i');};
-    q('.t').textContent=v;q('.b').textContent=old;q('.ft').textContent=old;q('.fb').textContent=v;
-    t.classList.remove('go');void t.offsetWidth;if(t._v!==null)t.classList.add('go');
-    clearTimeout(t._to);t._to=setTimeout(function(){q('.b').textContent=v;t.classList.remove('go');},620);t._v=v;}
+  function q(t,c){return t.querySelector('.'+c+' i');}
+  function settle(t){q(t,'t').textContent=q(t,'b').textContent=q(t,'ft').textContent=q(t,'fb').textContent=t._v;t.classList.remove('go');}
+  function setTile(t,v){
+    if(t._v===null){t._v=v;settle(t);
+      t.addEventListener('animationend',function(e){if(e.target.classList.contains('fb'))settle(t);});return;}
+    if(t._v===v)return;
+    if(t.classList.contains('go'))settle(t);           /* termina giro anterior */
+    var old=t._v;t._v=v;
+    q(t,'t').textContent=v;  q(t,'b').textContent=old;  /* estáticas: topo novo (coberto), base antiga */
+    q(t,'ft').textContent=old;q(t,'fb').textContent=v;  /* giratórias */
+    void t.offsetWidth;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){settle(t);return;}
+    t.classList.add('go');}
   function put(k,str){var p=pls[k];while(p.children.length<str.length)p.appendChild(tile());
     while(p.children.length>str.length)p.removeChild(p.firstChild);
     for(var i=0;i<str.length;i++)setTile(p.children[i],str[i]);}
