@@ -86,8 +86,8 @@
 .fl .b i,.fl .fb i{top:calc(var(--h) / -2)}
 .fl::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:#060606;z-index:5}
 .fl .t,.fl .b{z-index:1}
-.fl .ft{transform-origin:50% 100%;z-index:3;backface-visibility:hidden}
-.fl .fb{transform-origin:50% 0;z-index:2;backface-visibility:hidden;transform:rotateX(90deg)}
+.fl .ft{transform-origin:50% 100%;z-index:3;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.fl .fb{transform-origin:50% 0;z-index:2;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:rotateX(90deg)}
 .fl.go .ft{animation:fT .25s ease-in forwards}
 .fl.go .fb{animation:fB .25s .25s ease-out forwards}
 @keyframes fT{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
@@ -219,5 +219,5 @@
 </footer>
 <script src="js/neon.js?v=95" defer></script>
 <script src="js/fitas.js?v=95" defer></script>
-<script src="js/contagem.js?v=97" defer></script>
+<script src="js/contagem.js?v=98" defer></script>
 </body></html>
