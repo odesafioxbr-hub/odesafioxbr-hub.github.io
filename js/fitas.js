@@ -29,6 +29,7 @@
     var mags=mob?[14,11,17,9,20,7,24,5,4,3]:[8,10,6,12,5,14,4,3];
     var all=textRects();
     document.querySelectorAll('.seam').forEach(function(seam){
+      if(seam.classList.contains('fixa'))return;
       seam.style.display='';var sb=seam.getBoundingClientRect(),sy=sb.top+scrollY,id=[].slice.call(seam.classList).find(function(c){return /^s\d+$/.test(c)});
       var tps=[].slice.call(seam.querySelectorAll('.tp'));
       var rects=all.filter(function(q){return q[3]>sy-900&&q[1]<sy+900});

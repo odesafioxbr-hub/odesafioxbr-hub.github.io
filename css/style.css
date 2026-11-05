@@ -94,6 +94,10 @@ html,body{overflow-x:clip}
 .seam .tp.k{--s:.85;filter:blur(1.5px) brightness(.8);opacity:.95;z-index:1}
 .s1 .a{--r:-3deg}
 .s2 .c{--r:-8deg}.s2 .f.a{--r:7deg}.s2 .f.b{--r:-1deg}
+/* transição Quem já participou → Garantia: as três fitas ficam inclinadas e o script não recalcula */
+.seam.s2.fixa .tp.k{--r:-7deg;--y:-12px}
+.seam.s2.fixa .tp.f.a{--r:8deg;--y:2px}
+.seam.s2.fixa .tp.f.b{--r:-13deg;--y:18px}
 .s3 .a{--r:7deg}.s3 .b{--r:-7deg}
 .s4 .k.a{--r:8deg}.s4 .f.a{--r:-6deg}
 .s5 .a{--r:-7deg}.s5 .b{--r:6deg}.s5 .c{--r:1deg}
@@ -453,6 +457,11 @@ details p a{color:var(--o)}
 .home .esc .linha{font-weight:700;color:#fff}
 .home .btn:focus-visible,.home .faq-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .home a.faq-btn{text-decoration:none;color:#fff}
+.home .entrar-opcoes{display:flex;flex-direction:column;align-items:stretch;gap:.55rem;width:100%;margin-top:.75rem}
+.home .entrar-opcoes[hidden]{display:none}
+.home .entrar-opcoes .btn{max-width:none}
+.home .entrar-opcoes .nota{color:#ddd;font-size:.88rem;font-weight:700;margin:0;text-align:center}
+.home .entrar-opcoes .btn.sem-compra{background:transparent;color:#fff;outline:3px dashed #ffa400}
 @media(max-width:800px){
  .home .stair{grid-template-columns:1fr;max-width:520px}
  .home .step.s1,.home .step.s2{padding-top:0}

@@ -29,7 +29,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=104">
+<link rel="stylesheet" href="css/style.css?v=105">
 </head>
 <body class="home">
 <a class="skip" href="#veja-como-e">Ir para o conteúdo</a>
@@ -325,7 +325,7 @@
 <img class="brush bot" src="assets/pincel-laranja-base.webp" alt="" aria-hidden="true" width="2400" height="90">
 </div>
 
-<div class="seam s2" aria-hidden="true"><span class="tp k c"></span><span class="tp f a"></span><span class="tp f b"></span></div>
+<div class="seam s2 fixa" aria-hidden="true"><span class="tp k c"></span><span class="tp f a"></span><span class="tp f b"></span></div>
 
 <div class="blk blk-green">
 <img class="brush" src="assets/pincel-verde-topo.webp" alt="" aria-hidden="true" width="2400" height="90">
@@ -416,7 +416,13 @@
     <article class="card esc">
       <h3>Entrar no clube</h3>
       <p class="linha">Quem paga: você, na assinatura do plano. Quem recebe: você recebe o que o plano inclui e o Desafio X recebe o valor da assinatura.</p>
-      <a class="btn" href="#planos">Entrar no clube</a>
+      <button type="button" class="btn" id="entrar-abrir" aria-expanded="false" aria-controls="entrar-opcoes">Entrar no clube</button>
+      <div id="entrar-opcoes" class="entrar-opcoes" hidden>
+        <a class="btn" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Plano Começar<span class="sr">. Abre o checkout publicado em nova aba.</span></a>
+        <button type="button" class="btn sem-compra" aria-describedby="prep-sem-link">Plano Preparar</button>
+        <p id="prep-sem-link" class="nota">Sem link de compra publicado. Este botão não abre checkout.</p>
+        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Plano Competir<span class="sr">. Abre o checkout publicado em nova aba.</span></a>
+      </div>
     </article>
     <article class="card esc">
       <h3>Ser parceiro</h3>
@@ -437,7 +443,6 @@
   <div class="rib front"><div class="rib-track"></div></div>
 </div>
 <footer class="rod">
-  <a class="faq-btn" href="#perguntas-frequentes">Perguntas frequentes</a>
   <p class="rod-frase"><span class="rod-pincel">Não desista,</span> <em>alguém está se inspirando em você.</em></p>
   <p class="rod-sub">Participe, se divirta e evolua com a gente.</p>
   <div class="rod-marca"><img src="assets/favicon.png" alt="" width="48" height="48"><b>Desafio X</b></div>
@@ -445,7 +450,6 @@
     <a href="index.html">Início</a>
     <a href="parcerias.html">Parcerias</a>
     <a href="patrocinio.html">Patrocínio</a>
-    <a href="https://instagram.com/desafiox.oficial" target="_blank" rel="noopener">@desafiox.oficial</a>
   </nav>
   <p class="rod-copy">© 2026 Desafio X • Contato: <a href="mailto:odesafioxbr@gmail.com">odesafioxbr@gmail.com</a> • Instagram: <a href="https://www.instagram.com/desafiox.oficial/" target="_blank" rel="noopener">@desafiox.oficial</a></p>
 </footer>
@@ -463,7 +467,23 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 });
 </script>
 <script src="js/neon.js?v=95" defer></script>
-<script src="js/fitas.js?v=95" defer></script>
+<script src="js/fitas.js?v=106" defer></script>
+<script>
+(function(){
+  var b=document.getElementById('entrar-abrir'),p=document.getElementById('entrar-opcoes');
+  if(!b||!p)return;
+  function setAberto(on){
+    b.setAttribute('aria-expanded',on?'true':'false');
+    p.hidden=!on;
+    if(on){var f=p.querySelector('a,button');if(f)f.focus();}
+    else b.focus();
+  }
+  b.addEventListener('click',function(){setAberto(b.getAttribute('aria-expanded')!=='true');});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&b.getAttribute('aria-expanded')==='true'){e.preventDefault();setAberto(false);}
+  });
+})();
+</script>
 <script src="js/player.js" defer></script>
 <script>document.querySelectorAll('.dep').forEach(function(c){c.addEventListener('touchstart',function(){document.querySelectorAll('.dep.on').forEach(function(o){if(o!==c)o.classList.remove('on')});c.classList.add('on')},{passive:true})});</script>
 </body>
