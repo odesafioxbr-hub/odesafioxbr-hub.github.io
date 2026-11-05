@@ -390,3 +390,85 @@ details p a{color:var(--o)}
 .plans .plan{display:flex;flex-direction:column}
 .plans .plan .btn{margin-top:auto;align-self:center}
 .plans .plan .pdesc{margin-bottom:1.5rem}
+
+/* nova estrutura da home */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.skip{position:absolute;left:.6rem;top:.6rem;transform:translateY(-160%);background:#ffa400;color:#000;font-weight:800;padding:.55rem .9rem;z-index:2000;text-decoration:none}
+.skip:focus{transform:none}
+.home section[id]{scroll-margin-top:.75rem}
+.home .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.home .sec-lead{max-width:740px;margin:0 auto 1.4rem;color:#ddd;font-size:1.08rem}
+.home .blk .sec-lead{color:#000;font-weight:700}
+.home .aviso{max-width:860px;margin:0 auto 1.6rem;text-align:left;background:#0d0d0d;border-left:8px solid #39ff14;padding:1rem 1.15rem;color:#eee}
+.home .aviso b{color:#39ff14}
+.home #planos.sec,.home #ranking.sec{max-width:1120px}
+.home .stair{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:1rem;margin:0 auto 2rem}
+.home .step{display:flex;min-width:0}
+.home .step.s1{padding-top:4.4rem}
+.home .step.s2{padding-top:2.2rem}
+.home .plan{display:flex;flex-direction:column;width:100%;text-align:left;background:#ffa400;color:#000;border:3px solid #000;outline:3px solid #ffa400;padding:1.2rem 1.1rem 1.15rem}
+.home .plan.hot{background:#050805;color:#fff;border-color:#39ff14;outline-color:#39ff14}
+.home .plan .step-k{font:800 .72rem/1 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin:0 0 .45rem}
+.home .plan .pl{color:#000;font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.05}
+.home .plan.hot .pl{color:#39ff14}
+.home .plan .tipo{font-size:.92rem;font-weight:700;margin:.45rem 0 .2rem}
+.home .plan .big-price{color:#000;font-size:clamp(2rem,4vw,2.7rem)}
+.home .plan.hot .big-price{color:#39ff14}
+.home .plan .price-miss{font:400 1.35rem/1.15 Anton,Impact,sans-serif;text-transform:uppercase;margin:.35rem 0 .2rem}
+.home .plan .pdesc{flex:1;margin:.4rem 0 1rem}
+.home .plan h4{font:400 1rem/1 Anton,Impact,sans-serif;letter-spacing:.04em;text-transform:uppercase;margin:1rem 0 .35rem}
+.home .plan ul{margin:0 0 .15rem 1.05rem}
+.home .plan li{margin:.28rem 0}
+.home .plan .nota{font-size:.92rem;font-weight:700;margin:.8rem 0 0}
+.home .plan>.btn{margin-top:auto;width:100%;text-align:center;white-space:normal;line-height:1.15;min-height:3.1rem;display:inline-flex;align-items:center;justify-content:center;padding:.75rem .8rem}
+.home .plan:not(.hot)>.btn{background:#000;color:#39ff14;outline-color:#000}
+.home .plan.hot>.btn{background:#39ff14;color:#000;outline-color:#39ff14}
+.home .plan>.btn.sem-compra{background:transparent;color:#000;outline:3px dashed #000}
+.home .plan>.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.home .cmp-hint{display:none;color:#aaa;font-size:.9rem;margin:0 auto .4rem}
+.home .cmp-wrap{overflow-x:auto;max-width:1120px;margin:0 auto;border:3px solid #2a2a2a;-webkit-overflow-scrolling:touch}
+.home .cmp-wrap:focus{outline:3px solid #ffa400;outline-offset:3px}
+.home .cmp{width:100%;border-collapse:collapse;min-width:760px;text-align:left;background:#0d0d0d}
+.home .cmp caption{caption-side:bottom;text-align:left;color:#bbb;padding:.7rem .2rem 0;font-size:.92rem}
+.home .cmp th,.home .cmp td{border:1px solid #333;padding:.7rem .75rem;vertical-align:top}
+.home .cmp th{background:#111;font-weight:800}
+.home .cmp th[scope=col]{font:400 1.05rem/1.15 Anton,Impact,sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#ffa400}
+.home .cmp th[scope=row]{position:sticky;left:0;z-index:1;background:#141414;min-width:12.5rem;color:#fff}
+.home .cmp td.sim{color:#b6ffb0}
+.home .cmp td.nao{color:#ddd}
+.home .treino-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:900px;margin:0 auto;text-align:left}
+.home .treino{background:#0d0d0d;border:3px solid #000;outline:3px solid #ffa400;padding:1.3rem 1.2rem}
+.home .treino.publico{outline-color:#39ff14}
+.home .treino h3{font:400 1.45rem/1.1 Anton,Impact,sans-serif;text-transform:uppercase;color:#ffa400;margin-bottom:.45rem}
+.home .treino.publico h3{color:#39ff14}
+.home .treino p+p{margin-top:.7rem}
+.home #o-que-tem-no-clube .card{background:#ffa400;border:3px solid #000;outline:3px solid #ffa400}
+.home #o-que-tem-no-clube .card h3{color:#000}
+.home #o-que-tem-no-clube .card p{color:#000;font-weight:600}
+.home .regras h3{color:#39ff14;font:clamp(1.5rem,3vw,2rem)/1.1 Anton,Impact,sans-serif;text-transform:uppercase;margin:0 0 1rem;text-align:left}
+.home .blk-orange .prova-num,.home .blk-orange .prova-nota,.home .blk-orange .prova-num span{color:#000}
+.home .selo{display:inline-block;border:2px solid #ffa400;color:#ffa400;font:800 .75rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .55rem;margin:0 0 .8rem}
+.home .faq-sec details{text-align:left}
+.home .faq-sec summary:focus-visible{outline:3px solid #ffa400;outline-offset:2px}
+.home .esc .linha{font-weight:700;color:#fff}
+.home .btn:focus-visible,.home .faq-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.home a.faq-btn{text-decoration:none;color:#fff}
+@media(max-width:800px){
+ .home .stair{grid-template-columns:1fr;max-width:520px}
+ .home .step.s1,.home .step.s2{padding-top:0}
+ .home .treino-grid{grid-template-columns:1fr}
+ .home #planos.sec{max-width:100%}
+ .home .cmp-hint{display:none}
+ .home .cmp-wrap{overflow:visible;border:0}
+ .home .cmp{min-width:0;display:block}
+ .home .cmp caption{display:block}
+ .home .cmp thead{display:none}
+ .home .cmp tbody{display:block}
+ .home .cmp tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 .75rem;border:2px solid #333;background:#0d0d0d}
+ .home .cmp th[scope=row]{grid-column:1/-1;position:static;min-width:0}
+ .home .cmp td{min-width:0;font-size:.88rem}
+ .home .cmp td:nth-child(2)::before{content:"Começar"}
+ .home .cmp td:nth-child(3)::before{content:"Preparar"}
+ .home .cmp td:nth-child(4)::before{content:"Competir"}
+ .home .cmp td::before{display:block;color:#ffa400;font:800 .68rem/1.2 Inter,system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem}
+}
