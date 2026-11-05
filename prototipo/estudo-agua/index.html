@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estudo de camadas — água</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#c6ff4a;--bg:#050505}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#eee;font:16px/1.45 Inter,system-ui,sans-serif}
+.selo{margin:0;padding:.7rem 1rem;background:#120e06;color:#ffa400;font-weight:700;text-align:center}
+main{max-width:1180px;margin:0 auto;padding:1rem}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;font-size:2.4rem;margin:.2rem 0}
+.sub{color:#c8c8c8;max-width:48rem}
+.controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:1rem 0}
+label{display:flex;flex-direction:column;gap:.25rem;color:#ccc;font-size:.9rem}
+input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;border:1px solid #444;border-radius:8px;padding:0 .4rem}
+button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer;font:700 1rem/1 Inter,sans-serif}
+.estado{color:var(--g);font-weight:700}
+.grade{display:grid;gap:1rem}
+@media(min-width:980px){.grade{grid-template-columns:1.15fr .85fr;align-items:start}}
+figure{margin:0}
+img{width:100%;height:auto;display:block;background:#050505;border-radius:16px}
+figcaption{color:#9a9a9a;font-size:.85rem;margin-top:.35rem}
+.fontes{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+</style>
+</head>
+<body>
+<p class="selo">Estudo isolado. Mesma lógica dias/duração. Não entra no ranking e não publica.</p>
+<main>
+  <h1>ÁGUA</h1>
+  <p class="sub">O vidro, a borda e a base vêm do copo vazio. A água azul e o menisco vêm do copo cheio, sem esticar o vidro. Os extremos são os assets originais. Alinhamento conferido: as bordas coincidem, sem deslocar a câmera.</p>
+  <div class="controles">
+    <label>Duração<input id="duracao" type="number" min="7" value="10"></label>
+    <label>Dias cumpridos<input id="dias" type="number" min="0" value="4"></label>
+    <button type="button" id="zero">Zero</button>
+    <button type="button" id="parcial">Parcial</button>
+    <button type="button" id="cheio">Alto</button>
+    <button type="button" id="play">Encher</button>
+  </div>
+  <p class="estado" id="estado"></p>
+  <div class="grade">
+    <figure>
+      <img id="copo" alt="Copo com o nível da simulação" width="1024" height="1024">
+      <figcaption>Composição. O nível segue os dias cumpridos.</figcaption>
+    </figure>
+    <div class="fontes">
+      <figure>
+        <img src="vazio.jpg" alt="Asset do mesmo copo vazio">
+        <figcaption>Asset vazio.</figcaption>
+      </figure>
+      <figure>
+        <img src="cheio.jpg" alt="Asset do mesmo copo com água alta">
+        <figcaption>Asset cheio, nível alto.</figcaption>
+      </figure>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  var TOTAL = 32;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var duracaoEl = document.getElementById("duracao");
+  var diasEl = document.getElementById("dias");
+  var estadoEl = document.getElementById("estado");
+  var copo = document.getElementById("copo");
+  var raf = 0;
+  function ler() {
+    var dur = Math.max(7, Number(duracaoEl.value) || 7);
+    duracaoEl.value = String(dur);
+    diasEl.max = String(dur);
+    var dias = Math.max(0, Math.min(dur, Number(diasEl.value) || 0));
+    diasEl.value = String(dias);
+    return { dur: dur, dias: dias, nivel: dias / dur };
+  }
+  function quadro(nivel) {
+    var i = Math.round(Math.max(0, Math.min(1, nivel)) * (TOTAL - 1));
+    var src = "frames/f-" + String(i).padStart(2, "0") + ".jpg";
+    if (copo.getAttribute("src") !== src) copo.src = src;
+    copo.dataset.quadro = String(i);
+    copo.dataset.progresso = String(Math.round(nivel * 1000) / 1000);
+  }
+  function escrever(nivel, extra) {
+    var s = ler();
+    estadoEl.textContent = "Nível " + Math.round(nivel * 100) + "% · " + s.dias + " de " + s.dur + " dias." + (extra ? " " + extra : "");
+  }
+  function mostrar(nivel, extra) {
+    quadro(nivel);
+    escrever(nivel, extra);
+  }
+  function encher() {
+    var alvo = ler().nivel;
+    if (raf) cancelAnimationFrame(raf);
+    if (reduced) {
+      mostrar(alvo, "Movimento reduzido: estado final direto.");
+      return;
+    }
+    var t0 = performance.now();
+    var frame = function (now) {
+      var u = Math.max(0, Math.min(1, (now - t0) / 2400));
+      var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+      mostrar(alvo * e);
+      if (u < 1) raf = requestAnimationFrame(frame);
+    };
+    mostrar(0);
+    raf = requestAnimationFrame(frame);
+  }
+  document.getElementById("zero").addEventListener("click", function () {
+    if (raf) cancelAnimationFrame(raf);
+    diasEl.value = "0";
+    mostrar(ler().nivel);
+  });
+  document.getElementById("parcial").addEventListener("click", function () {
+    if (raf) cancelAnimationFrame(raf);
+    var dur = ler().dur;
+    diasEl.value = String(Math.round(dur * 0.45));
+    mostrar(ler().nivel);
+  });
+  document.getElementById("cheio").addEventListener("click", function () {
+    if (raf) cancelAnimationFrame(raf);
+    diasEl.value = duracaoEl.value;
+    mostrar(ler().nivel);
+  });
+  document.getElementById("play").addEventListener("click", encher);
+  duracaoEl.addEventListener("change", function () { mostrar(ler().nivel); });
+  diasEl.addEventListener("change", function () { mostrar(ler().nivel); });
+  mostrar(ler().nivel);
+})();
+</script>
+</body>
+</html>
