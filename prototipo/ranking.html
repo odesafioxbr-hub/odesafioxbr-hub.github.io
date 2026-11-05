@@ -24,7 +24,7 @@
 <main>
   <section class="bloco" id="cinco-bonus" aria-labelledby="geral-tit">
     <h2 id="geral-tit">Cinco bônus</h2>
-    <p class="nota">SIMULAÇÃO VISUAL. A conversão oficial destes registros em medalhas está pendente. O estado abaixo não é o valor oficial do desafio.</p>
+    <p class="nota">SIMULAÇÃO VISUAL. A conversão oficial destes registros em medalhas está pendente. O desenho é um teste geométrico e não é o visual realista aprovado.</p>
     <div class="sim-linha" aria-label="Simulação visual da duração">
       <div class="periodos" role="group" aria-label="Duração de exemplo">
         <button type="button" data-dur="7">7 dias</button>
@@ -37,30 +37,27 @@
     <div class="geral">
       <article class="card" id="bonus-agua">
         <h3>Água</h3>
-        <div id="copo"></div>
+        <canvas data-tipo="agua" width="640" height="320"></canvas>
         <p id="agua-txt"></p>
       </article>
       <article class="card" id="bonus-horta">
         <h3>Horta · vegetais</h3>
-        <div id="horta"></div>
+        <canvas data-tipo="horta" width="640" height="320"></canvas>
         <p id="horta-txt"></p>
       </article>
       <article class="card" id="bonus-frutas">
         <h3>Frutas · cesta</h3>
-        <div id="cesta"></div>
+        <canvas data-tipo="frutas" width="640" height="320"></canvas>
         <p id="fruta-txt"></p>
       </article>
       <article class="card" id="bonus-alonga">
         <h3>Alongamento</h3>
-        <div class="pendente">
-          <p>Personagem em avaliação numa prancha separada. Este modelo ainda não entra no ranking.</p>
-        </div>
+        <canvas data-tipo="alongamento" width="640" height="320"></canvas>
         <p id="alonga-txt"></p>
       </article>
       <article class="card" id="bonus-medita">
         <h3>Meditação</h3>
-        <p class="pendente-nota">A figura meditativa também aguarda essa prancha. Aqui só está a escala dos pontos.</p>
-        <div id="chakras" class="chakras"></div>
+        <canvas data-tipo="meditacao" width="640" height="320"></canvas>
         <p id="medita-txt"></p>
       </article>
     </div>
@@ -109,6 +106,7 @@
     <dl id="ficha-nums"></dl>
   </div>
 </div>
+<script src="cenas.js"></script>
 <script src="ranking.js"></script>
 </body>
 </html>

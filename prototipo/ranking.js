@@ -137,14 +137,13 @@
     var dia = estado.dia;
     var frac = d ? dia / d : 0;
     var restantes = Math.max(0, d - dia);
-    document.getElementById("copo").innerHTML = copoSvg(frac, "clip-copo");
+    document.querySelectorAll("canvas[data-tipo]").forEach(function (c) {
+      BonusCenas.play(c, { tipo: c.getAttribute("data-tipo"), duracao: d, dias: dia });
+    });
     document.getElementById("agua-txt").textContent = "Simulação visual: copo " + Math.round(frac * 100) + "% ao longo de " + d + " dias. Sem meta oficial de litros.";
-    document.getElementById("horta").innerHTML = hortaSvg(frac);
-    document.getElementById("horta-txt").textContent = "Vegetais, não frutas. Fileiras de trás menores. " + Math.round(frac * 9) + " de 9 plantas nesta simulação.";
-    document.getElementById("cesta").innerHTML = cestaSvg(d, restantes);
-    document.getElementById("fruta-txt").textContent = "Simulação: 1 fruta some por dia visual. Restam " + restantes + " de " + d + ". Cesta vazia só no fim. Regra oficial de consumo pendente.";
-    document.getElementById("alonga-txt").textContent = "Dia visual " + dia + " de " + d + ". O personagem não entra até a prancha ser aprovada.";
-    document.getElementById("chakras").innerHTML = chakrasHtml(dia, d);
+    document.getElementById("horta-txt").textContent = "Vegetais nascem da terra. Cheia só com os " + d + " dias. Agora " + dia + " de " + d + ".";
+    document.getElementById("fruta-txt").textContent = "Simulação: 1 fruta some por dia cumprido. Restam " + restantes + " de " + d + ". Cesta vazia só no fim.";
+    document.getElementById("alonga-txt").textContent = "Teste geométrico: a figura abre as pernas ao longo de " + dia + " de " + d + " dias. Não é o estudo realista aprovado.";
     var acesos = d ? Math.min(7, (dia / d) * 7) : 0;
     var extra = d === 15 && dia >= 15;
     document.getElementById("medita-txt").textContent = "Sete pontos ao longo de " + d + " dias (" + acesos.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " de 7). " +
@@ -223,7 +222,7 @@
     document.getElementById("ficha-pos").textContent = pos + "º no ranking de exemplo " + (estado.periodo === "dia" ? "do dia" : "do mês") + ". Medalhas de exemplo, sem fórmula oficial.";
     var dl = document.getElementById("ficha-nums");
     dl.innerHTML = "";
-    [["Medalhas", String(atleta.medalhas)], ["Água", atleta.agua.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " L"], ["Vegetais", String(atleta.vegetais)], ["Frutas", String(atleta.frutas)], ["Alongamento", atleta.alongamento + " · modelo pendente"], ["Meditação", atleta.meditacao + " · figura pendente"]].forEach(function (par) {
+    [["Medalhas", String(atleta.medalhas)], ["Água", atleta.agua.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " L"], ["Vegetais", String(atleta.vegetais)], ["Frutas", String(atleta.frutas)], ["Alongamento", atleta.alongamento + " · teste geométrico"], ["Meditação", atleta.meditacao + " · teste geométrico"]].forEach(function (par) {
       var dt = document.createElement("dt");
       dt.textContent = par[0];
       var dd = document.createElement("dd");
