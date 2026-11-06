@@ -34,6 +34,28 @@
 /* Caixa X oculta: a divisória seguinte cairia no mesmo vão da comparação. Fica uma só, no padrão das outras. */
 #caixa-x[hidden] + .seam{display:none}
 #ainda-nao-quer-assinar.sec{padding-top:5.5rem}
+/* Quem está por trás: foto quadrada em P&B; no clique vem à frente, colorida, com o texto. */
+.home #quem.sec{padding-bottom:9rem}
+.home #quem .quem-fila{display:flex;justify-content:center;align-items:flex-end;padding:0 0 1.2rem}
+.home #quem .quem-pessoa{position:relative;width:168px;margin-left:-72px;z-index:1;flex:0 0 auto}
+.home #quem .quem-pessoa:first-child{margin-left:0}
+.home #quem .quem-pessoa:nth-child(2){z-index:2}
+.home #quem .quem-pessoa:nth-child(3){z-index:3}
+.home #quem .quem-pessoa:nth-child(4){z-index:4}
+.home #quem .quem-pessoa:nth-child(5){z-index:5}
+.home #quem .quem-foto{display:block;width:100%;aspect-ratio:1/1;padding:0;border:3px solid #111;background:#111;cursor:pointer;filter:grayscale(1);line-height:0;overflow:hidden}
+.home #quem .quem-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+@media(max-width:800px){
+  .home #quem .quem-pessoa{width:86px;margin-left:-28px}
+  .home #quem.sec{padding-bottom:8rem}
+}
+.home #quem .quem-pessoa.ativa{z-index:6}
+.home #quem .quem-pessoa.ativa .quem-foto{filter:none;border-color:#39ff14}
+.home #quem .quem-info{max-width:720px;margin:0 auto;text-align:left;background:#0d0d0d;border:2px solid #39ff14;padding:1rem 1.15rem}
+.home #quem .quem-info[hidden]{display:none}
+.home #quem .quem-info h3{font:400 1.6rem/1.1 Anton,Impact,sans-serif;text-transform:uppercase;color:#39ff14;margin:0 0 .35rem}
+.home #quem .quem-papel{color:#ffa400;font-weight:800;margin:0 0 .7rem}
+.home #quem .quem-info p:last-child{color:#ddd;line-height:1.55;margin:0}
 /* Escada dos três planos: mesma largura. Começar menor e branco. Preparar e Competir maiores. */
 .home .step.s1 .plan{background:#fff;color:#000;border-color:#000;outline-color:#ddd}
 .home .step.s1 .plan .pl{color:#000}
@@ -350,6 +372,57 @@
 <img class="brush bot" src="../assets/pincel-laranja-base.webp" alt="" aria-hidden="true" width="2400" height="90">
 </div>
 
+<section id="quem" class="sec">
+  <h2 class="graf">Quem está <b>por trás?</b></h2>
+  <div class="quem-fila">
+    <article class="quem-pessoa">
+      <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-son">
+        <img src="../assets/son.webp" alt="Son" width="900" height="1200" style="object-position:center 18%">
+      </button>
+    </article>
+    <article class="quem-pessoa">
+      <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-celo">
+        <img src="../assets/quem/celo.jpg" alt="Celo" width="900" height="1200" style="object-position:center 28%">
+      </button>
+    </article>
+    <article class="quem-pessoa">
+      <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-lilia">
+        <img src="../assets/quem/lilia.jpeg" alt="Lilia Godoi" width="961" height="1280" style="object-position:center 34%">
+      </button>
+    </article>
+    <article class="quem-pessoa">
+      <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-matheus">
+        <img src="../assets/quem/matheus.jpeg" alt="Matheus" width="960" height="1280" style="object-position:center 18%">
+      </button>
+    </article>
+    <article class="quem-pessoa">
+      <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-wendie">
+        <img src="../assets/quem/wendie.jpeg" alt="Wendie Abreu" width="1019" height="750" style="object-position:center 42%">
+      </button>
+    </article>
+  </div>
+  <div class="quem-info" id="quem-son" hidden>
+    <h3>Son</h3>
+    <p class="quem-papel">Fundador</p>
+    <p>Olá! Sou o Son, nasci na década de 80, sou pai, marido e apaixonado por esportes e atividades físicas. Fui atleta de tiros de 50 e 100 metros, além do salto em distância. Também fui b.boy (dançarino de break) e sou praticante e professor de parkour há mais de 10 anos. Sou fundador do Projeto Parkour do Litoral e um dos diretores da Confederação Brasileira de Parkour (CBPK).</p>
+  </div>
+  <div class="quem-info" id="quem-celo" hidden>
+    <h3>Celo</h3>
+  </div>
+  <div class="quem-info" id="quem-lilia" hidden>
+    <h3>Lilia Godoi</h3>
+    <p>Lilia Godoi é treinadora e voach mental de atletas. Fundadora da Lilia Godoi Assessoria Esportiva criadora do Método Integração, que integra corpo, mente e espiritualidade para a máxima performance. Áreas de especialização: Formada em Educação Física. Pós graduada em Treinamento Esportivo. Pós Graduada em Neurociência e Treinamento Mental no Esporte, mestre de Reiki, .Formação em coaching, EFT e análise corporal. Coordenadora do Projeto Empresto Minha Pernas, que promove atividades inclusivas. Além disso, Lilia iniciou sua carreira esportiva aos 6 anos de idade , quando correu a I Corrida Feminina da América do Sul, completando o percurso de 5 km em apenas 26 minutos! Em seu currículo de atleta, os principais títulos são: 🥇 Campeã do Reality Show de Esportes Radicais O Conquistador do Fim do Mundo, veiculado pelo SBT em 2003 🥇 Campeã Sulamericana de Triathlon 🥇 Campeã estadual de canoa havaiana Campeã Brasileira de Canoa Havaiana 🥇 Vice Campeã Panamericana de triathlon Bicampeã Estadual de Va’a ( Canoa Havaiana )- 2024 e 2025 Campeã Brasileira Va’a 2025 - Maratona Campeã Brasileira Va’a 2026- Sprint</p>
+  </div>
+  <div class="quem-info" id="quem-matheus" hidden>
+    <h3>Matheus</h3>
+    <p>Sou psicólogo clínico, com atuação voltada à saúde mental, relações e ao desenvolvimento humano. Pratico parkour desde 2014, esporte no qual também atuei como professor, e sou apaixonado pelo surf. Acredito no esporte como uma importante ferramenta para promover o bem-estar físico e emocional.</p>
+  </div>
+  <div class="quem-info" id="quem-wendie" hidden>
+    <h3>Wendie Abreu</h3>
+    <p>Sou Wendie Abreu, brasiliense e atualmente residente em Guanambi–BA. Minha relação com o movimento vem de longa data: pratico Yoga há 10 anos e, há 1 ano, compartilho essa paixão como professora. Ao longo da vida, experimentei diferentes modalidades, do balé às artes marciais, e sigo descobrindo novas formas de me movimentar. Hoje, além do Yoga, pratico natação, capoeira e exercícios funcionais em casa. Ministro aulas de Hatha Yoga, Vinyasa Flow e Ashtanga Yoga, além de pontualmente com aulas voltadas ao Neuro Yoga, buscando proporcionar um espaço de conexão, acolhimento e autoconhecimento, onde cada pessoa possa respeitar seu próprio ritmo e se reconectar consigo mesma.</p>
+  </div>
+</section>
+
 <div class="seam s2 fixa" aria-hidden="true"><span class="tp k c"></span><span class="tp f a"></span><span class="tp f b"></span></div>
 
 <div class="blk blk-green">
@@ -552,5 +625,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 </script>
 <script src="../js/player.js" defer></script>
 <script>document.querySelectorAll('.dep').forEach(function(c){c.addEventListener('touchstart',function(){document.querySelectorAll('.dep.on').forEach(function(o){if(o!==c)o.classList.remove('on')});c.classList.add('on')},{passive:true})});</script>
+<script>
+document.querySelectorAll('#quem .quem-foto').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var pessoa=btn.closest('.quem-pessoa');
+    var abrindo=!pessoa.classList.contains('ativa');
+    document.querySelectorAll('#quem .quem-pessoa').forEach(function(p){
+      p.classList.remove('ativa');
+      var b=p.querySelector('.quem-foto');
+      if(b)b.setAttribute('aria-expanded','false');
+    });
+    document.querySelectorAll('#quem .quem-info').forEach(function(info){info.hidden=true;});
+    if(!abrindo)return;
+    pessoa.classList.add('ativa');
+    btn.setAttribute('aria-expanded','true');
+    var info=document.getElementById(btn.getAttribute('aria-controls'));
+    if(info)info.hidden=false;
+  });
+});
+</script>
 </body>
 </html>
