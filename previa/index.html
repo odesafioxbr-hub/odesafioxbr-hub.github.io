@@ -34,23 +34,28 @@
 /* Caixa X oculta: a divisória seguinte cairia no mesmo vão da comparação. Fica uma só, no padrão das outras. */
 #caixa-x[hidden] + .seam{display:none}
 #ainda-nao-quer-assinar.sec{padding-top:5.5rem}
-/* Quem está por trás: foto quadrada em P&B; no clique vem à frente, colorida, com o texto. */
+/* Quem está por trás: polaroides inclinadas, sobrepostas. P&B até vir à frente. */
 .home #quem.sec{padding-bottom:9rem}
-.home #quem .quem-fila{display:flex;justify-content:center;align-items:flex-end;padding:0 0 1.2rem}
-.home #quem .quem-pessoa{position:relative;width:168px;margin-left:-72px;z-index:1;flex:0 0 auto}
+.home #quem .quem-fila{display:flex;justify-content:center;align-items:flex-end;padding:1.4rem 0 1.6rem}
+.home #quem .quem-pessoa{position:relative;width:176px;margin-left:-78px;z-index:1;flex:0 0 auto;transform:rotate(var(--r));transition:transform .28s ease}
 .home #quem .quem-pessoa:first-child{margin-left:0}
-.home #quem .quem-pessoa:nth-child(2){z-index:2}
-.home #quem .quem-pessoa:nth-child(3){z-index:3}
-.home #quem .quem-pessoa:nth-child(4){z-index:4}
-.home #quem .quem-pessoa:nth-child(5){z-index:5}
-.home #quem .quem-foto{display:block;width:100%;aspect-ratio:1/1;padding:0;border:3px solid #111;background:#111;cursor:pointer;filter:grayscale(1);line-height:0;overflow:hidden}
+.home #quem .quem-pessoa:nth-child(1){--r:-7deg;z-index:1}
+.home #quem .quem-pessoa:nth-child(2){--r:5deg;z-index:2}
+.home #quem .quem-pessoa:nth-child(3){--r:-4deg;z-index:3}
+.home #quem .quem-pessoa:nth-child(4){--r:6deg;z-index:4}
+.home #quem .quem-pessoa:nth-child(5){--r:-5deg;z-index:5}
+.home #quem .quem-foto{display:block;width:100%;aspect-ratio:1/1;padding:8px 8px 26px;border:0;background:#f6f3ec;cursor:pointer;filter:grayscale(1);line-height:0;box-shadow:0 10px 16px rgba(0,0,0,.45);transition:filter .28s ease}
 .home #quem .quem-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.home #quem .quem-pessoa.frente{z-index:8;transform:rotate(-1deg) translateY(-16px) scale(1.08)}
+.home #quem .quem-pessoa.frente .quem-foto{filter:none}
 @media(max-width:800px){
-  .home #quem .quem-pessoa{width:86px;margin-left:-28px}
+  .home #quem .quem-pessoa{width:92px;margin-left:-34px}
+  .home #quem .quem-foto{padding:5px 5px 16px}
   .home #quem.sec{padding-bottom:8rem}
 }
-.home #quem .quem-pessoa.ativa{z-index:6}
-.home #quem .quem-pessoa.ativa .quem-foto{filter:none;border-color:#39ff14}
+@media(prefers-reduced-motion:reduce){
+  .home #quem .quem-pessoa,.home #quem .quem-foto{transition:none}
+}
 .home #quem .quem-info{max-width:720px;margin:0 auto;text-align:left;background:#0d0d0d;border:2px solid #39ff14;padding:1rem 1.15rem}
 .home #quem .quem-info[hidden]{display:none}
 .home #quem .quem-info h3{font:400 1.6rem/1.1 Anton,Impact,sans-serif;text-transform:uppercase;color:#39ff14;margin:0 0 .35rem}
@@ -626,23 +631,62 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 <script src="../js/player.js" defer></script>
 <script>document.querySelectorAll('.dep').forEach(function(c){c.addEventListener('touchstart',function(){document.querySelectorAll('.dep.on').forEach(function(o){if(o!==c)o.classList.remove('on')});c.classList.add('on')},{passive:true})});</script>
 <script>
-document.querySelectorAll('#quem .quem-foto').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var pessoa=btn.closest('.quem-pessoa');
-    var abrindo=!pessoa.classList.contains('ativa');
+(function(){
+  var fila=document.querySelector('#quem .quem-fila');
+  if(!fila)return;
+  var pin=null, sobre=null, travar=false, ultimo=scrollY, muda=0;
+  function mostrar(btn){
+    muda=performance.now();
     document.querySelectorAll('#quem .quem-pessoa').forEach(function(p){
-      p.classList.remove('ativa');
+      p.classList.remove('frente');
       var b=p.querySelector('.quem-foto');
       if(b)b.setAttribute('aria-expanded','false');
     });
     document.querySelectorAll('#quem .quem-info').forEach(function(info){info.hidden=true;});
-    if(!abrindo)return;
-    pessoa.classList.add('ativa');
+    if(!btn)return;
+    var pessoa=btn.closest('.quem-pessoa');
+    pessoa.classList.add('frente');
     btn.setAttribute('aria-expanded','true');
     var info=document.getElementById(btn.getAttribute('aria-controls'));
     if(info)info.hidden=false;
+    requestAnimationFrame(function(){ultimo=scrollY;});
+  }
+  function dentro(el,alvo){return !!(el&&alvo&&(alvo===el||el.contains(alvo)));}
+  function pintar(){mostrar(sobre||pin);}
+  fila.querySelectorAll('.quem-foto').forEach(function(btn){
+    var info=document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('pointerenter',function(e){
+      if(e.pointerType!=='mouse'||travar)return;
+      sobre=btn;
+      pintar();
+    });
+    btn.addEventListener('pointerleave',function(e){
+      if(e.pointerType!=='mouse')return;
+      if(dentro(info,e.relatedTarget))return;
+      if(sobre===btn)sobre=null;
+      pintar();
+    });
+    if(info)info.addEventListener('pointerleave',function(e){
+      if(e.pointerType&&e.pointerType!=='mouse')return;
+      if(dentro(btn,e.relatedTarget))return;
+      if(sobre===btn)sobre=null;
+      pintar();
+    });
+    btn.addEventListener('click',function(){
+      pin=btn;
+      pintar();
+    });
   });
-});
+  addEventListener('pointermove',function(){travar=false;},{passive:true});
+  addEventListener('scroll',function(){
+    if(performance.now()-muda<80){ultimo=scrollY;return;}
+    if(Math.abs(scrollY-ultimo)<8){ultimo=scrollY;return;}
+    ultimo=scrollY;
+    if(!pin&&!sobre)return;
+    pin=null;sobre=null;travar=true;
+    mostrar(null);
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
