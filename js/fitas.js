@@ -15,6 +15,11 @@
       im.dataset.txt.split(';').forEach(function(s){var f=s.split(',').map(Number);
         out.push([b.left+sx+f[0]*b.width,b.top+sy+f[1]*b.height,b.left+sx+f[2]*b.width,b.top+sy+f[3]*b.height]);});
     });
+    document.querySelectorAll('.faq-btn').forEach(function(btn){
+      var b=btn.getBoundingClientRect();if(!b.width||!b.height)return;
+      var pad=26;
+      out.push([b.left+sx-pad,b.top+sy-pad,b.right+sx+pad,b.bottom+sy+pad]);
+    });
     return out;
   }
   function hits(rects,cx,cy,deg,r){

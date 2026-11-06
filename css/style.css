@@ -454,6 +454,13 @@ details p a{color:var(--o)}
 .home .selo{display:inline-block;border:2px solid #ffa400;color:#ffa400;font:800 .75rem/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .55rem;margin:0 0 .8rem}
 .home .faq-sec details{text-align:left}
 .home .faq-sec summary:focus-visible{outline:3px solid #ffa400;outline-offset:2px}
+.home .faq-sec{position:relative;z-index:7;padding-top:4.75rem;padding-bottom:4.75rem}
+.home .faq-btn{z-index:8;border:2px solid #39ff14;background:#0a0d0a;color:#fff;font-size:1.2rem;letter-spacing:.01em;box-shadow:0 0 10px rgba(57,255,20,.4);overflow:visible}
+.home .faq-btn::before{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#f4fff4;box-shadow:0 0 8px 3px #39ff14,0 0 18px 6px rgba(57,255,20,.75);offset-path:inset(0 round 0);offset-anchor:50% 50%;offset-distance:0%;animation:faqLed 5.2s linear infinite;pointer-events:none;z-index:2}
+@keyframes faqLed{to{offset-distance:100%}}
+.home .faq-btn:hover,.home .faq-btn:focus-visible,.home .faq-btn:active{border-color:#39ff14;box-shadow:0 0 12px rgba(57,255,20,.55)}
+@media(prefers-reduced-motion:reduce){.home .faq-btn::before{animation:none;offset-distance:8%}}
+@media(max-width:800px){.home .faq-btn{font-size:1.12rem;padding:1.05rem 1rem}}
 .home .esc .linha{font-weight:700;color:#fff}
 .home .btn:focus-visible,.home .faq-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .home a.faq-btn{text-decoration:none;color:#fff}
