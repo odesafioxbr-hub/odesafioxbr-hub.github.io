@@ -28,7 +28,7 @@ canvas{width:100%;height:auto;background:#050505;border-radius:16px;display:bloc
 <p class="selo">Estudo isolado. A água aprovada não entra aqui. Não publica.</p>
 <main>
   <h1>FRUTAS</h1>
-  <p class="sub">A cesta começa com uma porção para cada dia da duração. Cada dia cumprido apaga uma, sem abrir buraco: o que sai estava desenhado por cima da cesta vazia. O exemplo desta cena é outro hábito, 4 de 7.</p>
+  <p class="sub">Duração 7 neste exemplo, com 4 dias cumpridos. As sete porções nascem em lugares fixos. No replay, só as consumidas somem no próprio lugar. Nenhuma troca de fruta nem de posição.</p>
   <div class="controles">
     <label>Duração<input id="duracao" type="number" min="7" value="7"></label>
     <label>Dias cumpridos<input id="dias" type="number" min="0" value="4"></label>
@@ -65,56 +65,73 @@ canvas{width:100%;height:auto;background:#050505;border-radius:16px;display:bloc
     diasEl.value = String(dias);
     return { dur: dur, dias: dias };
   }
+  var tipos = [3, 1, 2, 0, 4, 5, 2, 1, 0, 4, 3, 5];
   function spots(n) {
-    var ecx = 506, ecy = 443, eaw = 478, eah = 234;
-    var rows = n <= 6 ? 2 : n <= 12 ? 3 : 4;
+    var rows = n <= 4 ? 1 : n <= 8 ? 2 : 3;
     var counts = [];
-    for (var r = 0; r < rows; r++) counts.push(Math.floor(n / rows) + (r < n % rows ? 1 : 0));
+    var base = Math.floor(n / rows), extra = n % rows;
+    for (var r = 0; r < rows; r++) counts.push(base + (r < extra ? 1 : 0));
     var list = [], idx = 0;
     for (var r = 0; r < rows; r++) {
       var depth = rows === 1 ? 1 : r / (rows - 1);
-      var y = ecy - eah * 0.22 + depth * eah * 0.5;
-      var span = eaw * (0.42 + 0.38 * depth);
-      var sc = 0.78 + 0.45 * depth;
-      var fit = n <= 16 ? 1 : 16 / n;
-      for (var k = 0; k < counts[r]; k++) {
-        var x = ecx - span / 2 + (k + 0.5) * span / counts[r];
-        list.push({ x: x + ((idx * 37) % 7) - 3, y: y, sc: sc * fit, i: idx });
+      var y = 390 + depth * 115;
+      var span = 280 + depth * 160;
+      var sc = 0.72 + depth * 0.22;
+      var c = counts[r];
+      for (var k = 0; k < c; k++) {
+        list.push({
+          x: 512 - span / 2 + (k + 0.5) * (span / c),
+          y: y,
+          sc: sc,
+          i: idx,
+          tipo: tipos[idx % tipos.length]
+        });
         idx++;
       }
     }
     return list;
   }
-  function desenhar(restantes, extra) {
+  function desenhar(comidos, extra) {
     var s = ler();
-    var n = s.dur;
-    var lista = spots(n);
+    var lista = spots(s.dur);
     ctx.clearRect(0, 0, 1024, 1024);
     if (cesta.complete && cesta.naturalWidth) ctx.drawImage(cesta, 0, 0, 1024, 1024);
+    var mapa = [];
     lista.forEach(function (p) {
-      if (p.i >= restantes) return;
-      var img = frutas[p.i % frutas.length];
+      var op = Math.max(0, Math.min(1, s.dur - p.i - comidos));
+      mapa.push({ i: p.i, tipo: p.tipo, x: Math.round(p.x), y: Math.round(p.y), op: Math.round(op * 100) / 100 });
+      if (op <= 0) return;
+      var img = frutas[p.tipo];
       if (!img.complete || !img.naturalWidth) return;
-      var alvo = 150 * p.sc;
+      var alvo = 118 * p.sc;
       var sc = alvo / Math.max(img.naturalWidth, img.naturalHeight);
       var w = img.naturalWidth * sc, h = img.naturalHeight * sc;
       ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,.4)";
-      ctx.shadowBlur = 16;
-      ctx.shadowOffsetY = 8;
-      ctx.drawImage(img, p.x - w / 2, p.y - h * 0.55, w, h);
+      ctx.globalAlpha = op;
+      ctx.shadowColor = "rgba(0,0,0,.35)";
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+      ctx.drawImage(img, p.x - w / 2, p.y - h * 0.5, w, h);
       ctx.restore();
     });
-    canvas.dataset.restantes = String(restantes);
+    var restam = lista.filter(function (p) { return s.dur - p.i - comidos > 0.02; }).length;
+    canvas.dataset.restantes = String(restam);
     canvas.dataset.duracao = String(s.dur);
     canvas.dataset.dias = String(s.dias);
-    estadoEl.textContent = "Restam " + restantes + " de " + s.dur + " porções. Dias cumpridos " + s.dias + "." + (extra ? " " + extra : "");
+    canvas.dataset.mapa = JSON.stringify(mapa);
+    estadoEl.textContent = "Restam " + restam + " de " + s.dur + " porções. Dias cumpridos " + s.dias + "." + (extra ? " " + extra : "");
   }
   function parar() { if (raf) cancelAnimationFrame(raf); raf = 0; }
   function mostrarFinal(extra) {
-    var s = ler();
-    desenhar(s.dur - s.dias, extra);
+    desenhar(ler().dias, extra);
   }
+  function quadro(u) {
+    var s = ler();
+    var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    desenhar(s.dias * e);
+    return canvas.toDataURL("image/jpeg", 0.86);
+  }
+  window.__quadro = quadro;
   function consumir() {
     var s = ler();
     parar();
@@ -125,13 +142,11 @@ canvas{width:100%;height:auto;background:#050505;border-radius:16px;display:bloc
     var t0 = performance.now();
     var frame = function (now) {
       var u = Math.max(0, Math.min(1, (now - t0) / 2400));
-      var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-      var gastos = Math.round(s.dias * e);
-      desenhar(s.dur - gastos);
+      quadro(u);
       if (u < 1) raf = requestAnimationFrame(frame);
       else raf = 0;
     };
-    desenhar(s.dur);
+    quadro(0);
     raf = requestAnimationFrame(frame);
   }
   document.getElementById("zero").addEventListener("click", function () { parar(); diasEl.value = "0"; mostrarFinal(); });

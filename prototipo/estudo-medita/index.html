@@ -97,7 +97,7 @@ button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#
     }
     pontos.forEach(function (p) {
       var f = fDe(p);
-      var on = Math.max(0, Math.min(1, (light - (f - 0.06)) / 0.1));
+      var on = light <= 0 ? 0 : Math.max(0, Math.min(1, (light - (f - 0.08)) / 0.08));
       ctx.beginPath();
       ctx.arc(p.x, p.y, 8 + 4 * on, 0, Math.PI * 2);
       ctx.fillStyle = on > 0.04 ? p.cor : "rgba(0,0,0,0)";
@@ -123,7 +123,9 @@ button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#
         ctx.shadowBlur = 0;
       }
     }
+    var ponta = light > 0.012 ? pelvis.y + (coroa.y - pelvis.y) * light : pelvis.y;
     canvas.dataset.luz = String(Math.round(light * 1000) / 1000);
+    canvas.dataset.ponta = String(Math.round(ponta * 10) / 10);
     canvas.dataset.extras = extras ? "8" : "0";
   }
   function texto(light, extras, extra) {
@@ -138,6 +140,23 @@ button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#
     desenhar(light, extras);
     texto(light, extras, extra);
   }
+  function quadro(u) {
+    var s = ler();
+    var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    var light = s.nivel * e;
+    var extras = s.dur === 15 && s.dias >= s.dur && u >= 0.98;
+    desenhar(light, extras);
+    texto(light, extras);
+    var saida = document.createElement("canvas");
+    saida.width = 420;
+    saida.height = 600;
+    var g = saida.getContext("2d");
+    var fig = document.getElementById("figura");
+    if (fig.complete && fig.naturalWidth) g.drawImage(fig, 0, 0, 420, 600);
+    g.drawImage(canvas, 0, 0);
+    return saida.toDataURL("image/jpeg", 0.86);
+  }
+  window.__quadro = quadro;
   function acender() {
     var s = ler();
     var alvo = s.nivel;
