@@ -66,7 +66,7 @@
     <h2 id="podio-tit">Pódio de exemplo</h2>
     <p class="vazio" id="nao-publicado" hidden>Simulação: o resultado deste período não está publicado.</p>
     <div id="area-publicada">
-      <p class="nota" id="top5-nota" hidden>Simulação: o top 5 não aparece nesta vista. No sistema real, esses nomes não viriam do servidor.</p>
+      <p class="nota" id="top5-nota" hidden>Nome e pontuação dos cinco primeiros não entram nesta vista. Os lugares continuam, e do 6º em diante os dados de exemplo seguem visíveis.</p>
       <ol class="podio" id="podio"></ol>
     </div>
   </section>
@@ -88,7 +88,7 @@
     <h2 id="sim-tit">Simulação visual</h2>
     <label class="check"><input type="checkbox" id="publicar" checked> Publicar resultado</label>
     <label class="check"><input type="checkbox" id="revelar" checked> Revelar top 5</label>
-    <p>Desmarcar «Revelar top 5» só muda esta simulação: some o pódio, a lista continua do 6º em diante e a contagem geral permanece. A busca e a ficha desta tela também deixam de mostrar esses cinco. Marcar de novo os traz de volta aqui. Isto não é o controle do organizador e não protege dados: os nomes de exemplo continuam no script do protótipo. No sistema real, ocultar o top 5 tem de acontecer no servidor, antes de a página receber esses nomes.</p>
+    <p>No mês, desmarcar «Revelar top 5» tira nome e pontuação só dos cinco primeiros. Os lugares e quem está do 6º em diante continuam. O ranking do dia não usa esse controle. Esta caixa não grava na planilha: o controle que permanece é o da aba Criar Desafio. A lista, a busca e a ficha desta tela só recebem a vista já sem esses nomes.</p>
   </section>
 </main>
 <div id="ficha" class="ficha" hidden role="dialog" aria-modal="true" aria-labelledby="ficha-nome">
@@ -107,6 +107,7 @@
   </div>
 </div>
 <script src="cenas.js"></script>
+<script src="ranking-vista.js"></script>
 <script src="ranking.js"></script>
 </body>
 </html>

@@ -45,20 +45,19 @@
   var fichaAbertaId = null;
 
   function base() { return estado.periodo === "dia" ? DIA : MES; }
-  function ordenada() {
-    return base().slice().sort(function (a, b) {
-      return b.medalhas - a.medalhas || a.nome.localeCompare(b.nome, "pt-BR");
+  function vista() {
+    return RankingVista.cargaPublica(base(), {
+      publicado: estado.publicar,
+      ocultarTop5: estado.periodo === "mes" && !estado.revelar
     });
   }
   function visivel() {
-    var corte = estado.revelar ? ordenada() : ordenada().slice(5);
+    var itens = vista().itens;
     var q = estado.busca.trim().toLocaleLowerCase("pt-BR");
-    if (!q) return corte;
-    return corte.filter(function (a) { return a.nome.toLocaleLowerCase("pt-BR").indexOf(q) !== -1; });
-  }
-  function ehOculto(id) {
-    if (estado.revelar) return false;
-    return ordenada().slice(0, 5).some(function (a) { return a.id === id; });
+    if (!q) return itens;
+    return itens.filter(function (a) {
+      return a.nome && a.nome.toLocaleLowerCase("pt-BR").indexOf(q) !== -1;
+    });
   }
   function medalha() {
     return '<svg class="medalha" viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffa400" d="M8.5 2h7l-1.4 6h-4.2z"/><circle cx="12" cy="15.5" r="6.2" fill="#143018" stroke="#39ff14" stroke-width="1.6"/></svg>';
@@ -169,10 +168,11 @@
     li.querySelector(".degrau").textContent = lugar + "º";
     return li;
   }
-  function desenharPodio(todos) {
+  function desenharPodio(carga) {
     podio.innerHTML = "";
-    var top = estado.revelar ? todos.slice(0, 3) : [];
-    document.getElementById("top5-nota").hidden = estado.revelar;
+    var oculto = estado.periodo === "mes" && !estado.revelar;
+    document.getElementById("top5-nota").hidden = !oculto;
+    var top = oculto ? [] : carga.itens.filter(function (a) { return a.nome && a.pos <= 3; });
     podio.hidden = !top.length;
     if (!top.length) return;
     [top[1], top[0], top[2]].forEach(function (atleta, i) {
@@ -180,39 +180,43 @@
     });
   }
   function desenharLista() {
+    var carga = vista();
     var itens = visivel();
     var paginas = Math.max(1, Math.ceil(itens.length / POR_PAGINA));
     if (estado.pagina > paginas) estado.pagina = paginas;
     var ini = (estado.pagina - 1) * POR_PAGINA;
     var fatia = itens.slice(ini, ini + POR_PAGINA);
-    var ranking = ordenada();
     lista.innerHTML = "";
     fatia.forEach(function (atleta) {
-      var pos = ranking.findIndex(function (a) { return a.id === atleta.id; }) + 1;
       var li = document.createElement("li");
+      if (atleta.oculto) {
+        li.innerHTML = '<span class="pos"></span><span class="nome"></span><span class="medalhas"></span>';
+        li.querySelector(".pos").textContent = atleta.pos + "º";
+        li.querySelector(".nome").textContent = "Oculto";
+        lista.appendChild(li);
+        return;
+      }
       var btn = document.createElement("button");
       btn.type = "button";
       btn.setAttribute("aria-haspopup", "dialog");
       btn.innerHTML = '<span class="pos"></span><span class="nome"></span><span class="medalhas"></span>';
-      btn.querySelector(".pos").textContent = pos + "º";
+      btn.querySelector(".pos").textContent = atleta.pos + "º";
       btn.querySelector(".nome").textContent = atleta.nome;
       btn.querySelector(".medalhas").innerHTML = medalha() + " " + atleta.medalhas;
-      btn.addEventListener("click", function () { abrirFicha(atleta, pos, btn); });
+      btn.addEventListener("click", function () { abrirFicha(atleta, atleta.pos, btn); });
       li.appendChild(btn);
       lista.appendChild(li);
     });
-    var total = ranking.length;
+    var total = carga.total;
     var texto;
     if (!fatia.length) {
       texto = estado.busca.trim() ? "Nenhum atleta visível com esse nome." : "Nenhum atleta nesta vista.";
     } else if (estado.busca.trim()) {
       texto = fatia.length + (fatia.length === 1 ? " atleta visível" : " atletas visíveis") + " com esse nome, no ranking de " + total + ".";
     } else {
-      var p0 = ranking.findIndex(function (a) { return a.id === fatia[0].id; }) + 1;
-      var p1 = ranking.findIndex(function (a) { return a.id === fatia[fatia.length - 1].id; }) + 1;
-      texto = p0 + "–" + p1 + " de " + total + " atletas de exemplo.";
+      texto = fatia[0].pos + "–" + fatia[fatia.length - 1].pos + " de " + total + " atletas de exemplo.";
     }
-    if (!estado.revelar) texto += " Os cinco primeiros não aparecem nesta vista.";
+    if (estado.periodo === "mes" && !estado.revelar) texto += " Nome e pontuação dos cinco primeiros não entram nesta vista.";
     document.getElementById("contagem").textContent = texto;
     document.getElementById("pagina").textContent = "Página " + estado.pagina + " de " + paginas;
     document.getElementById("prev").disabled = estado.pagina <= 1;
@@ -226,10 +230,9 @@
     aviso.hidden = estado.publicar;
     publicado.hidden = !estado.publicar;
     blocoLista.hidden = !estado.publicar;
-    if (fichaAbertaId && (!estado.publicar || ehOculto(fichaAbertaId))) limparFicha();
+    if (fichaAbertaId && (!estado.publicar || !vista().itens.some(function (a) { return a.id === fichaAbertaId; }))) limparFicha();
     if (!estado.publicar) return;
-    var todos = ordenada();
-    desenharPodio(todos);
+    desenharPodio(vista());
     desenharLista();
   }
   function limparFicha() {
@@ -241,7 +244,7 @@
     document.getElementById("ficha-planta").hidden = true;
   }
   function abrirFicha(atleta, pos, origem) {
-    if (ehOculto(atleta.id)) return;
+    if (!atleta || !atleta.nome || !vista().itens.some(function (a) { return a.id === atleta.id; })) return;
     ultimoFoco = origem;
     fichaAbertaId = atleta.id;
     document.getElementById("ficha-nome").textContent = atleta.nome;
