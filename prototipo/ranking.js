@@ -42,6 +42,7 @@
   var busca = document.getElementById("busca");
   var ficha = document.getElementById("ficha");
   var ultimoFoco = null;
+  var fichaAbertaId = null;
 
   function base() { return estado.periodo === "dia" ? DIA : MES; }
   function ordenada() {
@@ -54,6 +55,10 @@
     var q = estado.busca.trim().toLocaleLowerCase("pt-BR");
     if (!q) return corte;
     return corte.filter(function (a) { return a.nome.toLocaleLowerCase("pt-BR").indexOf(q) !== -1; });
+  }
+  function ehOculto(id) {
+    if (estado.revelar) return false;
+    return ordenada().slice(0, 5).some(function (a) { return a.id === id; });
   }
   function medalha() {
     return '<svg class="medalha" viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffa400" d="M8.5 2h7l-1.4 6h-4.2z"/><circle cx="12" cy="15.5" r="6.2" fill="#143018" stroke="#39ff14" stroke-width="1.6"/></svg>';
@@ -196,9 +201,19 @@
       li.appendChild(btn);
       lista.appendChild(li);
     });
-    document.getElementById("contagem").textContent = itens.length
-      ? (ini + 1) + "–" + (ini + fatia.length) + " de " + itens.length + " atletas de exemplo."
-      : "Nenhum atleta de exemplo com esse nome.";
+    var total = ranking.length;
+    var texto;
+    if (!fatia.length) {
+      texto = estado.busca.trim() ? "Nenhum atleta visível com esse nome." : "Nenhum atleta nesta vista.";
+    } else if (estado.busca.trim()) {
+      texto = fatia.length + (fatia.length === 1 ? " atleta visível" : " atletas visíveis") + " com esse nome, no ranking de " + total + ".";
+    } else {
+      var p0 = ranking.findIndex(function (a) { return a.id === fatia[0].id; }) + 1;
+      var p1 = ranking.findIndex(function (a) { return a.id === fatia[fatia.length - 1].id; }) + 1;
+      texto = p0 + "–" + p1 + " de " + total + " atletas de exemplo.";
+    }
+    if (!estado.revelar) texto += " Os cinco primeiros não aparecem nesta vista.";
+    document.getElementById("contagem").textContent = texto;
     document.getElementById("pagina").textContent = "Página " + estado.pagina + " de " + paginas;
     document.getElementById("prev").disabled = estado.pagina <= 1;
     document.getElementById("next").disabled = estado.pagina >= paginas;
@@ -211,13 +226,24 @@
     aviso.hidden = estado.publicar;
     publicado.hidden = !estado.publicar;
     blocoLista.hidden = !estado.publicar;
+    if (fichaAbertaId && (!estado.publicar || ehOculto(fichaAbertaId))) limparFicha();
     if (!estado.publicar) return;
     var todos = ordenada();
     desenharPodio(todos);
     desenharLista();
   }
+  function limparFicha() {
+    fichaAbertaId = null;
+    ficha.hidden = true;
+    document.getElementById("ficha-nome").textContent = "";
+    document.getElementById("ficha-pos").textContent = "";
+    document.getElementById("ficha-nums").innerHTML = "";
+    document.getElementById("ficha-planta").hidden = true;
+  }
   function abrirFicha(atleta, pos, origem) {
+    if (ehOculto(atleta.id)) return;
     ultimoFoco = origem;
+    fichaAbertaId = atleta.id;
     document.getElementById("ficha-nome").textContent = atleta.nome;
     document.getElementById("ficha-pos").textContent = pos + "º no ranking de exemplo " + (estado.periodo === "dia" ? "do dia" : "do mês") + ". Medalhas de exemplo, sem fórmula oficial.";
     var dl = document.getElementById("ficha-nums");
@@ -235,8 +261,9 @@
     document.getElementById("ficha-fechar").focus();
   }
   function fecharFicha() {
-    ficha.hidden = true;
-    if (ultimoFoco) ultimoFoco.focus();
+    var foco = ultimoFoco;
+    limparFicha();
+    if (foco) foco.focus();
   }
 
   document.getElementById("btn-dia").addEventListener("click", function () { estado.periodo = "dia"; estado.pagina = 1; sincronizarPeriodo(); render(); });
