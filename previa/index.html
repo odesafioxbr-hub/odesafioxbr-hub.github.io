@@ -682,7 +682,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     pin=null;sobre=null;travar=true;
     mostrar(null);
   }
-  addEventListener('pointermove',function(){travar=false;},{passive:true});
+  addEventListener('pointermove',function(e){
+    if(!travar)return;
+    if(!e.movementX&&!e.movementY)return;
+    travar=false;
+    var btn=e.target&&e.target.closest&&e.target.closest('#quem .quem-foto');
+    if(btn&&e.pointerType==='mouse'){sobre=btn;pintar();}
+  },{passive:true});
   addEventListener('wheel',function(){if(performance.now()-muda<120)return;zerar();},{passive:true});
   addEventListener('touchmove',function(){if(performance.now()-muda<120)return;zerar();},{passive:true});
   addEventListener('scroll',function(){
