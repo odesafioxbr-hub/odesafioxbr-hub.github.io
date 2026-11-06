@@ -33,19 +33,25 @@
 <style>
 /* Escada dos três planos: mesma largura. Começar menor e branco. Preparar e Competir maiores. */
 .home .step.s1 .plan{background:#fff;color:#000;border-color:#000;outline-color:#ddd}
-.home .step.s1 .plan .pl,.home .step.s1 .plan .tipo,.home .step.s1 .plan h4,.home .step.s1 .plan li,.home .step.s1 .plan .nota{color:#000}
+.home .step.s1 .plan .pl{color:#000}
+.home .step.s1 .plan .nome{color:#ffa400}
+.home .step.s1 .plan .tipo,.home .step.s1 .plan h4,.home .step.s1 .plan li,.home .step.s1 .plan .nota{color:#000}
 .home .step.s1 .plan .big-price{color:#ffa400}
 .home .step.s1 .plan>.btn{background:#ffa400;color:#000;outline-color:#ffa400}
 .home .step.s2 .plan{background:#ffa400;color:#000;border-color:#000;outline-color:#ffa400}
-.home .step.s2 .plan .pl,.home .step.s2 .plan .big-price,.home .step.s2 .plan li,.home .step.s2 .plan .tipo{color:#000}
+.home .step.s2 .plan .pl{color:#000}
+.home .step.s2 .plan .nome,.home .step.s2 .plan .big-price{color:#fff}
+.home .step.s2 .plan li,.home .step.s2 .plan .tipo,.home .step.s2 .plan h4,.home .step.s2 .plan .nota{color:#000}
 .home .step.s2 .plan>.btn{background:#fff;color:#000;outline-color:#fff}
 .home .step.s3 .plan{background:#050805;color:#fff;border-color:#39ff14;outline-color:#39ff14}
-.home .step.s3 .plan .pl,.home .step.s3 .plan li,.home .step.s3 .plan .tipo{color:#fff}
-.home .step.s3 .plan .big-price{color:#39ff14}
+.home .step.s3 .plan .pl,.home .step.s3 .plan li,.home .step.s3 .plan .tipo,.home .step.s3 .plan h4,.home .step.s3 .plan .nota{color:#fff}
+.home .step.s3 .plan .nome,.home .step.s3 .plan .big-price{color:#39ff14}
 .home .plan .big-price,.home .plan.hot .big-price{font-size:clamp(2.6rem,5vw,3.4rem);line-height:1}
-.home .step{position:relative}
-.home .plan{height:100%;padding-bottom:5.4rem}
-.home .plan>.btn{position:absolute;left:1.1rem;right:1.1rem;bottom:1.15rem;margin:0;height:3.1rem;min-height:3.1rem;max-height:3.1rem;white-space:nowrap}
+.home .plan{height:100%}
+.home .plan>.btn{position:static;margin-top:auto;height:3.1rem;min-height:3.1rem;white-space:nowrap}
+.home .cmp,.home .cmp th,.home .cmp td{border-color:#39ff14}
+.home .cmp{background:#000;box-shadow:0 0 12px rgba(57,255,20,.28)}
+.home .cmp th{color:#39ff14}
 @media(min-width:801px){
  .home .stair{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
  .home .step.s1{padding-top:7rem}
@@ -130,19 +136,28 @@
     <div class="step s1">
       <article class="card plan">
         <p class="step-k">Degrau 1</p>
-        <h3 class="pl">Desafio Começar</h3>
+        <h3 class="pl">Plano <span class="nome">Começar</span></h3>
         <p class="tipo">Plano de assinatura mensal</p>
         <p class="big-price">R$49,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <p class="tipo">Treino privado e treino público</p>
+          <h4>Inclui</h4>
           <ul>
-            <li>Acesso ao clube</li>
             <li>Treinos básicos</li>
-            <li>Dicas de disciplina e hábitos</li>
-            <li>No Instagram, desafios gratuitos sem prêmio e sem entrar para o ranking</li>
-            <li>Grupo Começar para conversar entre os assinantes e fazer novas amizades</li>
+            <li>Disciplina e hábitos</li>
+            <li>Acesso ao clube</li>
+            <li>Desafios gratuitos sem prêmio</li>
+            <li>Treino Privado e Treino Público</li>
+            <li>Grupo próprio no Instagram</li>
           </ul>
+          <h4>Não inclui</h4>
+          <ul>
+            <li>Grupo de especialistas no Instagram</li>
+            <li>Inscrição no desafio oficial com prêmio em dinheiro</li>
+            <li>Grupos dos competidores e dos especialistas</li>
+            <li>Entrada no ranking</li>
+          </ul>
+          <p class="nota">No Treino Público deste plano você aparece para compartilhar a participação, com visibilidade e engajamento. Não entra no ranking.</p>
         </div>
         <a class="btn" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Quero participar</a>
       </article>
@@ -150,16 +165,23 @@
     <div class="step s2">
       <article class="card plan">
         <p class="step-k">Degrau 2</p>
-        <h3 class="pl">Desafio Preparar</h3>
+        <h3 class="pl">Plano <span class="nome">Preparar</span></h3>
         <p class="tipo">Plano de assinatura mensal</p>
         <p class="big-price">R$89,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <p class="tipo">Treino privado e treino público</p>
+          <h4>Inclui</h4>
           <ul>
-            <li>Tudo do plano Começar</li>
-            <li>Grupo Preparar para conversar com os especialistas</li>
+            <li>Tudo do Plano Começar</li>
+            <li>Grupo de especialistas no Instagram</li>
           </ul>
+          <h4>Não inclui</h4>
+          <ul>
+            <li>Inscrição no desafio oficial com prêmio em dinheiro</li>
+            <li>Grupos dos competidores</li>
+            <li>Entrada no ranking</li>
+          </ul>
+          <p class="nota">No Treino Público deste plano, aparecer também é compartilhar a participação, com visibilidade e engajamento. Não entra no ranking e não é a inscrição no oficial.</p>
         </div>
         <button type="button" class="btn">Quero participar</button>
       </article>
@@ -167,17 +189,22 @@
     <div class="step s3">
       <article class="card plan hot">
         <p class="step-k">Degrau 3</p>
-        <h3 class="pl">Desafio Competir</h3>
-        <p class="tipo">Plano de assinatura mensal</p>
+        <h3 class="pl">Plano <span class="nome">Competir</span></h3>
+        <p class="tipo">Plano de assinatura mensal. Inclui a inscrição no desafio oficial.</p>
         <p class="big-price">R$149,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <p class="tipo">Treino público</p>
+          <h4>Inclui</h4>
           <ul>
-            <li>Tudo do plano Preparar</li>
-            <li>Inscrição no desafio oficial, o Circuito X, com premiação em dinheiro</li>
-            <li>Grupo Competir para conversar com os especialistas, os competidores e a equipe</li>
+            <li>Tudo do Plano Começar e do Plano Preparar</li>
+            <li>Inscrição no desafio oficial com prêmio em dinheiro, só no Treino Público</li>
+            <li>Grupos dos competidores e dos especialistas</li>
           </ul>
+          <h4>Não inclui</h4>
+          <ul>
+            <li>Competir e entrar no ranking se você escolher o Treino Privado</li>
+          </ul>
+          <p class="nota">O plano não é o desafio. Ele inclui a inscrição na edição oficial de 15 dias. Só o Treino Público desse plano concorre ao prêmio e entra no ranking.</p>
         </div>
         <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Quero participar</a>
       </article>
@@ -295,8 +322,8 @@
 <section id="ranking" class="sec rk">
   <div class="rk-txt">
     <p class="selo">Demonstrativo</p>
-    <h2 class="graf">Ranking <b>demonstrativo</b></h2>
-    <p>Este quadro é um exemplo de como o ranking aparece. Não é o ranking oficial da edição atual. Os nomes são de quem já se destacou nas edições oficiais.</p>
+    <h2 class="graf">Ranking dos que <b>mais venceram</b></h2>
+    <p>Veteranos que mais se destacaram nas edições oficiais do Desafio X.</p>
   </div>
   <ol class="podio rev">
     <li class="pd p2" style="--d:0"><span class="holo"><img data-txt="0,0,1,1" src="../assets/rk-riuzaky.webp" alt="Riuzaky" width="400" height="400" loading="lazy"></span><b class="nm">Riuzaky</b><span class="tt">Tri Campeão</span><div class="degrau"><span>2º</span></div></li>
@@ -346,64 +373,70 @@
 <div class="seam s3" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span></div>
 
 <section id="perguntas-frequentes" class="sec faq-sec">
-  <h2 class="graf">Perguntas <b>frequentes</b></h2>
-  <details name="faq">
+  <button type="button" class="faq-btn" aria-haspopup="dialog" aria-controls="faq-modal" aria-expanded="false">Perguntas frequentes</button>
+</section>
+<div id="faq-modal" class="faq-modal" role="dialog" aria-modal="true" aria-label="Perguntas frequentes" hidden>
+  <button type="button" class="faq-x" aria-label="Fechar perguntas frequentes">×</button>
+  <div class="faq-lista">
+<details name="faq" style="--i:0">
     <summary>No Começar, para que serve o Treino Público se eu não entro no ranking?</summary>
     <p>Serve para aparecer. Você grava e publica a participação, e isso traz visibilidade e engajamento do seu perfil, com as visualizações de quem acompanha os seus treinos. Compartilhar a participação é diferente de competir no desafio oficial. O plano Desafio Começar não inclui essa inscrição e não entra no ranking. O mesmo vale para o Desafio Preparar. Só o Treino Público do plano Desafio Competir concorre ao prêmio e entra no ranking.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:1">
     <summary>Desafio Competir é o plano ou o desafio?</summary>
     <p>É o plano. Desafio Começar, Desafio Preparar e Desafio Competir são nomes de planos de assinatura. Não são os desafios gratuitos nem o desafio oficial de 15 dias. O plano Desafio Competir inclui a inscrição nesse desafio oficial, com prêmio em dinheiro, e essa inscrição só vale no Treino Público.</p>
   </details>
-  <details name="faq" hidden>
+  <details name="faq" hidden style="--i:2">
     <summary>A Caixa X já pode ser comprada?</summary>
     <p>Não. A Caixa X ainda não existe como produto pronto. Não há preço nem conteúdo definido. Ela não está à venda e não está disponível na área de membros. A ideia em discussão é uma caixa fechada ilustrativa, sem camisa, souvenir ou outro item prometido.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:3">
     <summary>Como funciona o clube?</summary>
     <p>Você escolhe o seu plano, começa a treinar e se desafia, participando ou não das competições oficiais. No caminho, faz amizades e ainda engaja o seu perfil com as visualizações de quem acompanha os seus treinos.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:4">
     <summary>Quanto custa?</summary>
     <p>Desafio Começar: R$49,90 por mês. Desafio Preparar: R$89,90 por mês. Desafio Competir: R$149,90 por mês.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:5">
     <summary>Tem garantia?</summary>
     <p>Sim, 7 dias de garantia ou seu dinheiro de volta nos planos Começar, Preparar e Competir.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:6">
     <summary>Quais formas de pagamento?</summary>
     <p>Cartões Visa, Mastercard, Maestro e Pix.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:7">
     <summary>Quais são os prêmios?</summary>
     <p>Os prêmios variam de edição para edição. Podem ser dinheiro, produto físico ou digital, serviços ou até mesmo uma postagem na nossa página. Na edição de 15 dias, o 1º colocado ganha 10% do valor arrecadado com as inscrições, o 2º ganha 3% e o 3º ganha 2%. Essas porcentagens são calculadas sobre o valor arrecadado com as inscrições. O prêmio em dinheiro é pago via Pix logo após a divulgação do ranking final da edição, e entramos em contato com os vencedores.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:8">
     <summary>Preciso de equipamentos? Sou iniciante, posso participar?</summary>
     <p>Não precisa de equipamento. Os exercícios são funcionais e, se algum desafio usar equipamento, damos todas as instruções de onde encontrar de graça.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:9">
     <summary>Por quanto tempo tenho acesso?</summary>
     <p>A assinatura dos planos Começar e Competir dura 30 dias.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:10">
     <summary>A assinatura renova? Como cancelo?</summary>
     <p>A assinatura dos planos Começar e Competir é mensal e renova automaticamente pela Kiwify. Você pode cancelar a qualquer momento na área de compras da Kiwify.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:11">
     <summary>Como faço para ser parceiro?</summary>
     <p>O parceiro entrega algo da sua área: cupons ou vouchers, produtos, serviços, conteúdo especializado ou um espaço para desafios presenciais. Também divulga o Desafio X pelo menos uma vez por semana. Em troca, tem acesso ao grupo VIP no Instagram e uma divulgação semanal nos nossos canais. Para conversar, chame a gente no Direct do Instagram. Saiba mais na <a href="parcerias.html">página de parcerias</a>.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:12">
     <summary>Como funciona o patrocínio?</summary>
     <p>São quatro cotas: Ponto de Partida, Bronze, Prata e Ouro. Cada uma tem stories, collabs e desafios patrocinados, conforme a cota. Veja os detalhes na <a href="patrocinio.html">página de patrocínio</a>.</p>
   </details>
-  <details name="faq">
+  <details name="faq" style="--i:13">
     <summary>O que são os desafios patrocinados?</summary>
     <p>São desafios gratuitos que levam o nome do patrocinador, com uma meta por dia. Podem ser digitais, abertos a qualquer pessoa de qualquer lugar, ou regionais, voltados para a região do patrocinador. Uma das regras é seguir os patrocinadores.</p>
   </details>
-</section>
+  </div>
+</div>
+
 
 <div class="seam s4" aria-hidden="true"><span class="tp k a"></span><span class="tp f a"></span></div>
 
@@ -499,6 +532,21 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   m.addEventListener('touchmove',fechar,{passive:true});
   addEventListener('scroll',function(){if(aberto&&performance.now()-Number(m.dataset.desde)>700&&Math.abs(scrollY-y0)>4)fechar();},{passive:true});
   addEventListener('keydown',function(e){if(e.key==='Escape')fechar();});
+})();
+</script>
+<script>
+(function(){
+  var m=document.getElementById('faq-modal'),L=m.querySelector('.faq-lista'),btn=document.querySelector('.faq-btn'),aberto=false,ultimo=null;
+  function abrir(){if(aberto)return;ultimo=document.activeElement;m.hidden=false;m.scrollTop=0;aberto=true;btn&&btn.setAttribute('aria-expanded','true');requestAnimationFrame(function(){m.classList.add('vis')});setTimeout(function(){var s=L.querySelector('summary');s&&s.focus({preventScroll:true})},30);}
+  function fechar(){if(!aberto)return;m.classList.remove('vis');m.hidden=true;aberto=false;L.querySelectorAll('details[open]').forEach(function(d){d.open=false});btn&&btn.setAttribute('aria-expanded','false');if(ultimo&&ultimo.focus)ultimo.focus({preventScroll:true});}
+  function rolavel(){return m.scrollHeight>m.clientHeight+2;}
+  btn&&btn.addEventListener('click',abrir);
+  m.querySelector('.faq-x').addEventListener('click',fechar);
+  m.addEventListener('click',function(e){if(!e.target.closest('details')&&!e.target.closest('a'))fechar();});
+  m.addEventListener('wheel',function(e){if(!e.target.closest('.faq-lista')&&!rolavel())fechar();},{passive:true});
+  m.addEventListener('touchmove',function(e){if(!e.target.closest('.faq-lista')&&!rolavel())fechar();},{passive:true});
+  addEventListener('keydown',function(e){if(e.key==='Escape')fechar();});
+  L.querySelectorAll('details').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)L.querySelectorAll('details[open]').forEach(function(o){if(o!==d)o.open=false;});});});
 })();
 </script>
 <script src="../js/player.js" defer></script>
