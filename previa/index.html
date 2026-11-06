@@ -36,7 +36,7 @@
 #ainda-nao-quer-assinar.sec{padding-top:5.5rem}
 /* Quem está por trás: polaroides inclinadas, sobrepostas. P&B até vir à frente. */
 .home #quem.sec{padding-bottom:9rem}
-.home #quem .quem-fila{display:flex;justify-content:center;align-items:flex-end;padding:1.4rem 0 1.6rem}
+.home #quem .quem-fila{display:flex;justify-content:center;align-items:flex-end;padding:3.1rem 0 1.5rem}
 .home #quem .quem-pessoa{position:relative;width:176px;margin-left:-78px;z-index:1;flex:0 0 auto;transform:rotate(var(--r));transition:transform .28s ease}
 .home #quem .quem-pessoa:first-child{margin-left:0}
 .home #quem .quem-pessoa:nth-child(1){--r:-7deg;z-index:1}
@@ -45,13 +45,26 @@
 .home #quem .quem-pessoa:nth-child(4){--r:6deg;z-index:4}
 .home #quem .quem-pessoa:nth-child(5){--r:-5deg;z-index:5}
 .home #quem .quem-foto{display:block;width:100%;aspect-ratio:1/1;padding:8px 8px 26px;border:0;background:#f6f3ec;cursor:pointer;filter:grayscale(1);line-height:0;box-shadow:0 10px 16px rgba(0,0,0,.45);transition:filter .28s ease}
+.home #quem .quem-recorte{position:relative;display:block;width:100%;height:100%;overflow:hidden}
 .home #quem .quem-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 22%}
-.home #quem .quem-pessoa.frente{z-index:8;transform:rotate(-1deg) translateY(-16px) scale(1.08)}
+.home #quem .quem-foto img.enq-son{object-position:center top}
+.home #quem .quem-foto img.enq-lilia{position:absolute;width:187.7%;height:250%;left:-43.85%;top:-87.5%;max-width:none;object-fit:fill}
+.home #quem .quem-foto img.enq-matheus{position:absolute;width:178.57%;height:238.1%;left:-39.29%;top:-78.57%;max-width:none;object-fit:fill}
+.home #quem .quem-pessoa.frente{z-index:8;transform:rotate(-1deg) translateY(-10px) scale(1.42);transform-origin:center 70%}
 .home #quem .quem-pessoa.frente .quem-foto{filter:none}
 @media(max-width:800px){
   .home #quem .quem-pessoa{width:92px;margin-left:-34px}
   .home #quem .quem-foto{padding:5px 5px 16px}
+  .home #quem .quem-pessoa.frente{transform:rotate(-1deg) translateY(2px) scale(1.42)}
   .home #quem.sec{padding-bottom:8rem}
+}
+@media(max-width:370px){
+  .home #quem .quem-pessoa:first-child.frente{transform-origin:0% 70%}
+  .home #quem .quem-pessoa:last-child.frente{transform-origin:100% 70%}
+}
+@media(max-width:340px){
+  .home #quem .quem-pessoa:first-child.frente{transform:rotate(-1deg) translate(8px,2px) scale(1.42)}
+  .home #quem .quem-pessoa:last-child.frente{transform:rotate(-1deg) translate(-8px,2px) scale(1.42)}
 }
 @media(prefers-reduced-motion:reduce){
   .home #quem .quem-pessoa,.home #quem .quem-foto{transition:none}
@@ -382,27 +395,27 @@
   <div class="quem-fila">
     <article class="quem-pessoa">
       <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-son">
-        <img src="../assets/son.webp" alt="Son" width="900" height="1200" style="object-position:center 18%">
+        <span class="quem-recorte"><img class="enq-son" src="../assets/son.webp" alt="Son" width="900" height="1200"></span>
       </button>
     </article>
     <article class="quem-pessoa">
       <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-celo">
-        <img src="../assets/quem/celo.jpg" alt="Celo" width="900" height="1200" style="object-position:center 28%">
+        <span class="quem-recorte"><img src="../assets/quem/celo.jpg" alt="Celo" width="900" height="1200" style="object-position:center 28%"></span>
       </button>
     </article>
     <article class="quem-pessoa">
       <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-lilia">
-        <img src="../assets/quem/lilia.jpeg" alt="Lilia Godoi" width="961" height="1280" style="object-position:center 34%">
+        <span class="quem-recorte"><img class="enq-lilia" src="../assets/quem/lilia.jpeg" alt="Lilia Godoi" width="961" height="1280"></span>
       </button>
     </article>
     <article class="quem-pessoa">
       <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-matheus">
-        <img src="../assets/quem/matheus.jpeg" alt="Matheus" width="960" height="1280" style="object-position:center 18%">
+        <span class="quem-recorte"><img class="enq-matheus" src="../assets/quem/matheus.jpeg" alt="Matheus" width="960" height="1280"></span>
       </button>
     </article>
     <article class="quem-pessoa">
       <button type="button" class="quem-foto" aria-expanded="false" aria-controls="quem-wendie">
-        <img src="../assets/quem/wendie.jpeg" alt="Wendie Abreu" width="1019" height="750" style="object-position:center 42%">
+        <span class="quem-recorte"><img src="../assets/quem/wendie.jpeg" alt="Wendie Abreu" width="1019" height="750" style="object-position:center 42%"></span>
       </button>
     </article>
   </div>
