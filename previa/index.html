@@ -29,8 +29,11 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css?v=107">
+<link rel="stylesheet" href="../css/style.css?v=108">
 <style>
+/* Caixa X oculta: a divisória seguinte cairia no mesmo vão da comparação. Fica uma só, no padrão das outras. */
+#caixa-x[hidden] + .seam{display:none}
+#ainda-nao-quer-assinar.sec{padding-top:5.5rem}
 /* Escada dos três planos: mesma largura. Começar menor e branco. Preparar e Competir maiores. */
 .home .step.s1 .plan{background:#fff;color:#000;border-color:#000;outline-color:#ddd}
 .home .step.s1 .plan .pl{color:#000}
@@ -282,7 +285,7 @@
   </div>
 </section>
 
-<div class="seam s5" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span><span class="tp k c"></span></div>
+<div class="seam s5" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span></div>
 
 <section id="caixa-x" class="sec" hidden>
   <h2 class="graf">Caixa X</h2>
