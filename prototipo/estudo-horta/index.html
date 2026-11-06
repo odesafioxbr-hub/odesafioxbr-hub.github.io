@@ -13,22 +13,140 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:#eee;font:16px/1.45 Inter,system-ui,sans-serif}
 .selo{margin:0;padding:.7rem 1rem;background:#120e06;color:#ffa400;font-weight:700;text-align:center}
-main{max-width:860px;margin:0 auto;padding:1rem}
+main{max-width:980px;margin:0 auto;padding:1rem}
 h1{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;font-size:2.4rem;margin:.2rem 0}
 .sub{color:#c8c8c8;max-width:46rem}
-img{width:100%;height:auto;display:block;background:#000;border-radius:16px}
-figcaption{color:#9a9a9a;font-size:.85rem;margin-top:.35rem}
+.controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:1rem 0}
+label{display:flex;flex-direction:column;gap:.25rem;color:#ccc;font-size:.9rem}
+input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;border:1px solid #444;border-radius:8px;padding:0 .4rem}
+button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer;font:700 1rem/1 Inter,sans-serif}
+.estado{color:var(--g);font-weight:700}
+canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
 </style>
 </head>
 <body>
-<p class="selo">Estudo isolado. Sem crescimento montado. Não publica.</p>
+<p class="selo">Estudo isolado. O vaso não entra na capa. Não publica.</p>
 <main>
   <h1>HORTA</h1>
-  <p class="sub">A prancha aprovada já mostra as plantas adultas. A terra vazia fica escondida debaixo das folhas, e preencher esse espaço mancha o solo. Por isso esta cena não anima. O que falta é o mesmo vaso, na mesma câmera, só com a terra. Um segundo quadro com brotos baixos, na mesma câmera, segura o meio do crescimento. A lógica continua dias cumpridos dividido pela duração, com a horta cheia só no fim.</p>
-  <figure>
-    <img src="aprovada.jpg" alt="Horta aprovada, estado com as plantas crescidas">
-    <figcaption>Estado cheio da prancha aprovada. Frente maior, fundo menor.</figcaption>
-  </figure>
+  <p class="sub">Duração 10 neste exemplo, com 6 dias — o replay para em 60% e a horta só fecha no fim da duração. O vaso é o solo vazio e fica parado. Cada planta nasce no próprio caule: primeiro o broto, depois as folhas da foto crescida, no mesmo lugar. As três fotos são deste vaso, mais de cima do que a prancha antiga. A passagem do broto para a planta adulta usa esses dois recortes; não é folha nascendo uma a uma.</p>
+  <div class="controles">
+    <label>Duração<input id="duracao" type="number" min="7" value="10"></label>
+    <label>Dias cumpridos<input id="dias" type="number" min="0" value="6"></label>
+    <button type="button" id="zero">Zero</button>
+    <button type="button" id="parcial">Parcial</button>
+    <button type="button" id="cheio">Fechada</button>
+    <button type="button" id="play">Crescer</button>
+  </div>
+  <p class="estado" id="estado"></p>
+  <canvas id="vaso" width="1024" height="1024"></canvas>
 </main>
+<script>
+(function () {
+  var plantas = [{"id": 0, "brotos": {"x": 420, "y": 393, "w": 102, "h": 76}, "crescida": {"x": 404, "y": 348, "w": 164, "h": 132}, "raiz": {"x": 489, "y": 458}}, {"id": 1, "brotos": {"x": 297, "y": 468, "w": 96, "h": 68}, "crescida": {"x": 272, "y": 426, "w": 170, "h": 137}, "raiz": {"x": 366, "y": 525}}, {"id": 2, "brotos": {"x": 560, "y": 472, "w": 97, "h": 72}, "crescida": {"x": 536, "y": 441, "w": 164, "h": 127}, "raiz": {"x": 628, "y": 533}}, {"id": 3, "brotos": {"x": 297, "y": 318, "w": 100, "h": 67}, "crescida": {"x": 276, "y": 281, "w": 154, "h": 118}, "raiz": {"x": 367, "y": 374}}, {"id": 4, "brotos": {"x": 779, "y": 321, "w": 92, "h": 71}, "crescida": {"x": 760, "y": 294, "w": 156, "h": 111}, "raiz": {"x": 844, "y": 381}}, {"id": 5, "brotos": {"x": 681, "y": 396, "w": 94, "h": 76}, "crescida": {"x": 659, "y": 361, "w": 157, "h": 118}, "raiz": {"x": 744, "y": 461}}, {"id": 6, "brotos": {"x": 174, "y": 390, "w": 98, "h": 67}, "crescida": {"x": 151, "y": 352, "w": 159, "h": 125}, "raiz": {"x": 239, "y": 446}}, {"id": 7, "brotos": {"x": 539, "y": 324, "w": 94, "h": 64}, "crescida": {"x": 518, "y": 291, "w": 164, "h": 116}, "raiz": {"x": 604, "y": 377}}, {"id": 8, "brotos": {"x": 439, "y": 553, "w": 99, "h": 50}, "crescida": {"x": 412, "y": 516, "w": 166, "h": 138}, "raiz": {"x": 474, "y": 592}}, {"id": 9, "brotos": {"x": 419, "y": 256, "w": 94, "h": 60}, "crescida": {"x": 385, "y": 222, "w": 156, "h": 115}, "raiz": {"x": 482, "y": 305}}, {"id": 10, "brotos": {"x": 527, "y": 190, "w": 90, "h": 62}, "crescida": {"x": 506, "y": 178, "w": 153, "h": 98}, "raiz": {"x": 583, "y": 241}}, {"id": 11, "brotos": {"x": 648, "y": 255, "w": 88, "h": 65}, "crescida": {"x": 627, "y": 225, "w": 149, "h": 110}, "raiz": {"x": 708, "y": 309}}];
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var duracaoEl = document.getElementById("duracao");
+  var diasEl = document.getElementById("dias");
+  var estadoEl = document.getElementById("estado");
+  var canvas = document.getElementById("vaso");
+  var ctx = canvas.getContext("2d");
+  var solo = new Image();
+  var brotos = new Image();
+  var crescida = new Image();
+  solo.src = "solo.jpg";
+  brotos.src = "brotos.png";
+  crescida.src = "crescida.png";
+  var raf = 0;
+  function ler() {
+    var dur = Math.max(7, Math.round(Number(duracaoEl.value) || 7));
+    duracaoEl.value = String(dur);
+    diasEl.max = String(dur);
+    var dias = Math.max(0, Math.min(dur, Math.round(Number(diasEl.value) || 0)));
+    diasEl.value = String(dias);
+    return { dur: dur, dias: dias, nivel: dur ? dias / dur : 0 };
+  }
+  function suave(u) {
+    u = Math.max(0, Math.min(1, u));
+    return u * u * (3 - 2 * u);
+  }
+  function fases(t, y) {
+    var depth = Math.max(0, Math.min(1, (y - 180) / 520));
+    var u = Math.max(0, Math.min(1, (t - depth * 0.08) / 0.92));
+    var nasce = suave(Math.min(1, u / 0.34));
+    if (u < 0.34) {
+      return { eb: nasce, ab: nasce > 0.02 ? 1 : 0, ea: 0, aa: 0 };
+    }
+    var troca = suave(Math.min(1, (u - 0.34) / 0.66));
+    return {
+      eb: 1 - 0.7 * troca,
+      ab: 1 - suave(Math.min(1, troca / 0.28)),
+      ea: 0.58 + 0.42 * troca,
+      aa: suave(Math.min(1, troca / 0.38))
+    };
+  }
+  function pintar(img, box, raiz, escala, alfa) {
+    if (!img.complete || !img.naturalWidth || escala < 0.02 || alfa < 0.02) return;
+    ctx.save();
+    ctx.globalAlpha = alfa;
+    ctx.translate(raiz.x, raiz.y);
+    ctx.scale(escala, escala);
+    ctx.drawImage(img, box.x, box.y, box.w, box.h, box.x - raiz.x, box.y - raiz.y, box.w, box.h);
+    ctx.restore();
+  }
+  function desenhar(t) {
+    ctx.clearRect(0, 0, 1024, 1024);
+    if (solo.complete && solo.naturalWidth) ctx.drawImage(solo, 0, 0, 1024, 1024);
+    plantas.slice().sort(function (a, b) { return a.raiz.y - b.raiz.y; }).forEach(function (p) {
+      var f = fases(t, p.raiz.y);
+      pintar(brotos, p.brotos, p.raiz, f.eb, f.ab);
+      pintar(crescida, p.crescida, p.raiz, f.ea, f.aa);
+    });
+    var amostra = fases(t, 458);
+    canvas.dataset.nivel = String(Math.round(t * 1000) / 1000);
+    canvas.dataset.broto = String(Math.round(amostra.eb * 1000) / 1000);
+    canvas.dataset.adulta = String(Math.round(amostra.ea * 1000) / 1000);
+    canvas.dataset.alfaAdulta = String(Math.round(amostra.aa * 1000) / 1000);
+  }
+  function mostrar(t, extra) {
+    var s = ler();
+    desenhar(t);
+    estadoEl.textContent = Math.round(t * 100) + "% da horta · " + s.dias + " de " + s.dur + " dias." + (t >= 0.995 ? " Vaso fechado." : " Ainda falta crescer.") + (extra ? " " + extra : "");
+  }
+  function quadro(u) {
+    var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    mostrar(ler().nivel * e);
+    return canvas.toDataURL("image/jpeg", 0.86);
+  }
+  window.__quadro = quadro;
+  function parar() { if (raf) cancelAnimationFrame(raf); raf = 0; }
+  function crescer() {
+    parar();
+    var alvo = ler().nivel;
+    if (reduced) {
+      mostrar(alvo, "Movimento reduzido: estado dos dias, direto.");
+      return;
+    }
+    var t0 = performance.now();
+    function passo(agora) {
+      var u = Math.min(1, (agora - t0) / 2400);
+      var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+      mostrar(alvo * e);
+      if (u < 1) raf = requestAnimationFrame(passo);
+    }
+    raf = requestAnimationFrame(passo);
+  }
+  document.getElementById("zero").onclick = function () { parar(); diasEl.value = "0"; mostrar(0); };
+  document.getElementById("parcial").onclick = function () { parar(); mostrar(ler().nivel); };
+  document.getElementById("cheio").onclick = function () { parar(); diasEl.value = duracaoEl.value; mostrar(1); };
+  document.getElementById("play").onclick = crescer;
+  duracaoEl.onchange = function () { parar(); mostrar(ler().nivel); };
+  diasEl.onchange = function () { parar(); mostrar(ler().nivel); };
+  var prontas = 0;
+  function pronta() { prontas += 1; if (prontas === 3) mostrar(ler().nivel); }
+  [solo, brotos, crescida].forEach(function (img) {
+    if (img.complete && img.naturalWidth) pronta();
+    else img.onload = pronta;
+  });
+})();
+</script>
 </body>
 </html>
