@@ -22,16 +22,20 @@ input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;bor
 button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer;font:700 1rem/1 Inter,sans-serif}
 .estado{color:var(--g);font-weight:700}
 canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
+.mapa{display:flex;flex-wrap:wrap;gap:.35rem;margin:.8rem 0 0;padding:0;list-style:none}
+.mapa li{border:1px solid #333;border-radius:999px;padding:.2rem .55rem;color:#9a9a9a;font-size:.82rem}
+.mapa li.feito{color:var(--g);border-color:#3d4f14}
+.mapa li.agora{color:#fff;background:#1c240c;border-color:#c6ff4a}
 </style>
 </head>
 <body>
 <p class="selo">Estudo isolado. O vaso não entra na capa. Não publica.</p>
 <main>
   <h1>HORTA</h1>
-  <p class="sub">Duração 10 neste exemplo, com 6 dias — o replay para em 60% e a horta só fecha no fim da duração. O vaso é o solo vazio e fica parado. Cada planta nasce no próprio caule: primeiro o broto, depois as folhas da foto crescida, no mesmo lugar. As três fotos são deste vaso, mais de cima do que a prancha antiga. A passagem do broto para a planta adulta usa esses dois recortes; não é folha nascendo uma a uma.</p>
+  <p class="sub">O vaso aprovado continua parado. Cada dia cumprido avança uma etapa de uma planta só: as já feitas ficam, as que ainda não chegaram não aparecem. A horta só fecha no último dia. Duração 15: cinco plantas, três etapas (nasce, cresce, fecha). Duração 10: as mesmas cinco, só nasce e fecha. Duração 7: três plantas, etapas 3 + 2 + 2. A ordem é do fundo para a frente. Conta dias cumpridos do hábito, sem medalha.</p>
   <div class="controles">
-    <label>Duração<input id="duracao" type="number" min="7" value="10"></label>
-    <label>Dias cumpridos<input id="dias" type="number" min="0" value="6"></label>
+    <label>Duração<input id="duracao" type="number" min="7" value="15"></label>
+    <label>Dias cumpridos<input id="dias" type="number" min="0" value="14"></label>
     <button type="button" id="zero">Zero</button>
     <button type="button" id="parcial">Parcial</button>
     <button type="button" id="cheio">Fechada</button>
@@ -39,6 +43,7 @@ canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
   </div>
   <p class="estado" id="estado"></p>
   <canvas id="vaso" width="1024" height="1024"></canvas>
+  <ol class="mapa" id="mapa"></ol>
 </main>
 <script>
 (function () {
@@ -56,32 +61,84 @@ canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
   brotos.src = "brotos.png";
   crescida.src = "crescida.png";
   var raf = 0;
+  var porQuantidade = {
+    3: [10, 0, 8],
+    4: [10, 3, 7, 8],
+    5: [10, 3, 7, 1, 2],
+    6: [10, 9, 11, 3, 1, 2]
+  };
   function ler() {
     var dur = Math.max(7, Math.round(Number(duracaoEl.value) || 7));
     duracaoEl.value = String(dur);
     diasEl.max = String(dur);
     var dias = Math.max(0, Math.min(dur, Math.round(Number(diasEl.value) || 0)));
     diasEl.value = String(dias);
-    return { dur: dur, dias: dias, nivel: dur ? dias / dur : 0 };
+    return { dur: dur, dias: dias };
   }
   function suave(u) {
     u = Math.max(0, Math.min(1, u));
     return u * u * (3 - 2 * u);
   }
-  function fases(t, y) {
-    var depth = Math.max(0, Math.min(1, (y - 180) / 520));
-    var u = Math.max(0, Math.min(1, (t - depth * 0.08) / 0.92));
-    var nasce = suave(Math.min(1, u / 0.34));
-    if (u < 0.34) {
-      return { eb: nasce, ab: nasce > 0.02 ? 1 : 0, ea: 0, aa: 0 };
+  function escolher(n) {
+    var ids = porQuantidade[n];
+    if (!ids) {
+      ids = [];
+      var fila = [10, 9, 11, 3, 7, 0, 6, 5, 1, 2, 8, 4];
+      for (var i = 0; i < n && i < fila.length; i++) ids.push(fila[i]);
     }
-    var troca = suave(Math.min(1, (u - 0.34) / 0.66));
+    return ids.map(function (id) { return plantas[id]; });
+  }
+  function plano(dur) {
+    var p;
+    if (dur % 3 === 0 && dur / 3 >= 3 && dur / 3 <= 6) p = dur / 3;
+    else if (dur % 2 === 0 && dur / 2 >= 3 && dur / 2 <= 6) p = dur / 2;
+    else {
+      var pMin = Math.ceil(dur / 3);
+      var pMax = Math.min(6, Math.floor(dur / 2));
+      p = Math.round(dur / 3);
+      if (p < pMin) p = pMin;
+      if (p > pMax) p = pMax;
+    }
+    var extras = dur - 2 * p;
+    var escolhidas = escolher(p);
+    var etapas = [];
+    for (var i = 0; i < p; i++) {
+      var nomes = extras > i ? ["nasce", "cresce", "fecha"] : ["nasce", "fecha"];
+      nomes.forEach(function (nome) { etapas.push({ planta: i, etapa: nome }); });
+    }
+    return { plantas: escolhidas, etapas: etapas };
+  }
+  function pose(etapa) {
+    if (etapa === "nasce") return { es: 0.58, as: 1, ea: 0, aa: 0 };
+    if (etapa === "cresce") return { es: 1, as: 1, ea: 0, aa: 0 };
+    if (etapa === "fecha") return { es: 1, as: 0, ea: 1, aa: 1 };
+    return { es: 0, as: 0, ea: 0, aa: 0 };
+  }
+  function misturar(a, b, t) {
     return {
-      eb: 1 - 0.7 * troca,
-      ab: 1 - suave(Math.min(1, troca / 0.28)),
-      ea: 0.58 + 0.42 * troca,
-      aa: suave(Math.min(1, troca / 0.38))
+      es: a.es + (b.es - a.es) * t,
+      as: a.as + (b.as - a.as) * t,
+      ea: a.ea + (b.ea - a.ea) * t,
+      aa: a.aa + (b.aa - a.aa) * t
     };
+  }
+  function posePasso(etapa, anterior, local) {
+    var t = suave(local);
+    if (etapa !== "fecha") return misturar(pose(anterior), pose(etapa), t);
+    var es = anterior === "nasce" ? 0.58 + 0.42 * Math.min(1, local / 0.4) : 1;
+    var troca = suave(Math.max(0, (local - (anterior === "nasce" ? 0.32 : 0)) / (anterior === "nasce" ? 0.68 : 1)));
+    return { es: es, as: 1 - troca, ea: 0.74 + 0.26 * troca, aa: troca };
+  }
+  function aspecto(indice, etapas, feito, ativo, local) {
+    var repouso = null;
+    var corrente = null;
+    for (var i = 0; i < etapas.length; i++) {
+      if (etapas[i].planta !== indice) continue;
+      if (i < feito) repouso = etapas[i].etapa;
+      else if (i === ativo) corrente = etapas[i].etapa;
+    }
+    if (!corrente) return pose(repouso);
+    return posePasso(corrente, repouso, local);
   }
   function pintar(img, box, raiz, escala, alfa) {
     if (!img.complete || !img.naturalWidth || escala < 0.02 || alfa < 0.02) return;
@@ -92,56 +149,94 @@ canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
     ctx.drawImage(img, box.x, box.y, box.w, box.h, box.x - raiz.x, box.y - raiz.y, box.w, box.h);
     ctx.restore();
   }
-  function desenhar(t) {
+  function corte(u, dias) {
+    u = Math.max(0, Math.min(1, u));
+    if (dias <= 0 || u <= 0) return { feito: 0, ativo: -1, local: 1 };
+    if (u >= 1) return { feito: dias, ativo: -1, local: 1 };
+    var x = u * dias;
+    var feito = Math.floor(x);
+    return { feito: feito, ativo: feito, local: x - feito };
+  }
+  function desenharU(u, extra, fixo) {
+    var s = fixo || ler();
+    var modelo = plano(s.dur);
+    var c = corte(u, s.dias);
     ctx.clearRect(0, 0, 1024, 1024);
     if (solo.complete && solo.naturalWidth) ctx.drawImage(solo, 0, 0, 1024, 1024);
-    plantas.slice().sort(function (a, b) { return a.raiz.y - b.raiz.y; }).forEach(function (p) {
-      var f = fases(t, p.raiz.y);
-      pintar(brotos, p.brotos, p.raiz, f.eb, f.ab);
-      pintar(crescida, p.crescida, p.raiz, f.ea, f.aa);
+    var ordem = modelo.plantas.map(function (p, i) { return { p: p, i: i }; });
+    ordem.sort(function (a, b) { return a.p.raiz.y - b.p.raiz.y; });
+    var visiveis = 0;
+    var adultas = 0;
+    ordem.forEach(function (item) {
+      var f = aspecto(item.i, modelo.etapas, c.feito, c.ativo, c.local);
+      if (f.as > 0.04 || f.aa > 0.04) visiveis += 1;
+      if (f.aa > 0.92 && f.ea > 0.92) adultas += 1;
+      pintar(brotos, item.p.brotos, item.p.raiz, f.es, f.as);
+      pintar(crescida, item.p.crescida, item.p.raiz, f.ea, f.aa);
     });
-    var amostra = fases(t, 458);
-    canvas.dataset.nivel = String(Math.round(t * 1000) / 1000);
-    canvas.dataset.broto = String(Math.round(amostra.eb * 1000) / 1000);
-    canvas.dataset.adulta = String(Math.round(amostra.ea * 1000) / 1000);
-    canvas.dataset.alfaAdulta = String(Math.round(amostra.aa * 1000) / 1000);
-  }
-  function mostrar(t, extra) {
-    var s = ler();
-    desenhar(t);
-    estadoEl.textContent = Math.round(t * 100) + "% da horta · " + s.dias + " de " + s.dur + " dias." + (t >= 0.995 ? " Vaso fechado." : " Ainda falta crescer.") + (extra ? " " + extra : "");
+    var etapaAtiva = c.ativo >= 0 ? modelo.etapas[c.ativo] : null;
+    var ultima = c.feito > 0 ? modelo.etapas[c.feito - 1] : null;
+    var diaMostrado = c.ativo >= 0 ? c.ativo + 1 : c.feito;
+    canvas.dataset.duracao = String(s.dur);
+    canvas.dataset.dias = String(s.dias);
+    canvas.dataset.dia = String(diaMostrado);
+    canvas.dataset.visiveis = String(visiveis);
+    canvas.dataset.adultas = String(adultas);
+    canvas.dataset.etapa = etapaAtiva ? etapaAtiva.etapa : (c.feito >= s.dur && s.dias === s.dur && s.dias > 0 ? "fechada" : "");
+    canvas.dataset.planta = etapaAtiva ? String(etapaAtiva.planta + 1) : "";
+    canvas.dataset.ultima = ultima ? ("p" + (ultima.planta + 1) + ":" + ultima.etapa) : "";
+    canvas.dataset.mapa = modelo.etapas.map(function (e, i) {
+      return (i + 1) + ":p" + (e.planta + 1) + ":" + e.etapa;
+    }).join(",");
+    canvas.dataset.passos = String(modelo.etapas.length);
+    var frase = s.dias + " de " + s.dur + " dias.";
+    if (s.dias === 0) frase += " Só a terra.";
+    else if (s.dias === s.dur && c.feito >= s.dias) frase += " Horta fechada.";
+    else frase += " Uma planta por vez.";
+    if (etapaAtiva) frase += " Dia " + (c.ativo + 1) + ": planta " + (etapaAtiva.planta + 1) + " " + etapaAtiva.etapa + ".";
+    if (extra) frase += " " + extra;
+    estadoEl.textContent = frase;
+    var lista = document.getElementById("mapa");
+    lista.innerHTML = modelo.etapas.map(function (e, i) {
+      var cls = i < c.feito ? "feito" : (i === c.ativo ? "agora" : "");
+      return "<li class=\"" + cls + "\">" + (i + 1) + " · planta " + (e.planta + 1) + " · " + e.etapa + "</li>";
+    }).join("");
   }
   function quadro(u) {
-    var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-    mostrar(ler().nivel * e);
+    parar();
+    desenharU(u);
     return canvas.toDataURL("image/jpeg", 0.86);
   }
   window.__quadro = quadro;
   function parar() { if (raf) cancelAnimationFrame(raf); raf = 0; }
-  function crescer() {
+  function crescer(extra) {
     parar();
-    var alvo = ler().nivel;
+    var salvo = ler();
     if (reduced) {
-      mostrar(alvo, "Movimento reduzido: estado dos dias, direto.");
+      desenharU(1, "Movimento reduzido: estado dos dias, direto.", salvo);
+      return;
+    }
+    if (salvo.dias === 0) {
+      desenharU(1, "", salvo);
       return;
     }
     var t0 = performance.now();
+    var ms = salvo.dias * 420;
     function passo(agora) {
-      var u = Math.min(1, (agora - t0) / 2400);
-      var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-      mostrar(alvo * e);
+      var u = Math.min(1, (agora - t0) / ms);
+      desenharU(u, u < 1 ? extra : "", salvo);
       if (u < 1) raf = requestAnimationFrame(passo);
     }
     raf = requestAnimationFrame(passo);
   }
-  document.getElementById("zero").onclick = function () { parar(); diasEl.value = "0"; mostrar(0); };
-  document.getElementById("parcial").onclick = function () { parar(); mostrar(ler().nivel); };
-  document.getElementById("cheio").onclick = function () { parar(); diasEl.value = duracaoEl.value; mostrar(1); };
+  document.getElementById("zero").onclick = function () { parar(); diasEl.value = "0"; desenharU(1); };
+  document.getElementById("parcial").onclick = crescer;
+  document.getElementById("cheio").onclick = function () { diasEl.value = duracaoEl.value; crescer(); };
   document.getElementById("play").onclick = crescer;
-  duracaoEl.onchange = function () { parar(); mostrar(ler().nivel); };
-  diasEl.onchange = function () { parar(); mostrar(ler().nivel); };
+  duracaoEl.onchange = function () { crescer(); };
+  diasEl.onchange = function () { crescer(); };
   var prontas = 0;
-  function pronta() { prontas += 1; if (prontas === 3) mostrar(ler().nivel); }
+  function pronta() { prontas += 1; if (prontas === 3) crescer(); }
   [solo, brotos, crescida].forEach(function (img) {
     if (img.complete && img.naturalWidth) pronta();
     else img.onload = pronta;
