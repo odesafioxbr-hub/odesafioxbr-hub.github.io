@@ -2,7 +2,7 @@
   var bs=document.querySelectorAll('.quero-abrir');if(!bs.length)return;
   var m=document.createElement('div');m.id='quero-modal';m.className='quero-modal';m.hidden=true;
   m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.setAttribute('aria-label','Escolha seu plano');
-  m.innerHTML='<button type="button" class="faq-x" aria-label="Fechar">×</button><div class="quero-lista"><a class="btn quero-op" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Quero treinar</a><a class="btn quero-op" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Quero competir</a></div>';
+  m.innerHTML='<button type="button" class="faq-x" aria-label="Fechar">×</button><div class="quero-lista"><a class="btn quero-op" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Começar</a><a class="btn quero-op" href="https://pay.kiwify.com.br/so8igCH" target="_blank" rel="noopener">Preparar</a><a class="btn quero-op" href="https://pay.kiwify.com.br/0e0S2Yj" target="_blank" rel="noopener">Competir</a></div>';
   document.body.appendChild(m);
   var aberto=false,y0=0,ultimo=null;
   function abrir(e){e&&e.preventDefault();if(aberto)return;ultimo=document.activeElement;m.hidden=false;aberto=true;y0=scrollY;requestAnimationFrame(function(){m.classList.add('vis')});setTimeout(function(){var a=m.querySelector('.quero-op');a&&a.focus({preventScroll:true})},30);}
