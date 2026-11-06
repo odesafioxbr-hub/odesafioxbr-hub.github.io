@@ -30,6 +30,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css?v=105">
+<style>
+/* Escada dos três planos: mesma largura. Começar menor e branco. Preparar e Competir maiores. */
+.home .step.s1 .plan{background:#fff;color:#000;border-color:#000;outline-color:#ddd}
+.home .step.s1 .plan .pl,.home .step.s1 .plan .tipo,.home .step.s1 .plan h4,.home .step.s1 .plan li,.home .step.s1 .plan .nota{color:#000}
+.home .step.s1 .plan .big-price{color:#ffa400}
+.home .step.s1 .plan>.btn{background:#ffa400;color:#000;outline-color:#ffa400}
+.home .step.s2 .plan{background:#ffa400;color:#000;border-color:#000;outline-color:#ffa400}
+.home .step.s2 .plan .pl,.home .step.s2 .plan .big-price{color:#000}
+.home .step.s3 .plan{background:#050805;color:#fff;border-color:#39ff14;outline-color:#39ff14}
+@media(min-width:801px){
+ .home .stair{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .home .step.s1{padding-top:7rem}
+ .home .step.s2,.home .step.s3{padding-top:0}
+}
+</style>
 </head>
 <body class="home">
 <a class="skip" href="#veja-como-e">Ir para o conteúdo</a>
@@ -140,8 +155,9 @@
       <article class="card plan">
         <p class="step-k">Degrau 2</p>
         <h3 class="pl">Desafio Preparar</h3>
-        <p class="tipo">Plano de assinatura</p>
-        <p class="price-miss">Preço não publicado</p>
+        <p class="tipo">Plano de assinatura mensal</p>
+        <p class="big-price">R$89,90</p>
+        <p>por mês</p>
         <div class="pdesc">
           <h4>Inclui</h4>
           <ul>
@@ -157,7 +173,7 @@
           <p class="nota">No Treino Público deste plano, aparecer também é compartilhar a participação, com visibilidade e engajamento. Não entra no ranking e não é a inscrição no oficial.</p>
         </div>
         <a class="btn sem-compra" href="https://www.instagram.com/desafiox.oficial/" target="_blank" rel="noopener">Falar no Instagram<span class="sr"> sobre o plano Preparar. Não há checkout publicado. Abre em nova aba e não compra outro plano.</span></a>
-        <p class="nota">Este plano não tem preço nem link de compra nesta página. O botão abre o Instagram oficial e não compra o Começar nem o Competir.</p>
+        <p class="nota">O preço é R$89,90 por mês. Não há checkout publicado nesta página. O botão abre o Instagram oficial e não compra o Começar nem o Competir.</p>
       </article>
     </div>
     <div class="step s3">
@@ -165,7 +181,7 @@
         <p class="step-k">Degrau 3</p>
         <h3 class="pl">Desafio Competir</h3>
         <p class="tipo">Plano de assinatura mensal. Inclui a inscrição no desafio oficial.</p>
-        <p class="big-price">R$149,00</p>
+        <p class="big-price">R$149,90</p>
         <p>por mês</p>
         <div class="pdesc">
           <h4>Inclui</h4>
@@ -180,7 +196,7 @@
           </ul>
           <p class="nota">O plano não é o desafio. Ele inclui a inscrição na edição oficial de 15 dias. Só o Treino Público desse plano concorre ao prêmio e entra no ranking.</p>
         </div>
-        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Assinar o plano Competir<span class="sr"> por R$149,00 por mês. Abre o checkout publicado deste plano em nova aba. Não compra o Começar nem o Preparar.</span></a>
+        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Assinar o plano Competir<span class="sr"> por R$149,90 por mês. Abre o checkout publicado deste plano em nova aba. Não compra o Começar nem o Preparar.</span></a>
         <p class="nota">O botão abre o checkout já publicado do plano Competir, o plano que inclui a inscrição no desafio oficial. Não compra o Começar nem o Preparar.</p>
       </article>
     </div>
@@ -245,8 +261,8 @@
         <tr>
           <th scope="row">Preço publicado</th>
           <td>R$49,90 por mês</td>
-          <td class="nao">Não publicado</td>
-          <td>R$149,00 por mês</td>
+          <td>R$89,90 por mês</td>
+          <td>R$149,90 por mês</td>
         </tr>
         <tr>
           <th scope="row">Compra nesta página</th>
@@ -367,7 +383,7 @@
   </details>
   <details name="faq">
     <summary>Quanto custa?</summary>
-    <p>Desafio Começar: R$49,90 por mês, no checkout já publicado. Desafio Competir: R$149,00 por mês, no checkout já publicado. Desafio Preparar: preço não publicado nesta página, e o botão desse plano não compra outro.</p>
+    <p>Desafio Começar: R$49,90 por mês, no checkout já publicado. Desafio Preparar: R$89,90 por mês, sem checkout publicado nesta página. Desafio Competir: R$149,90 por mês, no checkout já publicado. O botão do Preparar não compra outro plano.</p>
   </details>
   <details name="faq">
     <summary>Tem garantia?</summary>
