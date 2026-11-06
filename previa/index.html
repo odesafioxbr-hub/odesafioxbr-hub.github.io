@@ -677,14 +677,19 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
       pintar();
     });
   });
-  addEventListener('pointermove',function(){travar=false;},{passive:true});
-  addEventListener('scroll',function(){
-    if(performance.now()-muda<80){ultimo=scrollY;return;}
-    if(Math.abs(scrollY-ultimo)<8){ultimo=scrollY;return;}
-    ultimo=scrollY;
+  function zerar(){
     if(!pin&&!sobre)return;
     pin=null;sobre=null;travar=true;
     mostrar(null);
+  }
+  addEventListener('pointermove',function(){travar=false;},{passive:true});
+  addEventListener('wheel',function(){if(performance.now()-muda<120)return;zerar();},{passive:true});
+  addEventListener('touchmove',function(){if(performance.now()-muda<120)return;zerar();},{passive:true});
+  addEventListener('scroll',function(){
+    if(performance.now()-muda<120){ultimo=scrollY;return;}
+    if(scrollY===ultimo)return;
+    ultimo=scrollY;
+    zerar();
   },{passive:true});
 })();
 </script>
