@@ -37,8 +37,15 @@
 .home .step.s1 .plan .big-price{color:#ffa400}
 .home .step.s1 .plan>.btn{background:#ffa400;color:#000;outline-color:#ffa400}
 .home .step.s2 .plan{background:#ffa400;color:#000;border-color:#000;outline-color:#ffa400}
-.home .step.s2 .plan .pl,.home .step.s2 .plan .big-price{color:#000}
+.home .step.s2 .plan .pl,.home .step.s2 .plan .big-price,.home .step.s2 .plan li,.home .step.s2 .plan .tipo{color:#000}
+.home .step.s2 .plan>.btn{background:#fff;color:#000;outline-color:#fff}
 .home .step.s3 .plan{background:#050805;color:#fff;border-color:#39ff14;outline-color:#39ff14}
+.home .step.s3 .plan .pl,.home .step.s3 .plan li,.home .step.s3 .plan .tipo{color:#fff}
+.home .step.s3 .plan .big-price{color:#39ff14}
+.home .plan .big-price,.home .plan.hot .big-price{font-size:clamp(2.6rem,5vw,3.4rem);line-height:1}
+.home .step{position:relative}
+.home .plan{height:100%;padding-bottom:5.4rem}
+.home .plan>.btn{position:absolute;left:1.1rem;right:1.1rem;bottom:1.15rem;margin:0;height:3.1rem;min-height:3.1rem;max-height:3.1rem;white-space:nowrap}
 @media(min-width:801px){
  .home .stair{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
  .home .step.s1{padding-top:7rem}
@@ -118,9 +125,6 @@
 
 <section id="planos" class="sec">
   <h2 class="graf">Escolha <b>seu plano</b></h2>
-  <div class="aviso">
-    <p><b>Desafio Competir é o plano, não o desafio.</b> Desafio Começar, Desafio Preparar e Desafio Competir são planos de assinatura. Esse prefixo não é o desafio gratuito nem o desafio oficial de 15 dias. O plano Desafio Competir inclui a inscrição no desafio oficial. A edição oficial dura 15 dias, tem prêmio em dinheiro e só vale no Treino Público.</p>
-  </div>
   <div class="stair rev">
     <div class="step s1">
       <article class="card plan">
@@ -130,26 +134,16 @@
         <p class="big-price">R$49,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <h4>Inclui</h4>
+          <p class="tipo">Treino privado e treino público</p>
           <ul>
-            <li>Treinos básicos</li>
-            <li>Disciplina e hábitos</li>
             <li>Acesso ao clube</li>
-            <li>Desafios gratuitos sem prêmio</li>
-            <li>Treino Privado e Treino Público</li>
-            <li>Grupo próprio no Instagram</li>
+            <li>Treinos básicos</li>
+            <li>Dicas de disciplina e hábitos</li>
+            <li>No Instagram, desafios gratuitos sem prêmio e sem entrar para o ranking</li>
+            <li>Grupo Começar para conversar entre os assinantes e fazer novas amizades</li>
           </ul>
-          <h4>Não inclui</h4>
-          <ul>
-            <li>Grupo de especialistas no Instagram</li>
-            <li>Inscrição no desafio oficial com prêmio em dinheiro</li>
-            <li>Grupos dos competidores e dos especialistas</li>
-            <li>Entrada no ranking</li>
-          </ul>
-          <p class="nota">No Treino Público deste plano você aparece para compartilhar a participação, com visibilidade e engajamento. Não entra no ranking.</p>
         </div>
-        <a class="btn" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Assinar o plano Começar<span class="sr"> por R$49,90 por mês. Abre o checkout publicado deste plano em nova aba. Não compra o Preparar nem o Competir.</span></a>
-        <p class="nota">O botão abre o checkout já publicado do plano Começar. Não compra o Preparar nem o Competir.</p>
+        <a class="btn" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Quero participar</a>
       </article>
     </div>
     <div class="step s2">
@@ -160,45 +154,31 @@
         <p class="big-price">R$89,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <h4>Inclui</h4>
+          <p class="tipo">Treino privado e treino público</p>
           <ul>
-            <li>Tudo do Desafio Começar</li>
-            <li>Grupo de especialistas no Instagram</li>
+            <li>Tudo do plano Começar</li>
+            <li>Grupo Preparar para conversar com os especialistas</li>
           </ul>
-          <h4>Não inclui</h4>
-          <ul>
-            <li>Inscrição no desafio oficial com prêmio em dinheiro</li>
-            <li>Grupos dos competidores</li>
-            <li>Entrada no ranking</li>
-          </ul>
-          <p class="nota">No Treino Público deste plano, aparecer também é compartilhar a participação, com visibilidade e engajamento. Não entra no ranking e não é a inscrição no oficial.</p>
         </div>
-        <a class="btn sem-compra" href="https://www.instagram.com/desafiox.oficial/" target="_blank" rel="noopener">Falar no Instagram<span class="sr"> sobre o plano Preparar. Não há checkout publicado. Abre em nova aba e não compra outro plano.</span></a>
-        <p class="nota">O preço é R$89,90 por mês. Não há checkout publicado nesta página. O botão abre o Instagram oficial e não compra o Começar nem o Competir.</p>
+        <button type="button" class="btn">Quero participar</button>
       </article>
     </div>
     <div class="step s3">
       <article class="card plan hot">
         <p class="step-k">Degrau 3</p>
         <h3 class="pl">Desafio Competir</h3>
-        <p class="tipo">Plano de assinatura mensal. Inclui a inscrição no desafio oficial.</p>
+        <p class="tipo">Plano de assinatura mensal</p>
         <p class="big-price">R$149,90</p>
         <p>por mês</p>
         <div class="pdesc">
-          <h4>Inclui</h4>
+          <p class="tipo">Treino público</p>
           <ul>
-            <li>Tudo do Desafio Começar e do Desafio Preparar</li>
-            <li>Inscrição no desafio oficial com prêmio em dinheiro, só no Treino Público</li>
-            <li>Grupos dos competidores e dos especialistas</li>
+            <li>Tudo do plano Preparar</li>
+            <li>Inscrição no desafio oficial, o Circuito X, com premiação em dinheiro</li>
+            <li>Grupo Competir para conversar com os especialistas, os competidores e a equipe</li>
           </ul>
-          <h4>Não inclui</h4>
-          <ul>
-            <li>Competir e entrar no ranking se você escolher o Treino Privado</li>
-          </ul>
-          <p class="nota">O plano não é o desafio. Ele inclui a inscrição na edição oficial de 15 dias. Só o Treino Público desse plano concorre ao prêmio e entra no ranking.</p>
         </div>
-        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Assinar o plano Competir<span class="sr"> por R$149,90 por mês. Abre o checkout publicado deste plano em nova aba. Não compra o Começar nem o Preparar.</span></a>
-        <p class="nota">O botão abre o checkout já publicado do plano Competir, o plano que inclui a inscrição no desafio oficial. Não compra o Começar nem o Preparar.</p>
+        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Quero participar</a>
       </article>
     </div>
   </div>
@@ -207,7 +187,7 @@
   <p class="cmp-hint">No celular, deslize a tabela para o lado.</p>
   <div class="cmp-wrap" tabindex="0" aria-label="Tabela de comparação dos três planos. Se não couber na tela, deslize para o lado.">
     <table class="cmp">
-      <caption>Comparação do que cada plano inclui. A Caixa X não entra na tabela: ainda não é um produto pronto e não está à venda.</caption>
+      <caption>Comparação do que cada plano inclui.</caption>
       <thead>
         <tr>
           <th scope="col">O que muda</th>
@@ -268,7 +248,7 @@
         <tr>
           <th scope="row">Compra nesta página</th>
           <td>Checkout do plano Começar</td>
-          <td class="nao">Sem checkout. O botão abre o Instagram e não compra outro plano.</td>
+          <td class="nao">Não</td>
           <td>Checkout do plano Competir</td>
         </tr>
       </tbody>
@@ -278,7 +258,7 @@
 
 <div class="seam s5" aria-hidden="true"><span class="tp f a"></span><span class="tp f b"></span><span class="tp k c"></span></div>
 
-<section id="caixa-x" class="sec">
+<section id="caixa-x" class="sec" hidden>
   <h2 class="graf">Caixa X</h2>
   <p class="sec-lead">A Caixa X ainda não existe como produto pronto. Não há preço nem conteúdo definido. Ela não está à venda e não está disponível na área de membros.</p>
   <p class="sec-lead">A ideia em discussão é uma caixa fechada ilustrativa. Isso não promete camisa, souvenir nem outro item.</p>
@@ -288,7 +268,7 @@
 
 <section id="ainda-nao-quer-assinar" class="sec">
   <h2 class="graf">Ainda não <b>quer assinar?</b></h2>
-  <p class="sec-lead">O caminho sem plano é o Instagram oficial @desafiox.oficial. Dá para acompanhar por lá. Este caminho não abre checkout.</p>
+  <p class="sec-lead">O caminho sem plano é o Instagram oficial @desafiox.oficial. Dá para acompanhar por lá.</p>
   <a class="btn" href="https://www.instagram.com/desafiox.oficial/" target="_blank" rel="noopener">Ir para o Instagram<span class="sr"> (abre em nova aba)</span></a>
 </section>
 
@@ -374,7 +354,7 @@
     <summary>Desafio Competir é o plano ou o desafio?</summary>
     <p>É o plano. Desafio Começar, Desafio Preparar e Desafio Competir são nomes de planos de assinatura. Não são os desafios gratuitos nem o desafio oficial de 15 dias. O plano Desafio Competir inclui a inscrição nesse desafio oficial, com prêmio em dinheiro, e essa inscrição só vale no Treino Público.</p>
   </details>
-  <details name="faq">
+  <details name="faq" hidden>
     <summary>A Caixa X já pode ser comprada?</summary>
     <p>Não. A Caixa X ainda não existe como produto pronto. Não há preço nem conteúdo definido. Ela não está à venda e não está disponível na área de membros. A ideia em discussão é uma caixa fechada ilustrativa, sem camisa, souvenir ou outro item prometido.</p>
   </details>
@@ -384,7 +364,7 @@
   </details>
   <details name="faq">
     <summary>Quanto custa?</summary>
-    <p>Desafio Começar: R$49,90 por mês, no checkout já publicado. Desafio Preparar: R$89,90 por mês, sem checkout publicado nesta página. Desafio Competir: R$149,90 por mês, no checkout já publicado. O botão do Preparar não compra outro plano.</p>
+    <p>Desafio Começar: R$49,90 por mês. Desafio Preparar: R$89,90 por mês. Desafio Competir: R$149,90 por mês.</p>
   </details>
   <details name="faq">
     <summary>Tem garantia?</summary>
@@ -404,11 +384,11 @@
   </details>
   <details name="faq">
     <summary>Por quanto tempo tenho acesso?</summary>
-    <p>A assinatura dos planos com checkout publicado dura 30 dias. O plano Preparar não tem prazo publicado nesta página.</p>
+    <p>A assinatura dos planos Começar e Competir dura 30 dias.</p>
   </details>
   <details name="faq">
     <summary>A assinatura renova? Como cancelo?</summary>
-    <p>A assinatura dos planos Começar e Competir é mensal e renova automaticamente pela Kiwify. Você pode cancelar a qualquer momento na área de compras da Kiwify. O plano Preparar não tem checkout publicado nesta página.</p>
+    <p>A assinatura dos planos Começar e Competir é mensal e renova automaticamente pela Kiwify. Você pode cancelar a qualquer momento na área de compras da Kiwify.</p>
   </details>
   <details name="faq">
     <summary>Como faço para ser parceiro?</summary>
@@ -432,13 +412,7 @@
     <article class="card esc">
       <h3>Entrar no clube</h3>
       <p class="linha">Quem paga: você, na assinatura do plano. Quem recebe: você recebe o que o plano inclui e o Desafio X recebe o valor da assinatura.</p>
-      <button type="button" class="btn" id="entrar-abrir" aria-expanded="false" aria-controls="entrar-opcoes">Entrar no clube</button>
-      <div id="entrar-opcoes" class="entrar-opcoes" hidden>
-        <a class="btn" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Plano Começar<span class="sr">. Abre o checkout publicado em nova aba.</span></a>
-        <button type="button" class="btn sem-compra" aria-describedby="prep-sem-link">Plano Preparar</button>
-        <p id="prep-sem-link" class="nota">Sem link de compra publicado. Este botão não abre checkout.</p>
-        <a class="btn" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Plano Competir<span class="sr">. Abre o checkout publicado em nova aba.</span></a>
-      </div>
+      <button type="button" class="btn" id="entrar-abrir" aria-haspopup="dialog">Entrar no clube</button>
     </article>
     <article class="card esc">
       <h3>Ser parceiro</h3>
@@ -486,18 +460,44 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 <script src="../js/fitas.js?v=106" defer></script>
 <script>
 (function(){
-  var b=document.getElementById('entrar-abrir'),p=document.getElementById('entrar-opcoes');
-  if(!b||!p)return;
-  function setAberto(on){
-    b.setAttribute('aria-expanded',on?'true':'false');
-    p.hidden=!on;
-    if(on){var f=p.querySelector('a,button');if(f)f.focus();}
-    else b.focus();
+  var b=document.getElementById('entrar-abrir');
+  if(!b)return;
+  var m=document.createElement('div');
+  m.id='quero-modal';
+  m.className='quero-modal';
+  m.hidden=true;
+  m.setAttribute('role','dialog');
+  m.setAttribute('aria-modal','true');
+  m.setAttribute('aria-label','Escolha seu plano');
+  m.innerHTML='<button type="button" class="faq-x" aria-label="Fechar">×</button><div class="quero-lista"><a class="btn quero-op" href="https://pay.kiwify.com.br/g9sPenn" target="_blank" rel="noopener">Começar</a><button type="button" class="btn quero-op">Preparar</button><a class="btn quero-op" href="https://pay.kiwify.com.br/NEKeM38" target="_blank" rel="noopener">Competir</a></div>';
+  document.body.appendChild(m);
+  var aberto=false,y0=0,ultimo=null;
+  function abrir(e){
+    e&&e.preventDefault();
+    if(aberto)return;
+    ultimo=document.activeElement;
+    m.hidden=false;
+    aberto=true;
+    y0=scrollY;
+    m.dataset.desde=String(performance.now());
+    requestAnimationFrame(function(){m.classList.add('vis')});
+    setTimeout(function(){var a=m.querySelector('.quero-op');if(a)a.focus({preventScroll:true});},30);
   }
-  b.addEventListener('click',function(){setAberto(b.getAttribute('aria-expanded')!=='true');});
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'&&b.getAttribute('aria-expanded')==='true'){e.preventDefault();setAberto(false);}
-  });
+  function fechar(){
+    if(!aberto)return;
+    m.classList.remove('vis');
+    m.hidden=true;
+    aberto=false;
+    if(Math.abs(scrollY-y0)>0)scrollTo(0,y0);
+    if(ultimo&&ultimo.focus)ultimo.focus({preventScroll:true});
+  }
+  b.addEventListener('click',abrir);
+  m.querySelector('.faq-x').addEventListener('click',fechar);
+  m.addEventListener('click',function(e){if(e.target.closest('.quero-op'))setTimeout(fechar,50);else fechar();});
+  m.addEventListener('wheel',fechar,{passive:true});
+  m.addEventListener('touchmove',fechar,{passive:true});
+  addEventListener('scroll',function(){if(aberto&&performance.now()-Number(m.dataset.desde)>700&&Math.abs(scrollY-y0)>4)fechar();},{passive:true});
+  addEventListener('keydown',function(e){if(e.key==='Escape')fechar();});
 })();
 </script>
 <script src="../js/player.js" defer></script>
