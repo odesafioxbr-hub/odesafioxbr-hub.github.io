@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protótipo — animação dos bônus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ranking.css">
+<style>
+body.demo{background:#070807}
+.painel{max-width:1120px;margin:0 auto;padding:1rem}
+.painel canvas{width:100%;height:280px;background:#070807;border-radius:16px;display:block}
+.habitos{display:grid;gap:.8rem}
+.habito{border:1px solid #2a2a2a;border-radius:16px;padding:.8rem}
+.habito header{display:flex;justify-content:space-between;gap:.6rem;align-items:center}
+.habito button.abrir{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer}
+.controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:.6rem 0 1rem}
+label.campo{display:flex;flex-direction:column;gap:.25rem;color:#ccc;font-size:.9rem}
+input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;border:1px solid #444;border-radius:8px;padding:0 .4rem}
+</style>
+</head>
+<body class="demo">
+<p class="selo">Teste técnico de movimento. Desenho geométrico em canvas. Não é o visual realista aprovado e não publica nada.</p>
+<main class="painel">
+  <h1>Bônus animados</h1>
+  <p class="sub">O movimento usa só dias cumpridos dividido pela duração. Medalhas não aceleram nada. SIMULAÇÃO VISUAL — conversão oficial pendente. As figuras abaixo não reproduzem os estudos realistas aprovados.</p>
+  <div class="controles">
+    <div class="periodos" role="group" aria-label="Duração">
+      <button type="button" data-dur="7">7</button>
+      <button type="button" data-dur="10">10</button>
+      <button type="button" data-dur="15" aria-pressed="true">15</button>
+      <button type="button" data-dur="21">21</button>
+    </div>
+    <label class="campo">Duração<input id="duracao" type="number" min="7" value="15"></label>
+    <button type="button" id="zero" class="abrir">Zero</button>
+    <button type="button" id="parcial" class="abrir">Parcial</button>
+    <button type="button" id="cheio" class="abrir">Completo</button>
+    <button type="button" id="replay" class="abrir">Repetir</button>
+  </div>
+  <div class="habitos" id="habitos"></div>
+</main>
+<script src="cenas.js"></script>
+<script>
+(function () {
+  var tipos = [
+    ["agua", "Água"],
+    ["horta", "Horta · vegetais"],
+    ["frutas", "Frutas · cesta"],
+    ["alongamento", "Alongamento"],
+    ["meditacao", "Meditação"]
+  ];
+  var root = document.getElementById("habitos");
+  var duracaoEl = document.getElementById("duracao");
+  tipos.forEach(function (t) {
+    var sec = document.createElement("section");
+    sec.className = "habito";
+    sec.innerHTML = '<header><h2></h2><button type="button" class="abrir">Abrir e animar</button></header><label class="campo">Dias cumpridos<input type="number" min="0" value="8" data-dias></label><canvas data-tipo="' + t[0] + '"></canvas><p class="nota"></p>';
+    sec.querySelector("h2").textContent = t[1];
+    root.appendChild(sec);
+  });
+  function duracao() { return Math.max(7, Number(duracaoEl.value) || 7); }
+  function limitar() {
+    var d = duracao();
+    duracaoEl.value = String(d);
+    document.querySelectorAll("[data-dias]").forEach(function (el) {
+      el.max = String(d);
+      if (Number(el.value) > d) el.value = String(d);
+    });
+    document.querySelectorAll("[data-dur]").forEach(function (b) {
+      b.setAttribute("aria-pressed", Number(b.getAttribute("data-dur")) === d ? "true" : "false");
+    });
+  }
+  function spec(canvas) {
+    var dias = Number(canvas.parentElement.querySelector("[data-dias]").value) || 0;
+    return { tipo: canvas.dataset.tipo, duracao: duracao(), dias: dias };
+  }
+  function abrir(sec) {
+    var canvas = sec.querySelector("canvas");
+    var s = spec(canvas);
+    var nota = sec.querySelector(".nota");
+    nota.textContent = "Progresso visual " + (s.duracao ? Math.round(s.dias / s.duracao * 100) : 0) + "% · " + s.dias + " de " + s.duracao + " dias. Repetir não muda esse número.";
+    BonusCenas.play(canvas, s);
+  }
+  root.addEventListener("click", function (e) {
+    var btn = e.target.closest(".abrir");
+    if (!btn || !btn.closest(".habito")) return;
+    abrir(btn.closest(".habito"));
+  });
+  document.getElementById("replay").addEventListener("click", function () {
+    document.querySelectorAll(".habito").forEach(abrir);
+  });
+  function preset(fn) {
+    var d = duracao();
+    document.querySelectorAll("[data-dias]").forEach(function (el, i) { el.value = String(fn(d, i)); });
+    document.querySelectorAll(".habito").forEach(abrir);
+  }
+  document.getElementById("zero").addEventListener("click", function () { preset(function () { return 0; }); });
+  document.getElementById("parcial").addEventListener("click", function () { preset(function (d, i) { return Math.min(d, [3, 2, 4, 1, 5][i] || 2); }); });
+  document.getElementById("cheio").addEventListener("click", function () { preset(function (d) { return d; }); });
+  duracaoEl.addEventListener("change", limitar);
+  document.querySelectorAll("[data-dur]").forEach(function (b) {
+    b.addEventListener("click", function () { duracaoEl.value = b.getAttribute("data-dur"); limitar(); });
+  });
+  limitar();
+})();
+</script>
+</body>
+</html>

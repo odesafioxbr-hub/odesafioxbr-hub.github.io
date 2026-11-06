@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estudo — frutas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#c6ff4a;--bg:#050505}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#eee;font:16px/1.45 Inter,system-ui,sans-serif}
+.selo{margin:0;padding:.7rem 1rem;background:#120e06;color:#ffa400;font-weight:700;text-align:center}
+main{max-width:980px;margin:0 auto;padding:1rem}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;font-size:2.4rem;margin:.2rem 0}
+.sub{color:#c8c8c8;max-width:46rem}
+.controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:1rem 0}
+label{display:flex;flex-direction:column;gap:.25rem;color:#ccc;font-size:.9rem}
+input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;border:1px solid #444;border-radius:8px;padding:0 .4rem}
+button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer;font:700 1rem/1 Inter,sans-serif}
+.estado{color:var(--g);font-weight:700}
+canvas{width:100%;height:auto;background:#050505;border-radius:16px;display:block}
+</style>
+</head>
+<body>
+<p class="selo">Estudo isolado. A água aprovada não entra aqui. Não publica.</p>
+<main>
+  <h1>FRUTAS</h1>
+  <p class="sub">Duração 7 neste exemplo, com 4 dias cumpridos. As sete porções nascem em lugares fixos. No replay, só as consumidas somem no próprio lugar. Nenhuma troca de fruta nem de posição.</p>
+  <div class="controles">
+    <label>Duração<input id="duracao" type="number" min="7" value="7"></label>
+    <label>Dias cumpridos<input id="dias" type="number" min="0" value="4"></label>
+    <button type="button" id="zero">Zero</button>
+    <button type="button" id="parcial">Parcial</button>
+    <button type="button" id="cheio">Vazia</button>
+    <button type="button" id="play">Consumir</button>
+  </div>
+  <p class="estado" id="estado"></p>
+  <canvas id="cesta" width="1024" height="1024"></canvas>
+</main>
+<script>
+(function () {
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var duracaoEl = document.getElementById("duracao");
+  var diasEl = document.getElementById("dias");
+  var estadoEl = document.getElementById("estado");
+  var canvas = document.getElementById("cesta");
+  var ctx = canvas.getContext("2d");
+  var cesta = new Image();
+  cesta.src = "cesta.jpg";
+  var frutas = [];
+  for (var i = 0; i < 6; i++) {
+    var img = new Image();
+    img.src = "fruta-" + i + ".png";
+    frutas.push(img);
+  }
+  var raf = 0;
+  function ler() {
+    var dur = Math.max(7, Math.round(Number(duracaoEl.value) || 7));
+    duracaoEl.value = String(dur);
+    diasEl.max = String(dur);
+    var dias = Math.max(0, Math.min(dur, Math.round(Number(diasEl.value) || 0)));
+    diasEl.value = String(dias);
+    return { dur: dur, dias: dias };
+  }
+  var tipos = [3, 1, 2, 0, 4, 5, 2, 1, 0, 4, 3, 5];
+  function spots(n) {
+    var rows = n <= 4 ? 1 : n <= 8 ? 2 : 3;
+    var counts = [];
+    var base = Math.floor(n / rows), extra = n % rows;
+    for (var r = 0; r < rows; r++) counts.push(base + (r < extra ? 1 : 0));
+    var list = [], idx = 0;
+    for (var r = 0; r < rows; r++) {
+      var depth = rows === 1 ? 1 : r / (rows - 1);
+      var y = 390 + depth * 115;
+      var span = 280 + depth * 160;
+      var sc = 0.72 + depth * 0.22;
+      var c = counts[r];
+      for (var k = 0; k < c; k++) {
+        list.push({
+          x: 512 - span / 2 + (k + 0.5) * (span / c),
+          y: y,
+          sc: sc,
+          i: idx,
+          tipo: tipos[idx % tipos.length]
+        });
+        idx++;
+      }
+    }
+    return list;
+  }
+  function desenhar(comidos, extra) {
+    var s = ler();
+    var lista = spots(s.dur);
+    ctx.clearRect(0, 0, 1024, 1024);
+    if (cesta.complete && cesta.naturalWidth) ctx.drawImage(cesta, 0, 0, 1024, 1024);
+    var mapa = [];
+    lista.forEach(function (p) {
+      var op = Math.max(0, Math.min(1, s.dur - p.i - comidos));
+      mapa.push({ i: p.i, tipo: p.tipo, x: Math.round(p.x), y: Math.round(p.y), op: Math.round(op * 100) / 100 });
+      if (op <= 0) return;
+      var img = frutas[p.tipo];
+      if (!img.complete || !img.naturalWidth) return;
+      var alvo = 118 * p.sc;
+      var sc = alvo / Math.max(img.naturalWidth, img.naturalHeight);
+      var w = img.naturalWidth * sc, h = img.naturalHeight * sc;
+      ctx.save();
+      ctx.globalAlpha = op;
+      ctx.shadowColor = "rgba(0,0,0,.35)";
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+      ctx.drawImage(img, p.x - w / 2, p.y - h * 0.5, w, h);
+      ctx.restore();
+    });
+    var restam = lista.filter(function (p) { return s.dur - p.i - comidos > 0.02; }).length;
+    canvas.dataset.restantes = String(restam);
+    canvas.dataset.duracao = String(s.dur);
+    canvas.dataset.dias = String(s.dias);
+    canvas.dataset.mapa = JSON.stringify(mapa);
+    estadoEl.textContent = "Restam " + restam + " de " + s.dur + " porções. Dias cumpridos " + s.dias + "." + (extra ? " " + extra : "");
+  }
+  function parar() { if (raf) cancelAnimationFrame(raf); raf = 0; }
+  function mostrarFinal(extra) {
+    desenhar(ler().dias, extra);
+  }
+  function quadro(u) {
+    var s = ler();
+    var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    desenhar(s.dias * e);
+    return canvas.toDataURL("image/jpeg", 0.86);
+  }
+  window.__quadro = quadro;
+  function consumir() {
+    var s = ler();
+    parar();
+    if (reduced) {
+      mostrarFinal("Movimento reduzido: estado dos dias, direto.");
+      return;
+    }
+    var t0 = performance.now();
+    var frame = function (now) {
+      var u = Math.max(0, Math.min(1, (now - t0) / 2400));
+      quadro(u);
+      if (u < 1) raf = requestAnimationFrame(frame);
+      else raf = 0;
+    };
+    quadro(0);
+    raf = requestAnimationFrame(frame);
+  }
+  document.getElementById("zero").addEventListener("click", function () { parar(); diasEl.value = "0"; mostrarFinal(); });
+  document.getElementById("parcial").addEventListener("click", function () {
+    parar();
+    var dur = ler().dur;
+    diasEl.value = String(Math.round(dur * 0.45));
+    mostrarFinal();
+  });
+  document.getElementById("cheio").addEventListener("click", function () { parar(); diasEl.value = duracaoEl.value; mostrarFinal(); });
+  document.getElementById("play").addEventListener("click", consumir);
+  duracaoEl.addEventListener("change", function () { parar(); mostrarFinal(); });
+  diasEl.addEventListener("change", function () { parar(); mostrarFinal(); });
+  var pronto = 0;
+  function tentar() { pronto++; if (pronto >= 1) mostrarFinal(); }
+  cesta.onload = tentar;
+  frutas.forEach(function (img) { img.onload = tentar; });
+  mostrarFinal();
+})();
+</script>
+</body>
+</html>

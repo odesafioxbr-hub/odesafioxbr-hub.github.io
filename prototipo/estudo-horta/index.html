@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estudo — horta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#c6ff4a;--bg:#050505}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#eee;font:16px/1.45 Inter,system-ui,sans-serif}
+.selo{margin:0;padding:.7rem 1rem;background:#120e06;color:#ffa400;font-weight:700;text-align:center}
+main{max-width:980px;margin:0 auto;padding:1rem}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.04em;font-size:2.4rem;margin:.2rem 0}
+.sub{color:#c8c8c8;max-width:46rem}
+.controles{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:1rem 0}
+label{display:flex;flex-direction:column;gap:.25rem;color:#ccc;font-size:.9rem}
+input[type="number"]{min-height:44px;width:5.5rem;background:#000;color:#fff;border:1px solid #444;border-radius:8px;padding:0 .4rem}
+button{min-height:44px;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#fff;padding:0 .9rem;cursor:pointer;font:700 1rem/1 Inter,sans-serif}
+.estado{color:var(--g);font-weight:700}
+canvas{width:100%;height:auto;display:block;background:#000;border-radius:16px}
+.mapa{display:flex;flex-wrap:wrap;gap:.35rem;margin:.8rem 0 0;padding:0;list-style:none}
+.mapa li{border:1px solid #333;border-radius:999px;padding:.2rem .55rem;color:#9a9a9a;font-size:.82rem}
+.mapa li.feito{color:var(--g);border-color:#3d4f14}
+.mapa li.agora{color:#fff;background:#1c240c;border-color:#c6ff4a}
+</style>
+</head>
+<body>
+<p class="selo">Estudo isolado. O vaso não entra na capa. Não publica.</p>
+<main>
+  <h1>HORTA</h1>
+  <p class="sub">O vaso aprovado continua parado. Cada dia cumprido avança uma etapa de uma planta só: as já feitas ficam, as que ainda não chegaram não aparecem. A horta só fecha no último dia. Duração 15: cinco plantas, três etapas (nasce, cresce, fecha). Duração 10: as mesmas cinco, só nasce e fecha. Duração 7: três plantas, etapas 3 + 2 + 2. A ordem é do fundo para a frente. Conta dias cumpridos do hábito, sem medalha.</p>
+  <div class="controles">
+    <label>Duração<input id="duracao" type="number" min="7" value="15"></label>
+    <label>Dias cumpridos<input id="dias" type="number" min="0" value="14"></label>
+    <button type="button" id="zero">Zero</button>
+    <button type="button" id="parcial">Parcial</button>
+    <button type="button" id="cheio">Fechada</button>
+    <button type="button" id="play">Crescer</button>
+  </div>
+  <p class="estado" id="estado"></p>
+  <canvas id="vaso" width="1024" height="1024"></canvas>
+  <ol class="mapa" id="mapa"></ol>
+</main>
+<script>
+(function () {
+  var plantas = [{"id": 0, "brotos": {"x": 420, "y": 393, "w": 102, "h": 76}, "crescida": {"x": 404, "y": 348, "w": 164, "h": 132}, "raiz": {"x": 489, "y": 458}}, {"id": 1, "brotos": {"x": 297, "y": 468, "w": 96, "h": 68}, "crescida": {"x": 272, "y": 426, "w": 170, "h": 137}, "raiz": {"x": 366, "y": 525}}, {"id": 2, "brotos": {"x": 560, "y": 472, "w": 97, "h": 72}, "crescida": {"x": 536, "y": 441, "w": 164, "h": 127}, "raiz": {"x": 628, "y": 533}}, {"id": 3, "brotos": {"x": 297, "y": 318, "w": 100, "h": 67}, "crescida": {"x": 276, "y": 281, "w": 154, "h": 118}, "raiz": {"x": 367, "y": 374}}, {"id": 4, "brotos": {"x": 779, "y": 321, "w": 92, "h": 71}, "crescida": {"x": 760, "y": 294, "w": 156, "h": 111}, "raiz": {"x": 844, "y": 381}}, {"id": 5, "brotos": {"x": 681, "y": 396, "w": 94, "h": 76}, "crescida": {"x": 659, "y": 361, "w": 157, "h": 118}, "raiz": {"x": 744, "y": 461}}, {"id": 6, "brotos": {"x": 174, "y": 390, "w": 98, "h": 67}, "crescida": {"x": 151, "y": 352, "w": 159, "h": 125}, "raiz": {"x": 239, "y": 446}}, {"id": 7, "brotos": {"x": 539, "y": 324, "w": 94, "h": 64}, "crescida": {"x": 518, "y": 291, "w": 164, "h": 116}, "raiz": {"x": 604, "y": 377}}, {"id": 8, "brotos": {"x": 439, "y": 553, "w": 99, "h": 50}, "crescida": {"x": 412, "y": 516, "w": 166, "h": 138}, "raiz": {"x": 474, "y": 592}}, {"id": 9, "brotos": {"x": 419, "y": 256, "w": 94, "h": 60}, "crescida": {"x": 385, "y": 222, "w": 156, "h": 115}, "raiz": {"x": 482, "y": 305}}, {"id": 10, "brotos": {"x": 527, "y": 190, "w": 90, "h": 62}, "crescida": {"x": 506, "y": 178, "w": 153, "h": 98}, "raiz": {"x": 583, "y": 241}}, {"id": 11, "brotos": {"x": 648, "y": 255, "w": 88, "h": 65}, "crescida": {"x": 627, "y": 225, "w": 149, "h": 110}, "raiz": {"x": 708, "y": 309}}];
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var duracaoEl = document.getElementById("duracao");
+  var diasEl = document.getElementById("dias");
+  var estadoEl = document.getElementById("estado");
+  var canvas = document.getElementById("vaso");
+  var ctx = canvas.getContext("2d");
+  var solo = new Image();
+  var brotos = new Image();
+  var crescida = new Image();
+  solo.src = "solo.jpg";
+  brotos.src = "brotos.png";
+  crescida.src = "crescida.png";
+  var raf = 0;
+  var porQuantidade = {
+    3: [10, 0, 8],
+    4: [10, 3, 7, 8],
+    5: [10, 3, 7, 1, 2],
+    6: [10, 9, 11, 3, 1, 2]
+  };
+  function ler() {
+    var dur = Math.max(7, Math.round(Number(duracaoEl.value) || 7));
+    duracaoEl.value = String(dur);
+    diasEl.max = String(dur);
+    var dias = Math.max(0, Math.min(dur, Math.round(Number(diasEl.value) || 0)));
+    diasEl.value = String(dias);
+    return { dur: dur, dias: dias };
+  }
+  function suave(u) {
+    u = Math.max(0, Math.min(1, u));
+    return u * u * (3 - 2 * u);
+  }
+  function escolher(n) {
+    var ids = porQuantidade[n];
+    if (!ids) {
+      ids = [];
+      var fila = [10, 9, 11, 3, 7, 0, 6, 5, 1, 2, 8, 4];
+      for (var i = 0; i < n && i < fila.length; i++) ids.push(fila[i]);
+    }
+    return ids.map(function (id) { return plantas[id]; });
+  }
+  function plano(dur) {
+    var p;
+    if (dur % 3 === 0 && dur / 3 >= 3 && dur / 3 <= 6) p = dur / 3;
+    else if (dur % 2 === 0 && dur / 2 >= 3 && dur / 2 <= 6) p = dur / 2;
+    else {
+      var pMin = Math.ceil(dur / 3);
+      var pMax = Math.min(6, Math.floor(dur / 2));
+      p = Math.round(dur / 3);
+      if (p < pMin) p = pMin;
+      if (p > pMax) p = pMax;
+    }
+    var extras = dur - 2 * p;
+    var escolhidas = escolher(p);
+    var etapas = [];
+    for (var i = 0; i < p; i++) {
+      var nomes = extras > i ? ["nasce", "cresce", "fecha"] : ["nasce", "fecha"];
+      nomes.forEach(function (nome) { etapas.push({ planta: i, etapa: nome }); });
+    }
+    return { plantas: escolhidas, etapas: etapas };
+  }
+  function pose(etapa) {
+    if (etapa === "nasce") return { es: 0.58, as: 1, ea: 0, aa: 0 };
+    if (etapa === "cresce") return { es: 1, as: 1, ea: 0, aa: 0 };
+    if (etapa === "fecha") return { es: 1, as: 0, ea: 1, aa: 1 };
+    return { es: 0, as: 0, ea: 0, aa: 0 };
+  }
+  function misturar(a, b, t) {
+    return {
+      es: a.es + (b.es - a.es) * t,
+      as: a.as + (b.as - a.as) * t,
+      ea: a.ea + (b.ea - a.ea) * t,
+      aa: a.aa + (b.aa - a.aa) * t
+    };
+  }
+  function posePasso(etapa, anterior, local) {
+    var t = suave(local);
+    if (etapa !== "fecha") return misturar(pose(anterior), pose(etapa), t);
+    var es = anterior === "nasce" ? 0.58 + 0.42 * Math.min(1, local / 0.4) : 1;
+    var troca = suave(Math.max(0, (local - (anterior === "nasce" ? 0.32 : 0)) / (anterior === "nasce" ? 0.68 : 1)));
+    return { es: es, as: 1 - troca, ea: 0.74 + 0.26 * troca, aa: troca };
+  }
+  function aspecto(indice, etapas, feito, ativo, local) {
+    var repouso = null;
+    var corrente = null;
+    for (var i = 0; i < etapas.length; i++) {
+      if (etapas[i].planta !== indice) continue;
+      if (i < feito) repouso = etapas[i].etapa;
+      else if (i === ativo) corrente = etapas[i].etapa;
+    }
+    if (!corrente) return pose(repouso);
+    return posePasso(corrente, repouso, local);
+  }
+  function pintar(img, box, raiz, escala, alfa) {
+    if (!img.complete || !img.naturalWidth || escala < 0.02 || alfa < 0.02) return;
+    ctx.save();
+    ctx.globalAlpha = alfa;
+    ctx.translate(raiz.x, raiz.y);
+    ctx.scale(escala, escala);
+    ctx.drawImage(img, box.x, box.y, box.w, box.h, box.x - raiz.x, box.y - raiz.y, box.w, box.h);
+    ctx.restore();
+  }
+  function corte(u, dias) {
+    u = Math.max(0, Math.min(1, u));
+    if (dias <= 0 || u <= 0) return { feito: 0, ativo: -1, local: 1 };
+    if (u >= 1) return { feito: dias, ativo: -1, local: 1 };
+    var x = u * dias;
+    var feito = Math.floor(x);
+    return { feito: feito, ativo: feito, local: x - feito };
+  }
+  function desenharU(u, extra, fixo) {
+    var s = fixo || ler();
+    var modelo = plano(s.dur);
+    var c = corte(u, s.dias);
+    ctx.clearRect(0, 0, 1024, 1024);
+    if (solo.complete && solo.naturalWidth) ctx.drawImage(solo, 0, 0, 1024, 1024);
+    var ordem = modelo.plantas.map(function (p, i) { return { p: p, i: i }; });
+    ordem.sort(function (a, b) { return a.p.raiz.y - b.p.raiz.y; });
+    var visiveis = 0;
+    var adultas = 0;
+    ordem.forEach(function (item) {
+      var f = aspecto(item.i, modelo.etapas, c.feito, c.ativo, c.local);
+      if (f.as > 0.04 || f.aa > 0.04) visiveis += 1;
+      if (f.aa > 0.92 && f.ea > 0.92) adultas += 1;
+      pintar(brotos, item.p.brotos, item.p.raiz, f.es, f.as);
+      pintar(crescida, item.p.crescida, item.p.raiz, f.ea, f.aa);
+    });
+    var etapaAtiva = c.ativo >= 0 ? modelo.etapas[c.ativo] : null;
+    var ultima = c.feito > 0 ? modelo.etapas[c.feito - 1] : null;
+    var diaMostrado = c.ativo >= 0 ? c.ativo + 1 : c.feito;
+    canvas.dataset.duracao = String(s.dur);
+    canvas.dataset.dias = String(s.dias);
+    canvas.dataset.dia = String(diaMostrado);
+    canvas.dataset.visiveis = String(visiveis);
+    canvas.dataset.adultas = String(adultas);
+    canvas.dataset.etapa = etapaAtiva ? etapaAtiva.etapa : (c.feito >= s.dur && s.dias === s.dur && s.dias > 0 ? "fechada" : "");
+    canvas.dataset.planta = etapaAtiva ? String(etapaAtiva.planta + 1) : "";
+    canvas.dataset.ultima = ultima ? ("p" + (ultima.planta + 1) + ":" + ultima.etapa) : "";
+    canvas.dataset.mapa = modelo.etapas.map(function (e, i) {
+      return (i + 1) + ":p" + (e.planta + 1) + ":" + e.etapa;
+    }).join(",");
+    canvas.dataset.passos = String(modelo.etapas.length);
+    var frase = s.dias + " de " + s.dur + " dias.";
+    if (s.dias === 0) frase += " Só a terra.";
+    else if (s.dias === s.dur && c.feito >= s.dias) frase += " Horta fechada.";
+    else frase += " Uma planta por vez.";
+    if (etapaAtiva) frase += " Dia " + (c.ativo + 1) + ": planta " + (etapaAtiva.planta + 1) + " " + etapaAtiva.etapa + ".";
+    if (extra) frase += " " + extra;
+    estadoEl.textContent = frase;
+    var lista = document.getElementById("mapa");
+    lista.innerHTML = modelo.etapas.map(function (e, i) {
+      var cls = i < c.feito ? "feito" : (i === c.ativo ? "agora" : "");
+      return "<li class=\"" + cls + "\">" + (i + 1) + " · planta " + (e.planta + 1) + " · " + e.etapa + "</li>";
+    }).join("");
+  }
+  function quadro(u) {
+    parar();
+    desenharU(u);
+    return canvas.toDataURL("image/jpeg", 0.86);
+  }
+  window.__quadro = quadro;
+  function parar() { if (raf) cancelAnimationFrame(raf); raf = 0; }
+  function crescer(extra) {
+    parar();
+    var salvo = ler();
+    if (reduced) {
+      desenharU(1, "Movimento reduzido: estado dos dias, direto.", salvo);
+      return;
+    }
+    if (salvo.dias === 0) {
+      desenharU(1, "", salvo);
+      return;
+    }
+    var t0 = performance.now();
+    var ms = salvo.dias * 420;
+    function passo(agora) {
+      var u = Math.min(1, (agora - t0) / ms);
+      desenharU(u, u < 1 ? extra : "", salvo);
+      if (u < 1) raf = requestAnimationFrame(passo);
+    }
+    raf = requestAnimationFrame(passo);
+  }
+  document.getElementById("zero").onclick = function () { parar(); diasEl.value = "0"; desenharU(1); };
+  document.getElementById("parcial").onclick = crescer;
+  document.getElementById("cheio").onclick = function () { diasEl.value = duracaoEl.value; crescer(); };
+  document.getElementById("play").onclick = crescer;
+  duracaoEl.onchange = function () { crescer(); };
+  diasEl.onchange = function () { crescer(); };
+  var prontas = 0;
+  function pronta() { prontas += 1; if (prontas === 3) crescer(); }
+  [solo, brotos, crescida].forEach(function (img) {
+    if (img.complete && img.naturalWidth) pronta();
+    else img.onload = pronta;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+:root{--g:#39ff14;--o:#ffa400;--bg:#070807;--card:#101410;--azul:#1d74e0;--azul-claro:#7ec8ff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 50% -10%,#142018,var(--bg));color:#eee;font:16px/1.5 Inter,system-ui,sans-serif}
+h1,h2,h3,.pos,.degrau{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1;margin:.2rem 0 .6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);margin:0 0 .8rem;color:#fff}
+h3{margin:0 0 .6rem;color:var(--o);font-size:1.05rem}
+.selo{margin:0;padding:.7rem 1rem;background:#120e06;color:var(--o);text-align:center;font-weight:700;border-bottom:1px solid var(--o)}
+.selo.menor{background:transparent;border:0;padding:.2rem 0 .4rem;font-size:.85rem}
+.topo,.bloco,.simulacao{max-width:1120px;margin:0 auto;padding:1.2rem 1rem}
+.sub,.nota,.pendente-nota{color:#c8c8c8;margin:.2rem 0 .8rem}
+.periodos{display:flex;flex-wrap:wrap;gap:.5rem}
+.periodos button,.pager button,.check,.lista button,.fechar,.busca input{font:700 1rem/1.2 Inter,system-ui,sans-serif}
+.periodos button{min-height:48px;padding:0 1rem;border-radius:999px;border:1px solid #3a3a3a;background:#000;color:#ddd;cursor:pointer}
+.periodos button[aria-pressed="true"]{border-color:var(--g);color:#071007;background:var(--g)}
+.periodos button:focus-visible,.pager button:focus-visible,.lista button:focus-visible,.fechar:focus-visible,.busca input:focus-visible,.check input:focus-visible,.dia-visual input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.sim-linha{display:grid;gap:.7rem;margin-bottom:1rem;padding:.8rem;border:1px dashed #4a4a4a;border-radius:14px}
+.dia-visual{display:flex;justify-content:space-between;gap:.6rem;color:#ddd;font-weight:700}
+.dia-visual input{width:100%;accent-color:var(--g)}
+.geral{display:grid;gap:.8rem}
+.card{background:linear-gradient(180deg,#161b18,#0e100f);border:1px solid #2a2e2b;border-radius:18px;padding:1rem;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:100%;box-shadow:inset 0 0 0 1px rgba(57,255,20,.05)}
+.card p{margin:.7rem 0 0}
+.card canvas{width:100%;height:210px;display:block;background:transparent}
+.pendente{min-height:150px;display:grid;place-items:center;border:1px dashed #5a5a5a;border-radius:12px;padding:1rem;color:#ddd}
+.chakras{display:flex;justify-content:center;gap:1.2rem;min-height:168px;align-items:center}
+.coluna{display:flex;flex-direction:column-reverse;gap:.45rem;align-items:center}
+.ponto{width:16px;height:16px;border-radius:50%;border:2px solid #3c3c3c;background:rgba(57,255,20,var(--f,0));box-shadow:0 0 calc(10px * var(--f,0)) rgba(57,255,20,.8)}
+.ponto span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.coluna.extras .ponto{border-color:#8a5a12;background:rgba(255,164,0,var(--f,1));box-shadow:0 0 8px rgba(255,164,0,.7)}
+.concluido{margin-top:.4rem;color:var(--o);font-weight:800}
+.podio{list-style:none;display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:.6rem;align-items:end;margin:0;padding:0}
+.podio li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.35rem}
+.avatar{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#141414;border:2px solid var(--o);font-family:Anton,Impact,sans-serif;font-size:1.4rem;color:#fff}
+.p1 .avatar{width:92px;height:92px;border-color:var(--g)}
+.nome{font-weight:700}
+.medalhas{display:inline-flex;align-items:center;gap:.3rem;color:var(--g);font-weight:700}
+.medalha{width:16px;height:16px;flex:none}
+.degrau{width:100%;min-height:46px;display:grid;place-items:center;border:1px solid rgba(57,255,20,.7);border-radius:8px;color:var(--g);background:rgba(57,255,20,.04)}
+.p1 .degrau{min-height:72px}
+.p2 .degrau{min-height:58px}
+.p3 .degrau{min-height:46px}
+.vazio{background:#1a1408;border:1px solid var(--o);border-radius:12px;padding:1rem;color:#fff}
+.busca{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.6rem}
+.busca input{min-height:48px;border-radius:10px;border:1px solid #333;background:#000;color:#fff;padding:0 .8rem;font-size:1rem}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.lista button{width:100%;min-height:52px;display:grid;grid-template-columns:3.2rem 1fr auto;gap:.6rem;align-items:center;text-align:left;background:#101410;color:#fff;border:1px solid #262626;border-radius:12px;padding:0 .7rem;cursor:pointer}
+.lista button:hover,.lista button:focus-visible{border-color:var(--o)}
+.lista .pos{color:var(--o);font-size:1.2rem}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:.8rem}
+.pager button{min-height:44px;padding:0 .9rem;border-radius:10px;border:1px solid var(--o);background:#000;color:#fff;cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:not-allowed}
+.simulacao{margin:0 auto 2rem;border:1px dashed #555;border-radius:16px;max-width:1120px}
+.check{display:flex;align-items:center;gap:.55rem;margin:.4rem 0;cursor:pointer}
+.ficha{position:fixed;inset:0;background:rgba(0,0,0,.72);display:grid;place-items:end center;padding:1rem;z-index:5}
+.ficha[hidden]{display:none}
+.ficha-painel{width:min(440px,100%);max-height:92vh;overflow:auto;background:#101410;border:1px solid var(--g);border-radius:18px;padding:2.8rem 1rem 1.2rem;position:relative}
+.ficha-painel h2{margin:0 0 .3rem}
+.fechar{position:absolute;top:.6rem;right:.6rem;min-height:40px;border:0;background:transparent;color:#fff;cursor:pointer}
+.plantinha{width:48px;height:48px;stroke:#7dff57;fill:none;stroke-width:2.5;stroke-linecap:round}
+dl{display:grid;grid-template-columns:1fr auto;gap:.35rem .8rem;margin:.6rem 0 0}
+dt{color:#bbb}dd{margin:0;font-weight:700}
+@media(min-width:720px){.geral{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.geral{grid-template-columns:repeat(3,1fr)}.card:nth-child(4),.card:nth-child(5){grid-column:auto}}
+@media(min-width:800px){.topo,.bloco{padding-left:1.4rem;padding-right:1.4rem}.ficha{place-items:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.copo-svg *,.ponto{transition:none}}
