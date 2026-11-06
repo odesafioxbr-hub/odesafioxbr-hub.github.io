@@ -32,7 +32,7 @@ figure{margin:0}
 <p class="selo">Estudo isolado. A água aprovada não entra aqui. Não publica.</p>
 <main>
   <h1>ALONGAR</h1>
-  <p class="sub">Duração 15 neste exemplo, com 9 dias — o replay para em 60% da abertura, com as mãos ainda a caminho das pernas, não no chão. O desenho é um teste de movimento contínuo: pernas e mãos mudam a cada quadro, sem trocar as quatro fotos. A silhueta continua segmentada e não é o personagem das referências. Interpolar essas fotos duplica o corpo, então elas não viram a animação.</p>
+  <p class="sub">Duração 15 neste exemplo, com 9 dias — o replay para em 60% da abertura. As pernas abrem e as mãos descem das coxas em direção ao chão, num volume só, sem trocar as quatro fotos. O grafite e o filete verde são uma leitura do personagem de referência, não o render 3D original deformado: interpolar as fotos duplica o corpo.</p>
   <div class="controles">
     <label>Duração<input id="duracao" type="number" min="7" value="15"></label>
     <label>Dias cumpridos<input id="dias" type="number" min="0" value="9"></label>
@@ -50,7 +50,7 @@ figure{margin:0}
       <img src="pose-2.png" alt="Referência com abertura maior">
       <img src="pose-3.png" alt="Referência com as mãos no chão">
     </div>
-    <figcaption>Referências de pose do personagem. Não são os quadros do teste acima.</figcaption>
+    <figcaption>Referências de pose. O quadro acima é o volume contínuo, não estas fotos em sequência.</figcaption>
   </figure>
 </main>
 <script>
@@ -83,16 +83,42 @@ figure{margin:0}
     g.lineTo(x1 - Math.cos(p) * r1, y1 - Math.sin(p) * r1);
     g.arc(x1, y1, r1, p + Math.PI, p, false);
     g.closePath();
-    g.fillStyle = "#2c2c2c";
+    g.fillStyle = "#fff";
     g.fill();
   }
-  function costura(x1, y1, x2, y2) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.strokeStyle = "#c47a3a";
-    ctx.lineWidth = 3;
-    ctx.stroke();
+  function bola(g, x, y, r) {
+    g.beginPath();
+    g.arc(x, y, r, 0, Math.PI * 2);
+    g.fillStyle = "#fff";
+    g.fill();
+  }
+  function volume() {
+    var w = 900, h = 640;
+    var img = octx.getImageData(0, 0, w, h);
+    var d = img.data;
+    var i, x, y, luz, n;
+    for (y = 0; y < h; y++) {
+      for (x = 0; x < w; x++) {
+        i = (y * w + x) * 4;
+        if (d[i + 3] < 12) continue;
+        luz = 1 - Math.min(1, Math.hypot(x - 360, y - 140) / 480);
+        n = 16 + luz * 62;
+        d[i] = d[i + 1] = d[i + 2] = n;
+      }
+    }
+    for (y = 1; y < h - 1; y++) {
+      for (x = 1; x < w - 1; x++) {
+        i = (y * w + x) * 4;
+        if (d[i + 3] < 40) continue;
+        if (d[i - 4 + 3] < 40 || d[i + 4 + 3] < 40 || d[i - w * 4 + 3] < 40 || d[i + w * 4 + 3] < 40) {
+          d[i] = 186;
+          d[i + 1] = 255;
+          d[i + 2] = 74;
+          d[i + 3] = 255;
+        }
+      }
+    }
+    octx.putImageData(img, 0, 0);
   }
   function desenhar(t) {
     t = Math.max(0, Math.min(1, t));
@@ -114,8 +140,8 @@ figure{margin:0}
     function lado(sign) {
       var knee = { x: hip.x + sign * Math.sin(spread) * thigh, y: hip.y + Math.cos(spread) * thigh * 0.92 };
       var foot = { x: hip.x + sign * Math.sin(spread) * leg, y: floor };
-      var shoulder = { x: hip.x + sign * 36, y: chest.y + 18 };
-      var aoLado = { x: shoulder.x + sign * 28, y: shoulder.y + 120 };
+      var shoulder = { x: hip.x + sign * 28, y: chest.y + 34 };
+      var aoLado = { x: hip.x + sign * 78, y: shoulder.y + 108 };
       var naPerna = { x: hip.x + sign * Math.sin(spread) * thigh * 0.62, y: hip.y + Math.cos(spread) * thigh * 0.5 };
       var noChao = { x: hip.x + sign * (70 + Math.sin(spread) * 36), y: floor - 6 };
       var u1 = Math.min(1, t / 0.42);
@@ -128,44 +154,57 @@ figure{margin:0}
     }
     var L = lado(-1), R = lado(1);
     octx.clearRect(0, 0, 900, 640);
-    capsula(octx, hip.x, hip.y, L.knee.x, L.knee.y, 28, 22);
-    capsula(octx, L.knee.x, L.knee.y, L.foot.x, L.foot.y, 22, 16);
-    capsula(octx, hip.x, hip.y, R.knee.x, R.knee.y, 28, 22);
-    capsula(octx, R.knee.x, R.knee.y, R.foot.x, R.foot.y, 22, 16);
-    capsula(octx, L.shoulder.x, L.shoulder.y, L.elbow.x, L.elbow.y, 16, 13);
-    capsula(octx, L.elbow.x, L.elbow.y, L.hand.x, L.hand.y, 13, 11);
-    capsula(octx, R.shoulder.x, R.shoulder.y, R.elbow.x, R.elbow.y, 16, 13);
-    capsula(octx, R.elbow.x, R.elbow.y, R.hand.x, R.hand.y, 13, 11);
-    capsula(octx, hip.x, hip.y, chest.x, chest.y, 36, 42);
-    capsula(octx, chest.x, chest.y + 8, head.x, head.y + 18, 18, 16);
-    octx.beginPath();
-    octx.arc(head.x, head.y, 42, 0, Math.PI * 2);
-    octx.fill();
+    capsula(octx, hip.x, hip.y, L.knee.x, L.knee.y, 36, 28);
+    capsula(octx, L.knee.x, L.knee.y, L.foot.x, L.foot.y, 28, 20);
+    capsula(octx, hip.x, hip.y, R.knee.x, R.knee.y, 36, 28);
+    capsula(octx, R.knee.x, R.knee.y, R.foot.x, R.foot.y, 28, 20);
+    capsula(octx, L.shoulder.x, L.shoulder.y, L.elbow.x, L.elbow.y, 20, 16);
+    capsula(octx, L.elbow.x, L.elbow.y, L.hand.x, L.hand.y, 16, 14);
+    capsula(octx, R.shoulder.x, R.shoulder.y, R.elbow.x, R.elbow.y, 20, 16);
+    capsula(octx, R.elbow.x, R.elbow.y, R.hand.x, R.hand.y, 16, 14);
+    capsula(octx, hip.x, hip.y, chest.x, chest.y, 48, 58);
+    capsula(octx, L.shoulder.x, L.shoulder.y, R.shoulder.x, R.shoulder.y, 34, 34);
+    bola(octx, chest.x, chest.y + 10, 56);
+    capsula(octx, chest.x, chest.y + 6, head.x, head.y + 16, 26, 22);
+    bola(octx, head.x, head.y, 46);
+    bola(octx, L.knee.x, L.knee.y, 30);
+    bola(octx, R.knee.x, R.knee.y, 30);
+    bola(octx, L.elbow.x, L.elbow.y, 18);
+    bola(octx, R.elbow.x, R.elbow.y, 18);
+    bola(octx, hip.x, hip.y, 40);
     [L, R].forEach(function (A) {
       octx.beginPath();
-      octx.ellipse(A.foot.x, floor - 2, 24, 10, 0, 0, Math.PI * 2);
+      octx.ellipse(A.foot.x, floor - 4, 28, 12, 0, 0, Math.PI * 2);
       octx.fill();
+      bola(octx, A.hand.x, A.hand.y, 15);
     });
-    ctx.shadowColor = "rgba(170,255,60,.9)";
-    ctx.shadowBlur = 16;
+    volume();
+    ctx.save();
+    ctx.fillStyle = "rgba(0,0,0,.45)";
+    ctx.beginPath();
+    ctx.ellipse(450, floor + 8, 70 + t * 180, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
     ctx.drawImage(off, 0, 0);
-    ctx.shadowBlur = 0;
-    ctx.drawImage(off, 0, 0);
-    ctx.strokeStyle = "#d8d8d8";
+    ctx.strokeStyle = "rgba(220,220,220,.85)";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(head.x - 12, head.y - 2, 7, 0.15, Math.PI - 0.15);
+    ctx.arc(head.x - 14, head.y - 4, 8, 0.2, Math.PI - 0.15);
     ctx.stroke();
     ctx.beginPath();
-    ctx.arc(head.x + 12, head.y - 2, 7, 0.15, Math.PI - 0.15);
+    ctx.arc(head.x + 14, head.y - 4, 8, 0.15, Math.PI - 0.2);
     ctx.stroke();
     ctx.beginPath();
-    ctx.arc(head.x, head.y + 14, 8, 0.2, Math.PI - 0.2);
+    ctx.arc(head.x, head.y + 16, 7, 0.25, Math.PI - 0.25);
     ctx.stroke();
-    costura(chest.x - 10, chest.y + 20, hip.x - 8, hip.y - 10);
-    costura(chest.x + 10, chest.y + 20, hip.x + 8, hip.y - 10);
-    costura(hip.x - 8, hip.y, L.knee.x + 4, L.knee.y - 8);
-    costura(hip.x + 8, hip.y, R.knee.x - 4, R.knee.y - 8);
+    ctx.strokeStyle = "rgba(196,122,58,.9)";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(chest.x - 16, chest.y + 18);
+    ctx.quadraticCurveTo(chest.x - 8, chest.y + 48, hip.x - 10, hip.y - 8);
+    ctx.moveTo(chest.x + 16, chest.y + 18);
+    ctx.quadraticCurveTo(chest.x + 8, chest.y + 48, hip.x + 10, hip.y - 8);
+    ctx.stroke();
     canvas.dataset.progresso = String(Math.round(t * 1000) / 1000);
     canvas.dataset.maoY = String(Math.round((L.hand.y + R.hand.y) / 2));
     canvas.dataset.pe = String(Math.round(Math.abs(R.foot.x - L.foot.x)));
